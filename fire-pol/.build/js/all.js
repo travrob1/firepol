@@ -12,3 +12,9 @@ app.config(['$routeProvider', function($routProvider) {
 app.controller('globalCtrl', ['$rootScope', '$scope',function($rootScope, $scope){
    
 }]);
+/*global angular*/
+
+angular.module('app')
+.controller('marketingCtrl',function($scope){
+    $scope.test= true;
+});
