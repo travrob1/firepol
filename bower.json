@@ -1,0 +1,27 @@
+{
+  "name": "firepol UI stack",
+  "authors": [
+    "Chris David",
+    "Travis Robison"
+  ],
+  "description": "main project for excelsior",
+  "main": "main.js",
+  "moduleType": [],
+  "keywords": [
+    "excelsior"
+  ],
+  "license": "",
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "angular-modal-service": "~0.6.9",
+    "bootstrap": "~3.3.5",
+    "angular-route": "~1.4.8",
+    "angular-resource": "~1.4.8",
+    "blueimp-file-upload": "~9.11.2",
+    "blueimp-load-image": "~1.14.0",
+    "jquery-ui": "~1.11.4",
+    "normalize-css": "normalize.css#~3.0.3",
+    "lodash": "~3.10.1"
+  }
+}
