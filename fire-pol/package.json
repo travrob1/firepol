@@ -11,6 +11,9 @@
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "hbs": "~3.1.0",
+    "loopback": "^2.27.0",
+    "loopback-connector-mongodb": "^1.13.3",
+    "loopback-datasource-juggler": "^2.46.0",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0"
   }
