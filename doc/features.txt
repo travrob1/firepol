@@ -1,0 +1,56 @@
+Registration
+Profile
+
+Signin
+  Post a simple Question (public)
+
+Question
+  Name
+  Details
+  Relevant Documents
+  Discussion
+  Odds
+  Certianty
+
+Public questions just have active state and never close.
+
+Public questions list
+
+My Dashboard:
+  questions I'm involved with (premium on top).
+
+Marketing
+  -> seek consulting advice / crowdsourcing
+  simple form with email
+  This is private, and is being sent to a trained a professional.
+  consult with Scot
+  questions are invitation only.
+
+Normal User:
+  Create public questions
+  General public may respond.
+
+Role Questioner (normal user):
+  Set a question active.
+  Set a closing date/time.
+  Set invitation list on private questions
+  Create private question, only invitees can see it.
+
+Premium Question States:
+  Previnvite
+  Active
+  Closed
+
+Notifications:
+  when premium question moves to active state notify invitees.
+  send notifications for active questions to users who need to do something.
+
+Stack:
+  MongoDB
+  Mongoose
+  Node
+  gulp
+  bower
+  Bootstrap
+  lodash
+  Angular 1.x
