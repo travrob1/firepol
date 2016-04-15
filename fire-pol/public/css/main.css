@@ -1,4 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Fjalla+One);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700,300);
+
 .clearfix {
     *zoom: 1
 }
@@ -37,7 +39,7 @@ body h2,
 body h3,
 body h4,
 body .created {
-    font-family: "Fjalla One";
+    font-family: 'Open Sans', sans-serif;
     font-weight: normal
 }
 body h5,
@@ -97,10 +99,10 @@ a:focus {
     margin-top: -1px;
     min-width: 180px
 }
-body>section {
+body #ng-view > section {
     padding: 50px 0
 }
-body>section#slide-show {
+body #ng-view > section#slide-show {
     padding: 0
 }
 #recent-works {
@@ -132,7 +134,7 @@ body>section#slide-show {
 #clients .next {
     color: #999
 }
-.title {
+div#ng-view .title {
     background: #2dcc70;
     color: #fff;
     padding: 20px 0
@@ -246,7 +248,8 @@ header.navbar .nav>li>a {
     padding-top: 10px;
     padding-bottom: 10px;
     color: #333;
-    font-family: "Fjalla One";
+    font-family: 'Open Sans', sans-serif;
+
     font-size: 14px;
     text-transform: uppercase;
     text-shadow: none
@@ -585,7 +588,9 @@ ul.social>li>a:hover {
     font-size: 50px;
     line-height: 50px;
     padding-top: 10px;
-    font-family: "Fjalla One", sans-serif
+    font-family: 'Open Sans', sans-serif;
+
+
 }
 .blog .blog-item .date span.month {
     font-size: 18px
@@ -670,7 +675,8 @@ textarea#message {
 .widget .date>span {
     display: block;
     text-align: center;
-    font-family: "Fjalla One";
+    font-family: 'Open Sans', sans-serif;
+
     color: #fff
 }
 .widget .date>span.month {

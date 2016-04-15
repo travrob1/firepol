@@ -39,9 +39,11 @@
 
     <body ng-app='app' ng-controller="globalCtrl" >
         
-        <section ng-view id="ng-view"></section>
-        <h2>something</h2>
+        <ng-include src="'js/header/header.html'"></ng-include>
+        
+        <div ng-view id="ng-view"></div>
 
+        <ng-include src="'js/footer/footer.html'"></ng-include>
         
         
 
