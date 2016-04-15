@@ -32,7 +32,18 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "Comments": {
+      "type": "hasAndBelongsToMany",
+      "model": "Comment",
+      "foreignKey": ""
+    },
+    "Facilitator": {
+      "type": "hasOne",
+      "model": "UserProfile",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

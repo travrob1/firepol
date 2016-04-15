@@ -1,0 +1,27 @@
+{
+  "name": "Comment",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "Text": {
+      "type": "string",
+      "required": true
+    },
+    "Time": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "Contributor": {
+      "type": "hasOne",
+      "model": "UserProfile",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

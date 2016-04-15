@@ -1,0 +1,84 @@
+{
+  "name": "UserProfile",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "User": {
+      "type": "User",
+      "required": true
+    },
+    "Address": {
+      "type": "string",
+      "required": true
+    },
+    "YearBorn": {
+      "type": "number",
+      "required": true,
+      "default": "JobTitle"
+    },
+    "JobTitle": {
+      "type": "string"
+    },
+    "Sex": {
+      "type": "string"
+    },
+    "EducationLevel": {
+      "type": "string"
+    },
+    "Country": {
+      "type": "string"
+    },
+    "F_BuildingCode_NFPA72": {
+      "type": "object"
+    },
+    "F_BuildingCode_2006internationalBuildingCode": {
+      "type": "object"
+    },
+    "F_BuildingMaterial_wood": {
+      "type": "object"
+    },
+    "F_BuildingMaterial_brick": {
+      "type": "object"
+    },
+    "F_BuildingMaterial_steel": {
+      "type": "object"
+    },
+    "F_BuildingHeight_1n2level": {
+      "type": "object"
+    },
+    "F_BuildingHeight_3level": {
+      "type": "object"
+    },
+    "F_BuildingHeight_lowrise": {
+      "type": "object"
+    },
+    "F_BuildingHeight_highrise": {
+      "type": "object"
+    },
+    "F_General_HomeOccupancy": {
+      "type": "object"
+    },
+    "F_General_ZoningMix": {
+      "type": "object"
+    },
+    "F_General_Disaster": {
+      "type": "object"
+    },
+    "F_General_ProbablityStatistics": {
+      "type": "object"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "Employer": {
+      "type": "hasOne",
+      "model": "Employer",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

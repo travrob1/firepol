@@ -14,26 +14,46 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "firepol"
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "firepol",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "firepol",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "firepol",
     "public": false
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "firepol",
     "public": false
   },
   "Question": {
-    "dataSource": "db",
+    "dataSource": "firepol",
+    "public": true
+  },
+  "Comment": {
+    "dataSource": "firepol",
+    "public": true
+  },
+  "UserProfile": {
+    "dataSource": "firepol",
+    "public": true
+  },
+  "SecretUserStats": {
+    "dataSource": "firepol",
+    "public": true
+  },
+  "Employer": {
+    "dataSource": "firepol",
+    "public": true
+  },
+  "Answer": {
+    "dataSource": "firepol",
     "public": true
   }
 }

@@ -1,0 +1,41 @@
+{
+  "name": "Answer",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "Liklihood": {
+      "type": "number",
+      "required": true
+    },
+    "LiklihoodAcceptance": {
+      "type": "number",
+      "required": true
+    },
+    "DecisionCertainty": {
+      "type": "number",
+      "required": true
+    },
+    "Time": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "Question": {
+      "type": "hasOne",
+      "model": "Question",
+      "foreignKey": ""
+    },
+    "Forecastor": {
+      "type": "hasOne",
+      "model": "UserProfile",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
