@@ -16,8 +16,7 @@
     },
     "Summary": {
       "type": "string",
-      "required": true,
-      "default": "Details"
+      "required": true
     },
     "Details": {
       "type": "string",
