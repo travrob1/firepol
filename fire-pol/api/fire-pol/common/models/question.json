@@ -41,7 +41,7 @@
     "Facilitator": {
       "type": "hasOne",
       "model": "UserProfile",
-      "foreignKey": ""
+      "foreignKey": "Facilitator"
     }
   },
   "acls": [],

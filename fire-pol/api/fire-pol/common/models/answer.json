@@ -33,7 +33,7 @@
     "Forecastor": {
       "type": "hasOne",
       "model": "UserProfile",
-      "foreignKey": ""
+      "foreignKey": "Forecastor"
     }
   },
   "acls": [],

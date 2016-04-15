@@ -20,6 +20,11 @@
       "type": "hasOne",
       "model": "UserProfile",
       "foreignKey": ""
+    },
+    "InReferenceTo": {
+      "type": "hasOne",
+      "model": "Comment",
+      "foreignKey": "InReferenceTo"
     }
   },
   "acls": [],
