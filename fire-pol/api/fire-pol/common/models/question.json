@@ -1,0 +1,39 @@
+{
+  "name": "Question",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "Question": {
+      "type": "string",
+      "required": true
+    },
+    "Summary": {
+      "type": "string",
+      "required": true,
+      "default": "Details"
+    },
+    "Details": {
+      "type": "string",
+      "required": true
+    },
+    "Status": {
+      "type": "string",
+      "required": true,
+      "default": "preinvite"
+    },
+    "ClosingTime": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
