@@ -28,12 +28,12 @@
     "Question": {
       "type": "hasOne",
       "model": "Question",
-      "foreignKey": ""
+      "foreignKey": "questionId"
     },
     "Forecastor": {
       "type": "hasOne",
       "model": "UserProfile",
-      "foreignKey": "Forecastor"
+      "foreignKey": "userProfileId"
     }
   },
   "acls": [],

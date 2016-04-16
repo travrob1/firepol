@@ -55,5 +55,13 @@
   "Answer": {
     "dataSource": "firepol",
     "public": true
+  },
+  "SuperUser": {
+    "dataSource": "firepol",
+    "public": true
+  },
+  "Timezone": {
+    "dataSource": "db",
+    "public": true
   }
 }

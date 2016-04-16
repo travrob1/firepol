@@ -34,14 +34,19 @@
   "validations": [],
   "relations": {
     "Comments": {
-      "type": "hasAndBelongsToMany",
+      "type": "hasMany",
       "model": "Comment",
-      "foreignKey": ""
+      "foreignKey": "commentId"
     },
     "Facilitator": {
       "type": "hasOne",
       "model": "UserProfile",
       "foreignKey": "Facilitator"
+    },
+    "Answers": {
+      "type": "hasMany",
+      "model": "Answer",
+      "foreignKey": "answerId"
     }
   },
   "acls": [],

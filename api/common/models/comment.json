@@ -19,12 +19,12 @@
     "Contributor": {
       "type": "hasOne",
       "model": "UserProfile",
-      "foreignKey": ""
+      "foreignKey": "userProfileId"
     },
     "InReferenceTo": {
       "type": "hasOne",
       "model": "Comment",
-      "foreignKey": "InReferenceTo"
+      "foreignKey": "commentId"
     }
   },
   "acls": [],
