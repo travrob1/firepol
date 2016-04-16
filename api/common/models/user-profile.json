@@ -74,9 +74,9 @@
   "validations": [],
   "relations": {
     "Employer": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "Employer",
-      "foreignKey": ""
+      "foreignKey": "employerId"
     }
   },
   "acls": [],

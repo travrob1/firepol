@@ -17,14 +17,14 @@
   "validations": [],
   "relations": {
     "Contributor": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "UserProfile",
       "foreignKey": "userProfileId"
     },
     "InReferenceTo": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "Comment",
-      "foreignKey": "commentId"
+      "foreignKey": ""
     }
   },
   "acls": [],

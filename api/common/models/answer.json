@@ -26,12 +26,12 @@
   "validations": [],
   "relations": {
     "Question": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "Question",
       "foreignKey": "questionId"
     },
     "Forecastor": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "UserProfile",
       "foreignKey": "userProfileId"
     }

@@ -36,17 +36,17 @@
     "Comments": {
       "type": "hasMany",
       "model": "Comment",
-      "foreignKey": "commentId"
+      "foreignKey": ""
     },
     "Facilitator": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "UserProfile",
-      "foreignKey": "Facilitator"
+      "foreignKey": "facilitatorUserProfileId"
     },
     "Answers": {
       "type": "hasMany",
       "model": "Answer",
-      "foreignKey": "answerId"
+      "foreignKey": ""
     }
   },
   "acls": [],
