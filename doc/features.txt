@@ -1,6 +1,8 @@
 Registration
 Profile
 
+Feedback Form for errors / suggestions.  Would be ideal if it logged the current page, time, sessionid (And maybe we can correlate with Raygun?  Is Raygun free?)
+
 Signin
   Post a simple Question (public)
 
