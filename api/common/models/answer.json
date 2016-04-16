@@ -6,34 +6,34 @@
     "validateUpsert": true
   },
   "properties": {
-    "Liklihood": {
+    "liklihood": {
       "type": "number",
       "required": true
     },
-    "LiklihoodAcceptance": {
+    "liklihoodAcceptance": {
       "type": "number",
       "required": true
     },
-    "DecisionCertainty": {
+    "decisionCertainty": {
       "type": "number",
       "required": true
     },
-    "Time": {
+    "time": {
       "type": "date",
       "required": true
     }
   },
   "validations": [],
   "relations": {
-    "Question": {
+    "question": {
       "type": "belongsTo",
       "model": "Question",
-      "foreignKey": "questionId"
+      "foreignKey": ""
     },
-    "Forecastor": {
+    "forecastor": {
       "type": "belongsTo",
       "model": "UserProfile",
-      "foreignKey": "userProfileId"
+      "foreignKey": "forecastorUserProfileId"
     }
   },
   "acls": [],

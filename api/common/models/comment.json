@@ -6,25 +6,25 @@
     "validateUpsert": true
   },
   "properties": {
-    "Text": {
+    "text": {
       "type": "string",
       "required": true
     },
-    "Time": {
+    "time": {
       "type": "date"
     }
   },
   "validations": [],
   "relations": {
-    "Contributor": {
+    "contributor": {
       "type": "belongsTo",
       "model": "UserProfile",
-      "foreignKey": "userProfileId"
+      "foreignKey": "contributorUserProfileId"
     },
-    "InReferenceTo": {
+    "inReferenceTo": {
       "type": "belongsTo",
       "model": "Comment",
-      "foreignKey": ""
+      "foreignKey": "inReferenceToCommentId"
     }
   },
   "acls": [],
