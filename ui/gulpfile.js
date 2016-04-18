@@ -4,7 +4,7 @@ var uglify = require('gulp-uglify');
 
 gulp.task('default', function() {
     return gulp
-        .src('public/**/*.js')
+        .src('public/**/!(*.spec).js')
         .pipe(concat('all.js'))
         .pipe(gulp.dest('./.build/js'));
 });
