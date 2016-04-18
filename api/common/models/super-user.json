@@ -1,5 +1,5 @@
 {
-  "name": "SuperUser",
+  "name": "superUser",
   "base": "Role",
   "idInjection": true,
   "options": {

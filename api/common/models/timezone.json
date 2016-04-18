@@ -1,5 +1,5 @@
 {
-  "name": "Timezone",
+  "name": "timezone",
   "base": "Model",
   "idInjection": true,
   "options": {
