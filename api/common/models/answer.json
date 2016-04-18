@@ -27,12 +27,12 @@
   "relations": {
     "question": {
       "type": "belongsTo",
-      "model": "Question",
+      "model": "question",
       "foreignKey": ""
     },
     "forecastor": {
       "type": "belongsTo",
-      "model": "UserProfile",
+      "model": "userProfile",
       "foreignKey": "forecastorUserProfileId"
     }
   },

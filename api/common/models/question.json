@@ -35,17 +35,17 @@
   "relations": {
     "Comments": {
       "type": "hasMany",
-      "model": "Comment",
+      "model": "comment",
       "foreignKey": ""
     },
     "Facilitator": {
       "type": "belongsTo",
-      "model": "UserProfile",
+      "model": "userProfile",
       "foreignKey": "facilitatorUserProfileId"
     },
     "Answers": {
       "type": "hasMany",
-      "model": "Answer",
+      "model": "answer",
       "foreignKey": ""
     }
   },

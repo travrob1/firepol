@@ -73,9 +73,9 @@
   },
   "validations": [],
   "relations": {
-    "Employer": {
+    "employer": {
       "type": "belongsTo",
-      "model": "Employer",
+      "model": "employer",
       "foreignKey": "employerId"
     }
   },

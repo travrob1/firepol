@@ -18,12 +18,12 @@
   "relations": {
     "contributor": {
       "type": "belongsTo",
-      "model": "UserProfile",
+      "model": "userProfile",
       "foreignKey": "contributorUserProfileId"
     },
     "inReferenceTo": {
       "type": "belongsTo",
-      "model": "Comment",
+      "model": "comment",
       "foreignKey": "inReferenceToCommentId"
     }
   },
