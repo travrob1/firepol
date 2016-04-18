@@ -3,6 +3,7 @@
 /* globals describe, it */
 
 var expect = require('chai').expect,
+    moment = require('moment-timezone'),
     request = require('supertest')('http://localhost:3000');
 
 describe('timezone', function() {
@@ -15,7 +16,10 @@ describe('timezone', function() {
             .expect(function(data) {
                 expect(data.body.zoneList).to.exist;
                 expect(data.body.zoneList).to.be.array;
-                 done();
+            })
+            .expect({zoneList: moment.tz.names()})
+            .expect(function(data) {
+                done();
             });
     });
 });
