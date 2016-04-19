@@ -32,3 +32,22 @@ gulp.task('tests:integration', function() {
 gulp.task('tests:unit', function() {
     console.log('we need to get to work on this');
 });
+
+gulp.task('default', function() {
+    return gulp
+        .src('client/**/!(*.spec).js')
+        .pipe(concat('all.js'))
+        .pipe(gulp.dest('.build/js'));
+});
+
+gulp.task('prod', function() {
+    return gulp
+        .src('client/**/*.js')
+        .pipe(concat('all.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('.build/js'));
+});
+
+if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
+     gulp.watch('public/**/*.js', ['default']);
+}

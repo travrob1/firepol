@@ -1,7 +1,16 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
-
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var app = module.exports = loopback();
+
+app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '../bower_components')));
+app.use(express.static(path.join(__dirname, '../.build')));
 
 app.start = function() {
   // start the web server
