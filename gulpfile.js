@@ -29,5 +29,5 @@ gulp.task('prod', function() {
 });
 
 if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
-     gulp.watch('public/**/*.js', ['default']);
+     gulp.watch('client/**/*.js', ['default']);
 }
