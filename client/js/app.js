@@ -1,4 +1,5 @@
-var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.validate']);
+/*global angular*/
+var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.validate', 'lbServices']);
 
 app.config(['$routeProvider', function($routProvider) {
     $routProvider
@@ -49,6 +50,6 @@ app.config(['$routeProvider', function($routProvider) {
         });
 }]);
 
-app.controller('globalCtrl', ['$rootScope', '$scope',function($rootScope, $scope){
-   
+app.controller('globalCtrl', ['$rootScope', '$scope','User',function($rootScope, $scope, User){
+   console.log(User);
 }]);
