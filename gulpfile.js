@@ -6,6 +6,8 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var mocha = require('gulp-mocha');
+var less = require('gulp-less');
+var path = require('path');
 var Server = require('karma').Server;
 
 
@@ -24,7 +26,7 @@ gulp.task('karma:unit', function (done) {
   }, done).start();
 });
 
-gulp.task('default', function() {
+gulp.task('default', ['less'], function() {
     return gulp
         .src('client/**/!(*.spec).js')
         .pipe(concat('all.js'))
@@ -39,6 +41,15 @@ gulp.task('prod', function() {
         .pipe(gulp.dest('.build/js'));
 });
 
+
+gulp.task('less', function () {
+  return gulp.src('client/css/**/*.less')
+    .pipe(less({
+      paths: [ path.join(__dirname, 'less', 'includes') ]
+    }))
+    .pipe(gulp.dest('client/css'));
+});
+
 if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
-     gulp.watch('client/**/*.js', ['default']);
+     gulp.watch('client/**/*', ['default']);
 }
