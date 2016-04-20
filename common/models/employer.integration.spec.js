@@ -1,6 +1,6 @@
 'use strict';
 
-/* globals describe, it, chai, angular, beforeEach, inject, afterEach, ngMidwayTester */
+/* globals describe, it, chai, angular, beforeEach, inject, afterEach, $rootScope, $injector */
 /*
 var expect = require('chai').expect,
     moment = require('moment-timezone'),
@@ -10,26 +10,18 @@ var expect = chai.expect,
     testId = Math.random();
 
 describe('Employer', function() {
-    var $scope, doc, _Employer, injector, theModule;
+    var $scope, Employer = $injector.get('Employer');
 
     beforeEach(function() {
-        theModule = angular.module('testApp', ['lbServices'])
-            .run(function(Employer, $rootScope, $injector) {
-                $scope = $rootScope.$new(true);
-                _Employer = Employer;
-                injector = $injector;
-            });
-
-        angular.element('body').append('<div class="testDiv"></div>');
-        doc = angular.element('div.testDiv')[0];
-        angular.bootstrap(doc, ['testApp']);
+        $scope = $rootScope.$new(true);
     });
     afterEach(function() {
-        angular.element('div.testDiv').remove();
+        $scope.$destroy();
     });
+    
     it('can create an employer', function(done) {
-        injector.invoke(function($timeout) {
-            var c = _Employer.create({
+        $injector.invoke(function($timeout) {
+            var c = Employer.create({
                 'Name': 'Santa Ana Enterprises',
                 'Address': '457 W. Longfield Rd\nMitor, CA',
                 'TimeZone': 'America/Los_Angeles',
@@ -41,9 +33,9 @@ describe('Employer', function() {
         }, this, {$scope: $scope});
     });
     it('can find an employer by id', function(done) {
-        injector.invoke(function($timeout) {
+        $injector.invoke(function($timeout) {
             //var p = _Employer.find( {filter: {limit: 10}} );
-            var p = _Employer.findById( {id: 'test-employer-' + testId});
+            var p = Employer.findById( {id: 'test-employer-' + testId});
             p.$promise.then(function(data) {
                 expect(data.Name).to.equal('Santa Ana Enterprises');
                 done();
@@ -51,8 +43,8 @@ describe('Employer', function() {
         }, this, {$scope: $scope});
     });
     it('can find an employer', function(done) {
-        injector.invoke(function($timeout) {
-            _Employer.find( {filter: {where: {Name:'Santa Ana Enterprises'}, limit: 10}},
+        $injector.invoke(function($timeout) {
+            Employer.find( {filter: {where: {Name:'Santa Ana Enterprises'}, limit: 10}},
                 function(data) {
                     expect(data[0].Name).to.equal('Santa Ana Enterprises');
                     done();

@@ -1,6 +1,6 @@
 'use strict';
 
-/* globals describe, it, chai, angular, beforeEach, inject, afterEach, ngMidwayTester */
+/* globals describe, it, chai, angular, beforeEach, inject, afterEach, ngMidwayTester, $injector, $rootScope */
 /*
 var expect = require('chai').expect,
     moment = require('moment-timezone'),
@@ -9,26 +9,18 @@ var expect = require('chai').expect,
 var expect = chai.expect;
 
 describe('timezone', function() {
-    var $scope, doc, _Timezone, injector, theModule;
+    var $scope, Timezone = $injector.get('Timezone');
 
     beforeEach(function() {
-        theModule = angular.module('testApp', ['lbServices'])
-            .run(function(Timezone, $rootScope, $injector) {
-                $scope = $rootScope.$new(true);
-                _Timezone = Timezone;
-                injector = $injector;
-            });
-
-        angular.element('body').append('<div class="testDiv"></div>');
-        doc = angular.element('div.testDiv')[0];
-        angular.bootstrap(doc, ['testApp']);
+        $scope = $rootScope.$new(true);
     });
     afterEach(function() {
-        angular.element('div.testDiv').remove();
+        $scope.$destroy();
     });
+
     it('getZones', function(done) {
-        injector.invoke(function($timeout) {
-            var p = _Timezone.getZones().$promise; 
+        $injector.invoke(function($timeout) {
+            var p = Timezone.getZones().$promise; 
             p.then(function(data) {
                 expect(data.zoneList).to.contain('Pacific/Saipan');
                 done();
@@ -36,8 +28,8 @@ describe('timezone', function() {
         }, this, {$scope: $scope});
     });
     it('getZones ii', function(done) {
-        injector.invoke(function($timeout) {
-            var p = _Timezone.getZones().$promise; 
+        $injector.invoke(function($timeout) {
+            var p = Timezone.getZones().$promise; 
             p.then(function(data) {
                 expect(data.zoneList).to.contain('America/Los_Angeles');
                 done();
