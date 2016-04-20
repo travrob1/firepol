@@ -13,7 +13,15 @@ var Server = require('karma').Server;
 gulp.task('karma:integration', function (done) {
   new Server({
     configFile: __dirname + '/karma.integration.conf.js',
-    singleRun: true
+    singleRun: false
+  }, done).start();
+});
+
+gulp.task('karma:integration:chrome', function (done) {
+  new Server({
+    browsers: ['Chrome'],
+    configFile: __dirname + '/karma.integration.conf.js',
+    singleRun: false
   }, done).start();
 });
 

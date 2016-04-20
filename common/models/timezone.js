@@ -4,8 +4,7 @@ var moment = require('moment-timezone');
 
 module.exports = function(Timezone) {
     Timezone.getZones = function(cb) {
-      cb(null, ['foo']);
-      //cb(null, moment.tz.names());
+      cb(null, moment.tz.names());
     };
 
     Timezone.remoteMethod(

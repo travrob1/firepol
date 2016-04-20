@@ -30,7 +30,7 @@ describe('timezone', function() {
         injector.invoke(function($timeout) {
             var p = _Timezone.getZones().$promise; 
             p.then(function(data) {
-                console.log(data);
+                expect(data.zoneList).to.contain('Pacific/Saipan');
                 done();
             }, console.error, console.log);
         }, this, {$scope: $scope});
@@ -40,7 +40,7 @@ describe('timezone', function() {
         injector.invoke(function($timeout) {
             var p = _Timezone.getZones().$promise; 
             p.then(function(data) {
-                console.log(data);
+                expect(data.zoneList).to.contain('America/Los_Angeles');
                 done();
             }, console.error, console.log);
         }, this, {$scope: $scope});
