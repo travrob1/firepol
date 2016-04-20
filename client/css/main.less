@@ -103,10 +103,18 @@ body #ng-view > section {
     padding: 50px 0
 }
 body #ng-view > section#hero {
+    // color: #fff;
     height: 380px;
     padding: 20px 0;
     background-color: #fff;
     border-top:1px solid #000;
+   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ce6f2c+0,d8a82f+100 */
+   // background: #ce6f2c; /* Old browsers */
+   // background: -moz-linear-gradient(top,  #ce6f2c 0%, #d8a82f 100%); /* FF3.6-15 */
+   // background: -webkit-linear-gradient(top,  #ce6f2c 0%,#d8a82f 100%); /* Chrome10-25,Safari5.1-6 */
+   // background: linear-gradient(to bottom,  #ce6f2c 0%,#d8a82f 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+   // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce6f2c', endColorstr='#d8a82f',GradientType=0 ); /* IE6-9 */
+
 }
 #recent-works {
     background: #2dcc70;
@@ -226,7 +234,10 @@ ul.tag-cloud li {
 .btn-social:hover {
     color: #fff
 }
-header.navbar .navbar-inner {
+header .navbar.navbar-default {
+    background-color: #fff !important;
+}
+header.navbar-navbar-inner {
     background: #fff!important;
     border: 0;
     -webkit-box-shadow: none;
@@ -242,13 +253,13 @@ header #logo {
 header.navbar {
     margin-bottom: 0
 }
-header.navbar .nav {
+header .navbar-nav {
     margin-top: 20px
 }
-header.navbar .nav>li {
+header .navbar-nav >li {
     margin-left: 1px
 }
-header.navbar .nav>li>a {
+header .navbar-nav >li>a {
     padding-top: 10px;
     padding-bottom: 10px;
     color: #333;
@@ -258,26 +269,26 @@ header.navbar .nav>li>a {
     text-transform: uppercase;
     text-shadow: none
 }
-header.navbar .nav>li>a:hover {
+header.navbar-nav>li>a:hover {
     background: transparent;
     color: #2dcc70;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none
 }
-header.navbar .nav>li.active>a,
-header.navbar .nav>li.active>a:hover {
+header.navbar-nav>li.active>a,
+header.navbar-nav>li.active>a:hover {
     background: transparent;
     color: #2dcc70;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none
 }
-header.navbar .nav>li.dropdown.open>a.dropdown-toggle {
+header.navbar-nav>li.dropdown.open>a.dropdown-toggle {
     background: transparent;
     color: #2dcc70
 }
-header.navbar .nav>li.login>a {
+header.navbar-nav>li.login>a {
     border-left: 1px solid #e5e5e5
 }
 header .dropdown-menu {
@@ -286,21 +297,21 @@ header .dropdown-menu {
 header .dropdown-menu:before {
     display: none!important
 }
-.navbar .nav li.dropdown.open>.dropdown-toggle,
-.navbar .nav li.dropdown.active>.dropdown-toggle,
-.navbar .nav li.dropdown.open.active>.dropdown-toggle {
+.navbar-nav li.dropdown.open>.dropdown-toggle,
+.navbar-nav li.dropdown.active>.dropdown-toggle,
+.navbar-nav li.dropdown.open.active>.dropdown-toggle {
     background-color: transparent;
     color: #2dcc70
 }
-.navbar .nav>.active>a,
-.navbar .nav>.active>a:hover,
-.navbar .nav>.active>a:focus {
+.navbar-nav>.active>a,
+.navbar-nav>.active>a:hover,
+.navbar-nav>.active>a:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none
 }
-.navbar .nav>li>a:focus,
-.navbar .nav>li>a:hover {
+.navbar-nav>li>a:focus,
+.navbar-nav>li>a:hover {
     color: #2dcc70
 }
 .dropdown-menu {
