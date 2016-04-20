@@ -12,25 +12,16 @@ var Server = require('karma').Server;
 
 gulp.task('karma:integration', function (done) {
   new Server({
-    configFile: __dirname + '/karma.conf.js',
+    configFile: __dirname + '/karma.integration.conf.js',
     singleRun: true
   }, done).start();
 });
 
-gulp.task('mocha:integration', function() {
-    return gulp
-        .src('common/**/*integration.spec.js')
-        .pipe(mocha({reporter:'nyan'}));
-});
-
-gulp.task('tests:integration', function() {
-    return gulp
-        .src('common/**/*integration.spec.js')
-        .pipe(mocha({reporter:'nyan'}));
-});
-
-gulp.task('tests:unit', function() {
-    console.log('we need to get to work on this');
+gulp.task('karma:unit', function (done) {
+  new Server({
+    configFile: __dirname + '/karma.unit.conf.js',
+    singleRun: true
+  }, done).start();
 });
 
 gulp.task('default', function() {
