@@ -39,6 +39,7 @@
     "karma-mocha": "^0.2.2",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sinon": "^1.0.4",
+    "less": "^2.6.1",
     "mocha": "^2.4.5",
     "ng-midway-tester": "^2.0.5",
     "nsp": "^2.1.0",
