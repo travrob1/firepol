@@ -1,25 +1,49 @@
 'use strict';
 
-/* globals describe, it */
-
+/* globals describe, it, chai, angular, beforeEach, inject, afterEach, ngMidwayTester */
+/*
 var expect = require('chai').expect,
     moment = require('moment-timezone'),
     request = require('supertest')('http://localhost:3000');
+*/
+var expect = chai.expect;
 
 describe('timezone', function() {
-    it('should return an array of timezones', function(done) {
-        request.get('/api/timezones/getZones')
-            .expect(200, function(err) {
-                if (err)
-                    console.log(err);
-            })
-            .expect(function(data) {
-                expect(data.body.zoneList).to.exist;
-                expect(data.body.zoneList).to.be.array;
-            })
-            .expect({zoneList: moment.tz.names()})
-            .expect(function(data) {
-                done();
+    var $scope, doc, _Timezone, injector, theModule;
+
+    beforeEach(function() {
+        theModule = angular.module('testApp', ['lbServices'])
+            .run(function(Timezone, $rootScope, $injector) {
+                $scope = $rootScope.$new(true);
+                _Timezone = Timezone;
+                injector = $injector;
             });
+
+        angular.element('body').append('<div class="testDiv"></div>');
+        doc = angular.element('div.testDiv')[0];
+        angular.bootstrap(doc, ['testApp']);
+    });
+    afterEach(function() {
+        angular.element('div.testDiv').remove();
+    });
+    it('getZones', function(done) {
+        injector.invoke(function($timeout) {
+            var p = _Timezone.getZones().$promise; 
+            p.then(function(data) {
+                console.log(data);
+                done();
+            }, console.error, console.log);
+        }, this, {$scope: $scope});
+        //done();
+    });
+    it('getZones ii', function(done) {
+        injector.invoke(function($timeout) {
+            var p = _Timezone.getZones().$promise; 
+            p.then(function(data) {
+                console.log(data);
+                done();
+            }, console.error, console.log);
+        }, this, {$scope: $scope});
+        //done();
     });
 });
