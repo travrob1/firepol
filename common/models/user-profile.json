@@ -32,43 +32,43 @@
       "type": "string"
     },
     "F_BuildingCode_NFPA72": {
-      "type": "object"
+      "type": "string"
     },
     "F_BuildingCode_2006internationalBuildingCode": {
-      "type": "object"
+      "type": "string"
     },
     "F_BuildingMaterial_wood": {
-      "type": "object"
+      "type": "string"
     },
     "F_BuildingMaterial_brick": {
-      "type": "object"
+      "type": "string"
     },
     "F_BuildingMaterial_steel": {
-      "type": "object"
+      "type": "string"
     },
     "F_BuildingHeight_1n2level": {
-      "type": "object"
+      "type": "string"
     },
     "F_BuildingHeight_3level": {
-      "type": "object"
+      "type": "string"
     },
     "F_BuildingHeight_lowrise": {
-      "type": "object"
+      "type": "string"
     },
     "F_BuildingHeight_highrise": {
-      "type": "object"
+      "type": "string"
     },
     "F_General_HomeOccupancy": {
-      "type": "object"
+      "type": "string"
     },
     "F_General_ZoningMix": {
-      "type": "object"
+      "type": "string"
     },
     "F_General_Disaster": {
-      "type": "object"
+      "type": "string"
     },
     "F_General_ProbablityStatistics": {
-      "type": "object"
+      "type": "string"
     }
   },
   "validations": [],

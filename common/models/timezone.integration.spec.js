@@ -34,7 +34,6 @@ describe('timezone', function() {
                 done();
             }, console.error, console.log);
         }, this, {$scope: $scope});
-        //done();
     });
     it('getZones ii', function(done) {
         injector.invoke(function($timeout) {
