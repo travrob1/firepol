@@ -35,6 +35,5 @@ describe('timezone', function() {
                 done();
             }, console.error, console.log);
         }, this, {$scope: $scope});
-        //done();
     });
 });

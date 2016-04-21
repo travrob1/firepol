@@ -8,8 +8,13 @@
     "posttest": "nsp check"
   },
   "dependencies": {
+    "body-parser": "~1.13.2",
     "compression": "^1.0.3",
+    "cookie-parser": "~1.3.5",
     "cors": "^2.5.2",
+    "country-data": "0.0.24",
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
     "gulp": "^3.9.1",
     "helmet": "^1.3.0",
     "lodash": "^4.11.1",
@@ -19,12 +24,8 @@
     "loopback-connector-mongodb": "^1.13.3",
     "loopback-datasource-juggler": "^2.39.0",
     "moment-timezone": "^0.5.3",
-    "serve-favicon": "~2.3.0",
-    "express": "~4.13.1",
-    "body-parser": "~1.13.2",
-    "cookie-parser": "~1.3.5",
-    "debug": "~2.2.0",
-    "morgan": "~1.6.1"
+    "morgan": "~1.6.1",
+    "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.5.5",
