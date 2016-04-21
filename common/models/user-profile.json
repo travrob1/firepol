@@ -1,15 +1,11 @@
 {
   "name": "userProfile",
-  "base": "User",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "User": {
-      "type": "User",
-      "required": true
-    },
     "Address": {
       "type": "string",
       "required": true
@@ -77,8 +73,13 @@
       "type": "belongsTo",
       "model": "employer",
       "foreignKey": "employerId"
+    },
+      "user": {
+      "type": "belongsTo",
+      "model": "User",
+      "foreignKey": ""
     }
-  },
+},
   "acls": [],
   "methods": {}
 }
