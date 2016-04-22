@@ -34,7 +34,6 @@ describe('Employer', function() {
     });
     it('can find an employer by id', function(done) {
         $injector.invoke(function($timeout) {
-            //var p = _Employer.find( {filter: {limit: 10}} );
             var p = Employer.findById( {id: 'test-employer-' + testId});
             p.$promise.then(function(data) {
                 expect(data.Name).to.equal('Santa Ana Enterprises');
