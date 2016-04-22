@@ -103,18 +103,43 @@ body #ng-view > section {
     padding: 50px 0
 }
 body #ng-view > section#hero {
-    // color: #fff;
-    height: 380px;
+    height: auto;
     padding: 20px 0;
     background-color: #fff;
     border-top:1px solid #000;
-   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ce6f2c+0,d8a82f+100 */
-   // background: #ce6f2c; /* Old browsers */
-   // background: -moz-linear-gradient(top,  #ce6f2c 0%, #d8a82f 100%); /* FF3.6-15 */
-   // background: -webkit-linear-gradient(top,  #ce6f2c 0%,#d8a82f 100%); /* Chrome10-25,Safari5.1-6 */
-   // background: linear-gradient(to bottom,  #ce6f2c 0%,#d8a82f 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-   // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce6f2c', endColorstr='#d8a82f',GradientType=0 ); /* IE6-9 */
+    font-weight: 100;
+    color:#272727;
 
+    h1 {
+        margin-top:10px;
+        font-size: 2.5em;
+        line-height: 50px;
+    }
+    .right-side {
+        h1{
+            text-align: center
+        }
+        .bullet {
+            text-align: center;
+            font-size: 15px;
+            i {
+                display: block;
+                font-size: 440%;
+                color: orange;
+            }
+        }
+    }
+
+    @media screen and (max-width: 991px){
+        .right-side {
+            .bullet i {
+                font-size: 330%;
+            }
+        }
+    }
+    @media screen and (max-width: 660px){
+        font-size: 70%
+    }
 }
 #recent-works {
     background: #2dcc70;
@@ -245,10 +270,10 @@ header.navbar-navbar-inner {
     box-shadow: none
 }
 header #logo {
-    width: 220px;
+    width: 100px;
     height: 90px;
     background: url(../images/firepol-logo.svg) no-repeat 0 50%;
-    background-size: 50% 100%;
+    background-size: 100% 100%;
 }
 header.navbar {
     margin-bottom: 0
@@ -313,6 +338,12 @@ header .dropdown-menu:before {
 .navbar-nav>li>a:focus,
 .navbar-nav>li>a:hover {
     color: #2dcc70
+}
+
+@media screen and (max-width: 991px) and (min-width: 768px){
+    .nav > li > a {
+        padding: 10px 9px;
+    }
 }
 .dropdown-menu {
     -webkit-border-radius: 0;
