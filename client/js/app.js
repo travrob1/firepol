@@ -50,6 +50,12 @@ app.config(['$routeProvider', function($routProvider) {
         });
 }]);
 
-app.controller('globalCtrl', ['$rootScope', '$scope','User',function($rootScope, $scope, User){
-   console.log(User);
-}]);
+app.controller('globalCtrl', function($rootScope, $scope, UserProfile){
+   console.log(UserProfile);
+   UserProfile.getUserProfileDefinition().$promise
+    .then(function(data){
+        $scope.userProfileDef = data.userProfileDefinition;
+        
+    },console.log, 
+    console.log);
+});

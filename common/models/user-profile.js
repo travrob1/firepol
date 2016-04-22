@@ -2,113 +2,136 @@
 
 var _ = require('lodash'),
     countries = require('country-data').countries,
-    yesNo = {
-        Y: 'yes',
-        N: 'no'
-    },
-    fieldValidations = [
+    yesNo = [
+        'yes',
+        'no',
+        null
+    ],
+    definition = [
         { member: 'Sex',
-          options: {
-              M:'male',
-              F:'female',
-              TM:'transition to male',
-              TF:'transition to female'
-          },
+          type: 'radio',
+          options: [
+              'male',
+              'female'
+          ],
           message: 'invalid sex option'
         },
         { member: 'EducationLevel',
-          options: {
-              usls: 'less than highschool',
-              ushs: 'highschool or equivalent',
-              usad: 'associates degree',
-              usba: 'bachelor of arts',
-              usbs: 'bachelor of science',
-              usma: 'masters',
-              usdg: 'doctorate or greater'
-          },
+          type: 'select',
+          options: [
+              'less than highschool',
+              'highschool or equivalent',
+              'associates degree',
+              'bachelor of arts',
+              'bachelor of science',
+              'masters',
+              'doctorate or greater'
+          ],
           message: 'invalid education level option'
         },
         { member: 'Country',
+          type: 'select',
           message: 'invalid country choice',
           options: countries.all
         },
         { member: 'F_BuildingCode_NFPA72',
+          type: 'checkbox',
           message: 'invalid NFPA72 building code choice',
           options: yesNo
         },
         { member: 'F_BuildingCode_2006internationalBuildingCode',
+          type: 'checkbox',
           message: 'invalid 2006 internation building code choice',
           options: yesNo
         },
         { member: 'F_BuildingMaterial_wood',
+          type: 'checkbox',
           message: 'invalid building material choice with wood',
           options: yesNo
         },
         { member: 'F_BuildingMaterial_brick',
+          type: 'checkbox',
           message: 'invalid building material choice with brick',
           options: yesNo
         },
         { member: 'F_BuildingMaterial_steel',
+          type: 'checkbox',
           message: 'invalid building material choice with steel',
           options: yesNo
         },
         { member: 'F_BuildingHeight_1n2level',
+          type: 'checkbox',
           message: 'invalid choice concerning 1 and 2 story buildings',
           options: yesNo
         },
         { member: 'F_BuildingHeight_3level',
+          type: 'checkbox',
           message: 'invalid choice concerning 3 level buildings',
           options: yesNo
         },
         { member: 'F_BuildingHeight_lowrise',
+          type: 'checkbox',
           message: 'invalid choice concerning lowrise buildings',
           options: yesNo
         },
         { member: 'F_BuildingHeight_highrise',
+          type: 'checkbox',
           message: 'invalid choice concerning highrise buildings',
           options: yesNo
         },
         { member: 'F_General_HomeOccupancy',
-          options: {
-              sd: 'single family detached',
-              sa: 'single family attached',
-              mf: 'multiple families living together'
-          },
+          type: 'select',
+          options: [
+              'single family detached',
+              'single family attached',
+              'multiple families living together'
+          ],
           message: 'invalid home occupancy familiarity option'
         },
         { member: 'F_General_ZoningMix',
-          options: {
-              r: 'residental',
-              i: 'industrial',
-              m: 'mixed residential and industrial'
-          },
+          type: 'select',
+          options: [
+              'residental',
+              'industrial',
+              'mixed residential and industrial'
+          ],
           message: 'invalid zoning mix familiarity option'
         },
         { member: 'F_General_Disaster',
-          options: {
-              fi: 'fire',
-              eq: 'earthquakes',
-              ts: 'tsunamis',
-              td: 'tornadoes',
-              hu: 'hurricanes',
-              sh: 'sinkholes'
-          },
+          type: 'select',
+          options: [
+              'fire',
+              'earthquakes',
+              'tsunamis',
+              'tornadoes',
+              'hurricanes',
+              'sinkholes'
+          ],
           message: 'invalid disaster familiarity option'
         },
         { member: 'F_General_ProbablityStatistics',
-          options: {
-              10: 'none',
-              20: 'some self taught',
-              30: 'some coursework',
-              40: 'more than 2 courses',
-              50: 'undergrad major',
-              60: 'post graduate',
-              70: 'expert or doctor'
-          }
+          type: 'select',
+          options: [
+              'none',
+              'some self taught',
+              'some coursework',
+              'more than 2 courses',
+              'undergrad major',
+              'post graduate',
+              'expert or doctor'
+          ]
         }
     ];
 
 module.exports = function(UserProfile) {
+    UserProfile.getUserProfileDefinition = function (cb) {
+        cb(null, definition);
+    };
+    UserProfile.remoteMethod('getUserProfileDefinition', {
+        //accepts: {arg: 'msg', type: 'string'},
+        returns: {arg: 'userProfileDefinition', type: 'array'}
+    });
+    return;
     UserProfile.observe('before save', function(ctx, next) {
         var userProfile = ctx.data || ctx.instance,
             errors = [];
