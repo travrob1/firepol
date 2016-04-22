@@ -1,6 +1,6 @@
 'use strict';
 
-/* globals __dirname */
+/* globals __dirname, process */
 
 var gulp = require('gulp');
 var concat = require('gulp-concat');
@@ -10,7 +10,15 @@ var less = require('gulp-less');
 var path = require('path');
 var Server = require('karma').Server;
 
+var rename = require('gulp-rename');
+var loopbackAngular = require('gulp-loopback-sdk-angular');
 
+gulp.task('lb-services.js', function () {
+    return gulp.src('./server/server.js')
+    .pipe(loopbackAngular())
+    .pipe(rename('lb-services.js'))
+    .pipe(gulp.dest('.build/js'));
+});
 
 gulp.task('karma:integration', function (done) {
   new Server({
@@ -49,7 +57,6 @@ gulp.task('prod', function() {
         .pipe(gulp.dest('.build/js'));
 });
 
-
 gulp.task('less', function () {
   return gulp.src('client/css/**/*.less')
     .pipe(less({
@@ -59,5 +66,6 @@ gulp.task('less', function () {
 });
 
 if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
+     gulp.watch('common/**/*', ['lb-services.js']);
      gulp.watch('client/**/*', ['default']);
 }

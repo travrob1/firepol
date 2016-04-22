@@ -14,9 +14,8 @@ module.exports = function(config) {
       'node_modules/sinon/pkg/sinon.js',
       'node_modules/sinon-chai/lib/sinon-chai.js',
       'node_modules/chai-jquery/chai-jquery.js',
-      'node_modules/ng-midway-tester/src/ngMidwayTester.js',
 
-      'client/js/lb-services.js',
+      './.build/js/lb-services.js',
       './**/*integration.spec.js',
     ],
     proxies: {

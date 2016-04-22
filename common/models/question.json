@@ -29,6 +29,21 @@
     },
     "ClosingTime": {
       "type": "date"
+    },
+    "Votes": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "Responses": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "Views": {
+      "type": "number",
+      "required": true,
+      "default": 0
     }
   },
   "validations": [],

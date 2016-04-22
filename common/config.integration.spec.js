@@ -2,8 +2,9 @@
 /* globals angular, mocha */
 mocha.setup({ timeout: 5000 });
 
-var $rootScope, $injector;
+var $rootScope, $injector, testIdentifier;
 (function() {
+    testIdentifier = Math.random();
     function installGlobals(_rootScope, _injector) {
         $rootScope = _rootScope;
         $injector = _injector;

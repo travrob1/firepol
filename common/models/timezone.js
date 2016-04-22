@@ -11,7 +11,7 @@ module.exports = function(Timezone) {
         'getZones', 
         {
           //accepts: {arg: 'msg', type: 'string'},
-          returns: {arg: 'zoneList', type: 'array'}
+          returns: {arg: 'listTimezone', type: 'array'}
         }
     );
 };

@@ -126,13 +126,13 @@ module.exports = function(UserProfile) {
      });
 
     _.forEach(fieldValidations, function(fieldV) {
-        var funcName = 'get_' + fieldV.member;
+        var funcName = 'get' + fieldV.member;
         UserProfile[funcName] = function (cb) {
             cb(null, fieldV.options);
         };
         UserProfile.remoteMethod(funcName, {
             //accepts: {arg: 'msg', type: 'string'},
-            returns: {arg: fieldV.member + '_list', type: 'array'}
+            returns: {arg: 'list' + fieldV.member, type: 'object'}
         });
     });
 };
