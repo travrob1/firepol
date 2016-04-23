@@ -14,18 +14,14 @@
   "homepage": "",
   "private": true,
   "dependencies": {
-    "bootstrap": "~3.3.6",
+    "angular-modal-service": "~0.6.9",
+    "bootstrap": "~3.3.5",
+    "angular-route": "~1.4.8",
+    "angular-resource": "~1.4.8",
+    "blueimp-file-upload": "~9.11.2",
+    "blueimp-load-image": "~1.14.0",
     "jquery-ui": "~1.11.4",
-    "lodash": "~4.11.2",
-    "angular-modal-service": "~0.9.10",
-    "modernizr": "~3.3.1",
-    "font-awesome": "~4.6.1",
-    "angular": "~1.5.5",
-    "angular-ui-validate": "~1.2.2",
-    "angular-route": "~1.5.5",
-    "angular-resource": "~1.5.5"
-  },
-  "resolutions": {
-    "angular": "1.5.5"
+    "normalize-css": "normalize.css#~3.0.3",
+    "lodash": "~3.10.1"
   }
 }
