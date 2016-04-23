@@ -18,13 +18,16 @@ describe('UserProfile', function() {
         $scope.$destroy();
     });
     
-    it('can list a few userProfile properties', function(done) {
-        debugger;
-        console.log(UserProfile.getEducationLevel);
+    it('can get the UI definition', function(done) {
         $injector.invoke(function($timeout) {
-            var p = UserProfile.getEducationLevel().$promise; 
+            var p = UserProfile.getUserProfileDefinition().$promise; 
             p.then(function(data) {
-                expect(data.listEducationLevel.usls).to.equal('less than highschool');
+                expect(data.userProfileDefinition).to.exist;
+                expect(data.userProfileDefinition).to.be.an.array;
+                _.forEach(data.userProfileDefinition, function(def) {
+                    expect(data.userProfileDefinition[0].member).to.exist;
+                });
+                //expect(data.listEducationLevel.usls).to.equal('less than highschool');
                 done();
             }, console.error, console.log);
         }, this, {$scope: $scope});
