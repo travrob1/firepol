@@ -45,17 +45,14 @@ app.config(['$routeProvider', function($routProvider) {
         }).when('/404', {
             templateUrl: 'js/404/404.html',
             controller: 'globalCtrl'
+        }).when('/user-profile', {
+            templateUrl: 'js/user-profile/user-profile.html',
+            controller: 'profileCtrl'
         }).otherwise({
             redirectTo: '/404'
         });
 }]);
 
-app.controller('globalCtrl', function($rootScope, $scope, UserProfile){
-   console.log(UserProfile);
-   UserProfile.getUserProfileDefinition().$promise
-    .then(function(data){
-        $scope.userProfileDef = data.userProfileDefinition;
-        
-    },console.log, 
-    console.log);
+app.controller('globalCtrl', function($rootScope, $scope){
+  
 });
