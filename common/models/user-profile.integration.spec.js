@@ -18,6 +18,9 @@ describe('UserProfile', function() {
         $scope.$destroy();
     });
     
+    function apiErrorHandler(err) {
+        console.error(JSON.stringify(err, null, 4));
+    }
     it('can get the UI definition', function(done) {
         $injector.invoke(function($timeout) {
             var p = UserProfile.getUserProfileDefinition().$promise; 
@@ -29,31 +32,39 @@ describe('UserProfile', function() {
                 });
                 //expect(data.listEducationLevel.usls).to.equal('less than highschool');
                 done();
-            }, console.error, console.log);
+            }, apiErrorHandler, console.log);
         }, this, {$scope: $scope});
     });
-    
-    return;
-    it('can create an UserProfile', function(done) {
+    it('fails when creating a UserProfile without a userId', function(done) {
         $injector.invoke(function($timeout) {
             var c = UserProfile.create({
-                'Name': 'Santa Ana Enterprises',
-                'Address': '457 W. Longfield Rd\nMitor, CA',
-                'TimeZone': 'America/Los_Angeles',
+                'id': 'test-UserProfile-' + testIdentifier
+                });
+            c.$promise.then(apiErrorHandler, function() {
+                done();
+            }, console.log);
+        }, this, {$scope: $scope});
+        $scope.$digest();
+    });
+    it('can create a UserProfile with all nulls, except the userId', function(done) {
+        $injector.invoke(function($timeout) {
+            var c = UserProfile.create({
                 'id': 'test-UserProfile-' + testIdentifier
                 });
             c.$promise.then(function(data) {
                 done();
-            }, console.error, console.log);
+            }, apiErrorHandler, console.log);
         }, this, {$scope: $scope});
+        $scope.$digest();
     });
+    return;
     it('can find an UserProfile by id', function(done) {
         $injector.invoke(function($timeout) {
             var p = UserProfile.findById( {id: 'test-UserProfile-' + testIdentifier});
             p.$promise.then(function(data) {
                 expect(data.Name).to.equal('Santa Ana Enterprises');
                 done();
-            }, console.error, console.log);
+            }, apiErrorHandler, console.log);
         }, this, {$scope: $scope});
     });
     it('can find an UserProfile', function(done) {
@@ -62,7 +73,7 @@ describe('UserProfile', function() {
                 function(data) {
                     expect(data[0].Name).to.equal('Santa Ana Enterprises');
                     done();
-                }, console.error );
+                }, apiErrorHandler );
         }, this, {$scope: $scope});
     });
 });

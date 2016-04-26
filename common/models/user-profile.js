@@ -15,11 +15,13 @@ var _ = require('lodash'),
               'male',
               'female'
           ],
+          allowNull: true,
           message: 'invalid sex option'
         },
         { member: 'EducationLevel',
           category: 'personal',
           type: 'select',
+          allowNull: true,
           options: [
               'less than highschool',
               'highschool or equivalent',
@@ -35,65 +37,76 @@ var _ = require('lodash'),
           category: 'personal',
           type: 'select',
           message: 'invalid country choice',
+          allowNull: true,
           options: countries.all
         },
         { member: 'F_BuildingCode_NFPA72',
           category: 'building code familiarities',
           type: 'checkbox',
           message: 'invalid NFPA72 building code choice',
+          allowNull: true,
           options: yesNo
         },
         { member: 'F_BuildingCode_2006internationalBuildingCode',
           category: 'building code familiarities',
           type: 'checkbox',
           message: 'invalid 2006 internation building code choice',
+          allowNull: true,
           options: yesNo
         },
         { member: 'F_BuildingMaterial_wood',
           category: 'building material familiarities',
           type: 'checkbox',
           message: 'invalid building material choice with wood',
+          allowNull: true,
           options: yesNo
         },
         { member: 'F_BuildingMaterial_brick',
           category: 'building material familiarities',
           type: 'checkbox',
           message: 'invalid building material choice with brick',
+          allowNull: true,
           options: yesNo
         },
         { member: 'F_BuildingMaterial_steel',
           category: 'building material familiarities',
           type: 'checkbox',
           message: 'invalid building material choice with steel',
+          allowNull: true,
           options: yesNo
         },
         { member: 'F_BuildingHeight_1n2level',
           category: 'building height familiarities',
           type: 'checkbox',
           message: 'invalid choice concerning 1 and 2 story buildings',
+          allowNull: true,
           options: yesNo
         },
         { member: 'F_BuildingHeight_3level',
           category: 'building height familiarities',
           type: 'checkbox',
           message: 'invalid choice concerning 3 level buildings',
+          allowNull: true,
           options: yesNo
         },
         { member: 'F_BuildingHeight_lowrise',
           category: 'building height familiarities',
           type: 'checkbox',
           message: 'invalid choice concerning lowrise buildings',
+          allowNull: true,
           options: yesNo
         },
         { member: 'F_BuildingHeight_highrise',
           category: 'building height familiarities',
           type: 'checkbox',
           message: 'invalid choice concerning highrise buildings',
+          allowNull: true,
           options: yesNo
         },
         { member: 'F_General_HomeOccupancy',
           category: 'general familiarities',
           type: 'select',
+          allowNull: true,
           options: [
               'single family detached',
               'single family attached',
@@ -104,6 +117,7 @@ var _ = require('lodash'),
         { member: 'F_General_ZoningMix',
           category: 'general familiarities',
           type: 'select',
+          allowNull: true,
           options: [
               'residental',
               'industrial',
@@ -114,6 +128,7 @@ var _ = require('lodash'),
         { member: 'F_General_Disaster',
           category: 'general familiarities',
           type: 'select',
+          allowNull: true,
           options: [
               'fire',
               'earthquakes',
@@ -127,6 +142,7 @@ var _ = require('lodash'),
         { member: 'F_General_ProbablityStatistics',
           category: 'general familiarities',
           type: 'select',
+          allowNull: true,
           options: [
               'some self taught',
               'some coursework',
@@ -141,8 +157,9 @@ var _ = require('lodash'),
 module.exports = function(UserProfile) {
 
     /* validations */
+    UserProfile.validatesPresenceOf('userId');
     _.forEach(definition, function(def) {
-        UserProfile.validatesInclusionOf(def.member, {in: def.options});
+        UserProfile.validatesInclusionOf(def.member, {in: def.options, allowNull: def.allowNull});
     });
 
     /* provide definition to UI */

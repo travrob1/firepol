@@ -42,7 +42,13 @@ gulp.task('karma:unit', function (done) {
   }, done).start();
 });
 
-gulp.task('default', ['client', 'less', 'lb-services.js']);
+gulp.task('default', ['client.js', 'less', 'lb-services.js'], function() {
+  if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
+      gulp.watch('common/**/*', ['lb-services.js']);
+      gulp.watch('client/**/!(*.spec).js', ['client.js']);
+      gulp.watch('client/css/**/*.less', ['less']);
+  }
+});
 
 gulp.task('client.js', function() {
     return gulp
@@ -67,8 +73,3 @@ gulp.task('less', function () {
     .pipe(gulp.dest('client/css'));
 });
 
-if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
-     gulp.watch('common/**/*', ['lb-services.js']);
-     gulp.watch('client/**/!(*.spec).js', ['client.js']);
-     gulp.watch('client/css/**/*.less', ['less']);
-}
