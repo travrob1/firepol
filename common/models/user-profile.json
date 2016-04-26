@@ -7,12 +7,10 @@
   },
   "properties": {
     "Address": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "YearBorn": {
       "type": "number",
-      "required": true,
       "default": "JobTitle"
     },
     "JobTitle": {
@@ -69,11 +67,11 @@
   },
   "validations": [],
   "relations": {
-    "employer": {
-      "type": "belongsTo",
-      "model": "employer",
-      "foreignKey": "employerId"
-    },
+      "employer": {
+        "type": "belongsTo",
+        "model": "employer",
+        "foreignKey": "employerId"
+      },
       "user": {
       "type": "belongsTo",
       "model": "User",
