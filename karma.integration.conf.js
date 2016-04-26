@@ -19,7 +19,7 @@ module.exports = function(config) {
       './**/*integration.spec.js',
     ],
     proxies: {
-      '/': 'http://localhost:3000/'
+      '/': 'http://localhost:3123/'
     }
   });
 };

@@ -82,6 +82,25 @@ describe('User', function() {
         }, this, {$scope: $scope});
         $scope.$digest();
     });
+
+    it('can find an User by id', function(done) {
+        $injector.invoke(function($timeout) {
+            var p = User.findById( {id: 'test-User-' + testIdentifier});
+            p.$promise.then(function(data) {
+                done();
+            }, apiErrorHandler, console.log);
+        }, this, {$scope: $scope});
+    });
+    it('can find an User by username', function(done) {
+        $injector.invoke(function($timeout) {
+            User.find( {filter: {where: {username:'user' + testIdentifier}, limit: 10}},
+                function(data) {
+                    expect(data[0].Name).to.equal('user' + testIdentifier);
+                    done();
+                }, apiErrorHandler );
+        }, this, {$scope: $scope});
+    });
+
 });
 
 describe('UserProfile', function() {
@@ -131,23 +150,12 @@ describe('UserProfile', function() {
         }, this, {$scope: $scope});
         $scope.$digest();
     });
-    return;
     it('can find an UserProfile by id', function(done) {
         $injector.invoke(function($timeout) {
             var p = UserProfile.findById( {id: 'test-UserProfile-' + testIdentifier});
             p.$promise.then(function(data) {
-                expect(data.Name).to.equal('Santa Ana Enterprises');
                 done();
             }, apiErrorHandler, console.log);
-        }, this, {$scope: $scope});
-    });
-    it('can find an UserProfile', function(done) {
-        $injector.invoke(function($timeout) {
-            UserProfile.find( {filter: {where: {Name:'Santa Ana Enterprises'}, limit: 10}},
-                function(data) {
-                    expect(data[0].Name).to.equal('Santa Ana Enterprises');
-                    done();
-                }, apiErrorHandler );
         }, this, {$scope: $scope});
     });
 });
