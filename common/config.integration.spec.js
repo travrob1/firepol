@@ -2,6 +2,10 @@
 /* globals angular, mocha */
 mocha.setup({ timeout: 5000 });
 
+function apiErrorHandler(err) {
+    console.error(JSON.stringify(err, null, 4));
+}
+
 var $rootScope, $injector, testIdentifier;
 (function() {
     testIdentifier = Math.random();
