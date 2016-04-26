@@ -39,7 +39,7 @@ gulp.task('lb-services.js', function () {
     .pipe(gulp.dest('.build/js'));
 });
 
-gulp.task('integration-server', function (cb) {
+gulp.task('integration-server', function (ready) {
     if(process.env.NODE_ENV !== 'integration') {
       throw Error('integration-server is expected to be run with NODE_ENV=integration');
     }
@@ -96,15 +96,15 @@ gulp.task('integration-server', function (cb) {
           setTimeout(function() {
               startApiServer();
                 setTimeout(function() {
-      //                process.exit();
-                }, 1000);
+                      ready();
+                }, 100);
           }, 1000);
         }, 1000);
     } 
 
 });
 
-gulp.task('karma:integration', function (done) {
+gulp.task('karma:integration', ['integration-server'], function (done) {
   new KarmaServer({
     configFile: __dirname + '/karma.integration.conf.js',
     singleRun: false
