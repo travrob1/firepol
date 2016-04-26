@@ -2,10 +2,11 @@
 /*global angular */
 angular.module('app').directive('selectTemplate', function(){
     return {
-        restrict:'E',
+        restrict:'EA',
         templateUrl: 'js/user-profile/select-template.html',
         link: function(scope, elem, attrs, ctrl){
             scope.field = scope.rowDef;
+            scope.field.label = scope.rowDef.member;
         }
     };    
 });

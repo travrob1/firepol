@@ -1,2 +1,4 @@
-<label>{{field.member}}</label>
-<select ng-option="field.options for field.options in field"></select>
+<label>{{field.label}}</label>
+<select ng-model="field.member" class="form-control input-block-level" ng-options="o as o for o in field.options">
+    <option value="">-- select --</option>
+</select>

@@ -19,13 +19,12 @@
         <div class="row">
 
             <div class="col-xs-12 col-md-8">
-                <h4>Contact Form</h4>
                 <div class="status alert alert-success" style="display: none"></div>
 
-                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php">
+                <form id="main-contact-form" class="contact-form" name="contact-form" >
                     <div class="row" ng-repeat="rowDef in userProfileDef">
-                        <radio-template  ng-if="rowDef.type='radio'"def='rowDef'></radio-template>
-                        <select-template  ng-if="rowDef.type='select'"def='rowDef'></select-template>
+                        <div radio-template  ng-if="rowDef.type == 'radio'"def='rowDef'></div>
+                        <div select-template  ng-if="rowDef.type == 'select'"def='rowDef'></div>
 
                     </div>
 
