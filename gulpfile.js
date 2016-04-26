@@ -42,7 +42,7 @@ gulp.task('karma:unit', function (done) {
   }, done).start();
 });
 
-gulp.task('default', ['client', 'less', 'lb-services.js']);
+gulp.task('default', ['client.js', 'less', 'lb-services.js']);
 
 gulp.task('client.js', function() {
     return gulp
