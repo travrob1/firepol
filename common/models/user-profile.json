@@ -67,17 +67,17 @@
   },
   "validations": [],
   "relations": {
-      "employer": {
-        "type": "belongsTo",
-        "model": "employer",
-        "foreignKey": "employerId"
-      },
-      "user": {
+    "employer": {
+      "type": "belongsTo",
+      "model": "employer",
+      "foreignKey": "employerId"
+    },
+    "user": {
       "type": "belongsTo",
       "model": "User",
       "foreignKey": ""
     }
-},
+  },
   "acls": [],
   "methods": {}
 }

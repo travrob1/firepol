@@ -63,5 +63,9 @@
   "Timezone": {
     "dataSource": "db",
     "public": true
+  },
+  "FirepolUser": {
+    "dataSource": "firepol",
+    "public": true
   }
 }

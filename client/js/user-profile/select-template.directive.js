@@ -6,7 +6,6 @@ angular.module('app').directive('selectTemplate', function(){
         templateUrl: 'js/user-profile/select-template.html',
         link: function(scope, elem, attrs, ctrl){
             scope.field = scope.rowDef;
-            scope.field.label = scope.rowDef.member;
         }
     };    
 });

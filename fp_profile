@@ -1,8 +1,16 @@
 # profile file for bash
 
 export NVM_DIR="$HOME/.nvm"
-. "$(brew --prefix nvm)/nvm.sh"
-echo "NVM activated"
+if [ -e "$(brew --prefix nvm)/nvm.sh" ] ; then
+    . "$(brew --prefix nvm)/nvm.sh"
+    echo "NVM activated"
+elif [ -e "$HOME/.nvm/nvm.sh" ] ; then
+    . ~/.nvm/nvm.sh
+    echo "NVM activated"
+else
+    >&2 echo "no NVM configuration found"
+fi
+
 
 export PATH=$SCRIPTDIR/node_modules/.bin/:$PATH
 echo "$SCRIPTDIR/node_modules/.bin/ added to PATH"
