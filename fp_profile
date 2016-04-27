@@ -1,0 +1,16 @@
+# profile file for bash
+
+export NVM_DIR="$HOME/.nvm"
+. "$(brew --prefix nvm)/nvm.sh"
+echo "NVM activated"
+
+export PATH=$SCRIPTDIR/node_modules/.bin/:$PATH
+echo "$SCRIPTDIR/node_modules/.bin/ added to PATH"
+echo "ctrl-d or exit to quit"
+
+export PS1="(activated)\w\$ "
+
+GIT_PROJ_DIR=$(cd ..; pwd)
+[ -e ~/.git-manifold-extensions ] && . ~/.git-manifold-extensions
+
+nvm use latest || >&2 echo 'please setup nvm alias:  i.e. `nvm alias latest v4.4.3`'

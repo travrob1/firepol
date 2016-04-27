@@ -6,11 +6,9 @@ if [ ! -e $SCRIPTDIR/node_modules/.bin/slc ] ; then
     echo "please run 'npm install strongloop' to install slc"
     exit
 fi
+if [ ! -e $HOME/.nvm ] ; then
+    echo "please go to nvm.sh to install nvm"
+    exit
+fi
 
-export PATH=$SCRIPTDIR/node_modules/.bin/:$PATH
-echo "$SCRIPTDIR/node_modules/.bin/ added to PATH"
-echo "ctrl-d or exit to quit"
-
-export PS1="(activated)\w\$ "
-
-bash
+bash --init-file ./fp_profile

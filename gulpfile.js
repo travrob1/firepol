@@ -52,22 +52,21 @@ gulp.task('integration-server', function (ready) {
       start();
     });
 
-    var Db = require('mongodb').Db, 
+    var mongoChild, apiChild,
+      Db = require('mongodb').Db,
       Server = require('mongodb').Server;
 
     function startMongo() {
-        exec('mongod --port 3124 --dbpath ./.tmp-integration-data', function (err, stdout, stderr) {
+        mongoChild = exec('mongod --port 3124 --dbpath ./.tmp-integration-data', function (err, stdout, stderr) {
           console.log(stdout);
           console.log(stderr);
-          cb(err);
         });
     }
 
     function startApiServer() {
-        exec('PORT=3123 node server/server.js', function (err, stdout, stderr) {
+        apiChild = exec('PORT=3123 node server/server.js', function (err, stdout, stderr) {
           console.log(stdout);
           console.log(stderr);
-          cb(err);
         });
     }
 

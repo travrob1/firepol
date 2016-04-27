@@ -82,7 +82,7 @@ describe('User', function() {
         }, this, {$scope: $scope});
         $scope.$digest();
     });
-
+    return;
     it('can find an User by id', function(done) {
         $injector.invoke(function($timeout) {
             var p = User.findById( {id: 'test-User-' + testIdentifier});
