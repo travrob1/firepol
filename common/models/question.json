@@ -1,46 +1,46 @@
 {
-  "name": "question",
+  "name": "Question",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "Name": {
+    "name": {
       "type": "string",
       "required": true
     },
-    "Question": {
+    "question": {
       "type": "string",
       "required": true
     },
-    "Summary": {
+    "summary": {
       "type": "string",
       "required": true
     },
-    "Details": {
+    "details": {
       "type": "string",
       "required": true
     },
-    "Status": {
+    "status": {
       "type": "string",
       "required": true,
       "default": "preinvite"
     },
-    "ClosingTime": {
+    "closingTime": {
       "type": "date"
     },
-    "Votes": {
+    "votes": {
       "type": "number",
       "required": true,
       "default": 0
     },
-    "Responses": {
+    "responses": {
       "type": "number",
       "required": true,
       "default": 0
     },
-    "Views": {
+    "views": {
       "type": "number",
       "required": true,
       "default": 0

@@ -32,35 +32,35 @@
     "dataSource": "firepol",
     "public": false
   },
-  "question": {
+  "Question": {
     "dataSource": "firepol",
     "public": true
   },
-  "comment": {
+  "Comment": {
     "dataSource": "firepol",
     "public": true
   },
-  "userProfile": {
+  "UserProfile": {
     "dataSource": "firepol",
     "public": true
   },
-  "secretUserStats": {
+  "SecretUserStats": {
     "dataSource": "firepol",
     "public": true
   },
-  "employer": {
+  "Employer": {
     "dataSource": "firepol",
     "public": true
   },
-  "answer": {
+  "Answer": {
     "dataSource": "firepol",
     "public": true
   },
-  "superUser": {
+  "SuperUser": {
     "dataSource": "firepol",
     "public": true
   },
-  "timezone": {
+  "Timezone": {
     "dataSource": "db",
     "public": true
   }

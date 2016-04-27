@@ -1,5 +1,5 @@
 {
-  "name": "comment",
+  "name": "Comment",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {

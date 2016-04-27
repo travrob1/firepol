@@ -1,67 +1,67 @@
 {
-  "name": "userProfile",
+  "name": "UserProfile",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "Address": {
+    "address": {
       "type": "string"
     },
-    "YearBorn": {
+    "yearBorn": {
       "type": "number",
       "default": "JobTitle"
     },
-    "JobTitle": {
+    "jobTitle": {
       "type": "string"
     },
-    "Sex": {
+    "sex": {
       "type": "string"
     },
-    "EducationLevel": {
+    "educationLevel": {
       "type": "string"
     },
-    "Country": {
+    "country": {
       "type": "string"
     },
-    "F_BuildingCode_NFPA72": {
+    "fBuildingCodeNFPA72": {
       "type": "string"
     },
-    "F_BuildingCode_2006internationalBuildingCode": {
+    "fBuildingCode2006internationalBuildingCode": {
       "type": "string"
     },
-    "F_BuildingMaterial_wood": {
+    "fBuildingMaterialWood": {
       "type": "string"
     },
-    "F_BuildingMaterial_brick": {
+    "fBuildingMaterialBrick": {
       "type": "string"
     },
-    "F_BuildingMaterial_steel": {
+    "fBuildingMaterialSteel": {
       "type": "string"
     },
-    "F_BuildingHeight_1n2level": {
+    "fBuildingHeight1n2level": {
       "type": "string"
     },
-    "F_BuildingHeight_3level": {
+    "fBuildingHeight3level": {
       "type": "string"
     },
-    "F_BuildingHeight_lowrise": {
+    "fBuildingHeightLowrise": {
       "type": "string"
     },
-    "F_BuildingHeight_highrise": {
+    "fBuildingHeightHighrise": {
       "type": "string"
     },
-    "F_General_HomeOccupancy": {
+    "fGeneralHomeOccupancy": {
       "type": "string"
     },
-    "F_General_ZoningMix": {
+    "fGeneralZoningMix": {
       "type": "string"
     },
-    "F_General_Disaster": {
+    "fGeneralDisaster": {
       "type": "string"
     },
-    "F_General_ProbablityStatistics": {
+    "fGeneralProbablityStatistics": {
       "type": "string"
     }
   },
