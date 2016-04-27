@@ -4,8 +4,7 @@ var _ = require('lodash'),
     countries = require('country-data').countries,
     yesNo = [
         'yes',
-        'no',
-        null
+        'no'
     ],
     definition = [
         { label: 'Gender',
@@ -41,7 +40,7 @@ var _ = require('lodash'),
           type: 'select',
           message: 'invalid country choice',
           allowNull: true,
-          options: countries.all
+          options: _.map(countries.all, 'name')
         },
         { label: 'NFPA 72',
           member: 'fBuildingCodeNFPA72',

@@ -1,16 +1,11 @@
 <p class="label-p">{{field.label}}</p>
 
 <div class="form-group">
-    <div class="radio">
+    <div class="radio" ng-repeat=" option in field.options">
       <label>
-        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-        True
+        <input type="radio" name="{{field.member}}" ng-model="userProfile[field.member]" value="{{option}}" >
+        {{option | capitalize}}
       </label>
     </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-        False
-      </label>
-    </div>
+    
 </div>
