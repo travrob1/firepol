@@ -892,3 +892,26 @@ ul.faq li > div h3 {
   margin-top: 150px;
   margin-bottom: 150px;
 }
+.category-container {
+  border: 1px solid grey;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+.category-container .category-title {
+  background-color: grey;
+  color: white;
+  padding: 10px 20px;
+  margin: 0;
+}
+.category-container .category-content-wrapper {
+  padding: 10px;
+}
+.category-container .category-content-wrapper div[radio-template],
+.category-container .category-content-wrapper div[select-template] {
+  margin: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+.category-container .category-content-wrapper div[radio-template].last,
+.category-container .category-content-wrapper div[select-template].last {
+  border-bottom: none;
+}
