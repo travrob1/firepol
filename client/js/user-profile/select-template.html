@@ -1,5 +1,6 @@
-<label>{{field.label}}</label>
 <div class="form-group">
+    <label>{{field.label}}</label>
+
     <select ng-model="userProfile[field.member]" class="form-control input-block-level" ng-options="o as capitalize(o) for o in field.options">
         <option value="">Select</option>
     </select>

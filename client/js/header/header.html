@@ -38,8 +38,11 @@
         <li><a href="#/register">Register</a></li>
         <li><a href="#/contact">Contact Us</a></li>
 
-        <li class="login">
+        <li class="login" ng-hide="authenticatedUser">
             <a href="javascript" data-toggle="modal" data-target="#loginForm" ><i class="icon-lock"></i>&nbsp;Login</a>
+        </li>
+        <li ng-show="authenticatedUser">
+            <a href="javascript" ng-click="logout()">Logout</a>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->

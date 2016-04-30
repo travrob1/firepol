@@ -1,6 +1,7 @@
-<p class="label-p">{{field.label}}</p>
 
 <div class="form-group">
+    <p class="label-p">{{field.label}}</p>
+
     <div class="radio" ng-repeat=" option in field.options">
       <label>
         <input type="radio" name="{{field.member}}" ng-model="userProfile[field.member]" value="{{option}}" >

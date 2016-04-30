@@ -8,7 +8,7 @@ app.config(['$routeProvider', function($routProvider) {
             controller: 'marketingCtrl'
         }).when('/register', {
             templateUrl: 'js/register/register.html',
-            controller: 'registerSigninCtrl'
+            controller: 'registerCtrl'
         }).when('/about-us', {
             templateUrl: 'js/about-us/about-us.html',
             controller: 'globalCtrl'
@@ -53,6 +53,23 @@ app.config(['$routeProvider', function($routProvider) {
         });
 }]);
 
-app.controller('globalCtrl', function($rootScope, $scope){
-  
+app.controller('globalCtrl', function($scope, $location, AuthService){
+    $scope.login = function(email, pw){
+        AuthService.login(email, pw)
+            .then(function(){
+                $location.path('/user-profile');
+            })
+            .catch(function(err){
+                $scope.loginFailed = err.data.error.message;
+                
+            });
+    };
+
+    $scope.logout = function(){
+        AuthService.logout()
+            .then(function(){
+                $location.path('/');
+            });
+    };
+
 });
