@@ -16,14 +16,14 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#/">Home</a></li>
-        <li><a href="#/about-us">About Us</a></li>
+        <!-- <li><a href="#/">Home</a></li> -->
+        <li><a href="#/about-us">Questions</a></li>
         <li><a href="#/services">Services</a></li>
 
-        <li class="dropdown">
-          <a href="javascript" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+        <li class="dropdown" ng-show="authenticatedUser">
+          <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#/blog">Blog</a></li> 
+          <!--   <li><a href="#/blog">Blog</a></li> 
             <li><a href="#/career">Career</a></li>
             <li><a href="#/blog-item">Blog Single</a></li>
             <li><a href="#/faq">FAQ</a></li>
@@ -31,18 +31,20 @@
             <li><a href="#/portfolio">Portfolio</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#/privacy">Privacy Policy</a></li>
-            <li><a href="#/terms">Terms of Use</a></li>
-            <li><a href="#/user-profile">User Profile</a></li>
+            <li><a href="#/terms">Terms of Use</a></li> -->
+            <li><a href="#/user-profile">Profile</a></li>
+            <li><a href="#/account">Account</a></li>
+            <li><a href="javascript:;" ng-click="logout()">Logout</a></li>
+
           </ul>
         </li>
-        <li><a href="#/register">Register</a></li>
-        <li><a href="#/contact">Contact Us</a></li>
+        <li ng-hide="authenticatedUser"><a href="#/register">Register</a></li>
+        <!-- <li><a href="#/contact">Contact Us</a></li> -->
 
         <li class="login" ng-hide="authenticatedUser">
-            <a href="javascript" data-toggle="modal" data-target="#loginForm" ><i class="icon-lock"></i>&nbsp;Login</a>
+            <a href="javascript:;" data-toggle="modal" data-target="#loginForm" ><i class="icon-lock"></i>&nbsp;Login</a>
         </li>
         <li ng-show="authenticatedUser">
-            <a href="javascript" ng-click="logout()">Logout</a>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->

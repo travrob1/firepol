@@ -2,6 +2,15 @@
 var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.validate', 'lbServices']);
 
 app.config(['$routeProvider', function($routProvider) {
+    var requireAuthUser = {
+        authUser: function($rootScope, $q){
+            if (!$rootScope.authenticatedUser){
+                $q.reject('no auth user');
+            }
+        }
+    };
+
+
     $routProvider
         .when('/', {
             templateUrl: 'js/marketing/marketing.html',
@@ -47,13 +56,16 @@ app.config(['$routeProvider', function($routProvider) {
             controller: 'globalCtrl'
         }).when('/user-profile', {
             templateUrl: 'js/user-profile/user-profile.html',
-            controller: 'profileCtrl'
+            controller: 'profileCtrl',
+            resolve: requireAuthUser
         }).otherwise({
             redirectTo: '/404'
         });
 }]);
 
 app.controller('globalCtrl', function($scope, $location, AuthService){
+    AuthService.getCurrent();
+
     $scope.login = function(email, pw){
         AuthService.login(email, pw)
             .then(function(){

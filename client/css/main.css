@@ -318,6 +318,7 @@ header.navbar-nav > li.login > a {
 }
 header .dropdown-menu {
   margin-top: 20px;
+  border: 1px solid #AFAFAF;
 }
 header .dropdown-menu:before {
   display: none !important;
