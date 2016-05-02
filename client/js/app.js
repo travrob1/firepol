@@ -1,7 +1,7 @@
 /*global angular*/
-var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.validate', 'lbServices']);
+var app = angular.module('app', ['ui.router', 'ngResource', 'ui.validate', 'lbServices']);
 
-app.config(['$routeProvider', function($routProvider) {
+app.config( function($stateProvider, $urlRouterProvider) {
     var requireAuthUser = {
         authUser: function($rootScope, $q){
             if (!$rootScope.authenticatedUser){
@@ -11,57 +11,89 @@ app.config(['$routeProvider', function($routProvider) {
     };
 
 
-    $routProvider
-        .when('/', {
+    $stateProvider
+        .state('home', {
+            url: '/',
             templateUrl: 'js/marketing/marketing.html',
             controller: 'marketingCtrl'
-        }).when('/register', {
+        }).state('register', {
+            url: '/register',
             templateUrl: 'js/register/register.html',
             controller: 'registerCtrl'
-        }).when('/about-us', {
+        }).state('about-us', {
+            url: '/about-us',
             templateUrl: 'js/about-us/about-us.html',
             controller: 'globalCtrl'
-        }).when('/services', {
+        }).state('services', {
+            url: '/services',
             templateUrl: 'js/services/services.html',
             controller: 'globalCtrl'
-        }).when('/portfolio', {
+        }).state('portfolio', {
+            url: '/portfolio',
             templateUrl: 'js/portfolio/portfolio.html',
             controller: 'globalCtrl'
-        }).when('/career', {
+        }).state('career', {
+            url: '/career',
             templateUrl: 'js/career/career.html',
             controller: 'globalCtrl'
-        }).when('/blog', {
+        }).state('blog', {
+            url: '/blog',
             templateUrl: 'js/blog/blog.html',
             controller: 'globalCtrl'
-        }).when('/blog-item', {
+        }).state('blog-item', {
+            url: '/blog-item',
             templateUrl: 'js/blog/blog-item.html',
             controller: 'globalCtrl'
-        }).when('/faq', {
+        }).state('faq', {
+            url: '/faq',
             templateUrl: 'js/faq/faq.html',
             controller: 'globalCtrl'
-        }).when('/pricing', {
+        }).state('pricing', {
+            url: '/pricing',
             templateUrl: 'js/pricing/pricing.html',
             controller: 'globalCtrl'
-        }).when('/privacy', {
+        }).state('privacy', {
+            url: '/privacy',
             templateUrl: 'js/terms-privacy/privacy.html',
             controller: 'globalCtrl'
-        }).when('/terms', {
+        }).state('terms', {
+            url: '/terms',
             templateUrl: 'js/terms-privacy/terms.html',
             controller: 'globalCtrl'
-        }).when('/contact', {
+        }).state('contact', {
+            url: '/contact',
             templateUrl: 'js/contact-us/contact.html',
             controller: 'globalCtrl'
-        }).when('/404', {
+        }).state('404', {
+            url: '/404',
             templateUrl: 'js/404/404.html',
             controller: 'globalCtrl'
-        }).when('/user-profile', {
+        }).state('user-profile', {
+            url: '/user-profile',
             templateUrl: 'js/user-profile/user-profile.html',
             controller: 'profileCtrl',
-            resolve: requireAuthUser
-        }).otherwise({
-            redirectTo: '/404'
+            authenticate: true
+        }).state('account', {
+            url: '/account',
+            templateUrl: 'js/account/account.html',
+            controller: 'accountCtrl',
+            authenticate: true
         });
-}]);
+
+        $urlRouterProvider.otherwise('404');
+}) 
+.run(function($rootScope, $state, $timeout) {
+    $rootScope.$on('$stateChangeStart', function(event, next) {
+        // redirect to login page if not logged in
+        $timeout(function(){
+            if (next.authenticate && !$rootScope.authenticatedUser) {
+                event.preventDefault(); //prevent current page from loading
+                $state.go('home');
+            }
+        });
+        
+    });
+});
 
 app.controller('globalCtrl', function($scope, $location, AuthService){
     AuthService.getCurrent();

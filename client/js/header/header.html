@@ -21,7 +21,7 @@
         <li><a href="#/services">Services</a></li>
 
         <li class="dropdown" ng-show="authenticatedUser">
-          <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
+          <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
           <ul class="dropdown-menu">
           <!--   <li><a href="#/blog">Blog</a></li> 
             <li><a href="#/career">Career</a></li>
@@ -34,7 +34,7 @@
             <li><a href="#/terms">Terms of Use</a></li> -->
             <li><a href="#/user-profile">Profile</a></li>
             <li><a href="#/account">Account</a></li>
-            <li><a href="javascript:;" ng-click="logout()">Logout</a></li>
+            <li><a style="cursor: pointer;" ng-click="logout()">Logout</a></li>
 
           </ul>
         </li>
@@ -42,7 +42,7 @@
         <!-- <li><a href="#/contact">Contact Us</a></li> -->
 
         <li class="login" ng-hide="authenticatedUser">
-            <a href="javascript:;" data-toggle="modal" data-target="#loginForm" ><i class="icon-lock"></i>&nbsp;Login</a>
+            <a style="cursor: pointer;" data-toggle="modal" data-target="#loginForm" ><i class="icon-lock"></i>&nbsp;Login</a>
         </li>
         <li ng-show="authenticatedUser">
         </li>
