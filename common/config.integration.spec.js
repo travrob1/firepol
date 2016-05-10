@@ -6,8 +6,10 @@ function apiErrorHandler(err) {
     console.error(JSON.stringify(err, null, 4));
 }
 
-function detailError(x) {
+var Dconsole = {
+    error: function (x) {
         console.error(JSON.stringify(x, null, 2));
+    }
 }
 
 var $rootScope, $injector, testIdentifier;
