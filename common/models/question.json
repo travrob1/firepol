@@ -8,19 +8,19 @@
   "properties": {
     "name": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "question": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "summary": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "details": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "status": {
       "type": "string",

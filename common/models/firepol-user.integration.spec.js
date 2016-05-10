@@ -54,7 +54,6 @@ describe('FirepolUser', function() {
         $injector.invoke(function($timeout) {
             var email = 'firepol-itest-' + testIdentifier +'@sky.chrisdavid.com';
             function findUser(x) {
-                console.log(x);
                 FirepolUser.findById( {id: x.userId})
                     .$promise
                     .then(function(data) {
