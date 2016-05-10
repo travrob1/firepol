@@ -1,6 +1,7 @@
 'use strict';
 
-/* globals describe, it, chai, angular, beforeEach, inject, afterEach, $rootScope, $injector, testIdentifier */
+/* globals describe, it, chai, angular, beforeEach, inject, afterEach,
+    $rootScope, $injector, testIdentifier */
 /*
 var expect = require('chai').expect,
     moment = require('moment-timezone'),
@@ -21,9 +22,9 @@ describe('Employer', function() {
     it('can create an employer', function(done) {
         $injector.invoke(function($timeout) {
             var c = Employer.create({
-                'Name': 'Santa Ana Enterprises',
-                'Address': '457 W. Longfield Rd\nMitor, CA',
-                'TimeZone': 'America/Los_Angeles',
+                'name': 'Santa Ana Enterprises',
+                'address': '457 W. Longfield Rd\nMitor, CA',
+                'timezone': 'America/Los_Angeles',
                 'id': 'test-employer-' + testIdentifier
                 });
             c.$promise.then(function(data) {
@@ -35,16 +36,16 @@ describe('Employer', function() {
         $injector.invoke(function($timeout) {
             var p = Employer.findById( {id: 'test-employer-' + testIdentifier});
             p.$promise.then(function(data) {
-                expect(data.Name).to.equal('Santa Ana Enterprises');
+                expect(data.name).to.equal('Santa Ana Enterprises');
                 done();
             }, console.error, console.log);
         }, this, {$scope: $scope});
     });
     it('can find an employer', function(done) {
         $injector.invoke(function($timeout) {
-            Employer.find( {filter: {where: {Name:'Santa Ana Enterprises'}, limit: 10}},
+            Employer.find( {filter: {where: {name:'Santa Ana Enterprises'}, limit: 10}},
                 function(data) {
-                    expect(data[0].Name).to.equal('Santa Ana Enterprises');
+                    expect(data[0].name).to.equal('Santa Ana Enterprises');
                     done();
                 }, console.error );
         }, this, {$scope: $scope});

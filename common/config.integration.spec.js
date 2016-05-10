@@ -6,6 +6,10 @@ function apiErrorHandler(err) {
     console.error(JSON.stringify(err, null, 4));
 }
 
+function detailError(x) {
+        console.error(JSON.stringify(x, null, 2));
+}
+
 var $rootScope, $injector, testIdentifier;
 (function() {
     testIdentifier = Math.random();
@@ -21,4 +25,4 @@ var $rootScope, $injector, testIdentifier;
     angular.element('body').append('<div class="testDiv"></div>');
     var doc = angular.element('div.testDiv')[0];
     angular.bootstrap(doc, ['testApp']);
-})();
+ })();
