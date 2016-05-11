@@ -82,16 +82,17 @@ app.config( function($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.otherwise('404');
 }) 
-.run(function($rootScope, $state, $timeout) {
+.run(function($rootScope, $state, $timeout, AuthService) {
     $rootScope.$on('$stateChangeStart', function(event, next) {
         // redirect to login page if not logged in
-        $timeout(function(){
-            if (next.authenticate && !$rootScope.authenticatedUser) {
-                event.preventDefault(); //prevent current page from loading
-                $state.go('home');
-            }
-        });
-        
+        if (next.authenticate && !$rootScope.authenticatedUser) {
+            // the user might be logged in, but authenticatedUser has not been set to scope on a page refresh
+            AuthService.getCurrent()
+                .catch(function(){
+                    event.preventDefault(); //prevent current page from loading
+                    $state.go('home');
+                });
+        }
     });
 });
 

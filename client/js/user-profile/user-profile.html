@@ -1,10 +1,10 @@
 <section class="title">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-sm-6">
                 <h1>User Profile</h1>
             </div>
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-sm-6">
                 <ul class="breadcrumb pull-right">
                     <li><a href="#/">Home</a> <span class="divider">/</span></li>
                     <li><a href="#">Pages</a> <span class="divider">/</span></li>
@@ -14,32 +14,27 @@
         </div>
     </div>
 </section>
-
-    <section id="contact-page" class="container">
-
+<div class="container">
+    <section id="contact-page">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
                 <div class="status alert alert-success" style="display: none"></div>
-
                 <form id="main-contact-form" class="contact-form" name="contact-form" >
                     <div class="category-container" ng-repeat="category in categoryList">
-                    <h2 class="category-title">{{category.category | capitalize}}</h2>
+                        <h2 class="category-title">{{category.category | capitalize}}</h2>
                         <div class="category-content-wrapper">
                             <div class="row" class="" ng-repeat="rowDef in category.rowDefList">
                                 <div class="col-xs-12">
                                     <div radio-template  ng-if="rowDef.type == 'radio'" def='rowDef' ng-class="{'last': $last}"></div>
                                     <div select-template  ng-if="rowDef.type == 'select'" def='rowDef' ng-class="{'last': $last}"></div>
                                 </div>
-                                
                             </div>
                         </div>
-                        
                     </div>
-
-                <button type="submit" class="btn btn-primary btn-large pull-right">Send Message</button>
-                <p> </p>
-
-            </form>
-
-        
-
-
-</section>
+                    <button type="submit" class="btn btn-primary btn-large pull-right">Send Message</button>
+                    <p> </p>
+                </form>
+            </div>    
+        </div>
+    </section>
+</div>
