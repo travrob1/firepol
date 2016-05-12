@@ -44,19 +44,11 @@
     "dataSource": "firepol",
     "public": true
   },
-  "SecretUserStats": {
-    "dataSource": "firepol",
-    "public": true
-  },
   "Employer": {
     "dataSource": "firepol",
     "public": true
   },
   "Answer": {
-    "dataSource": "firepol",
-    "public": true
-  },
-  "SuperUser": {
     "dataSource": "firepol",
     "public": true
   },
