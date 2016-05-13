@@ -10,11 +10,17 @@ var app = module.exports = loopback();
 var loopbackPassport = require('loopback-component-passport');
 var PassportConfigurator = loopbackPassport.PassportConfigurator;
 var passportConfigurator = new PassportConfigurator(app);
+var exphbs  = require('express-handlebars');
 
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(express.static(path.join(__dirname, '../bower_components')));
 app.use(express.static(path.join(__dirname, '../.build')));
 
+var templateDir = path.join(__dirname, 'templates/');
+app.set('views', templateDir);
+app.engine('handlebars', exphbs(
+  {defaultLayout: 'index', layoutsDir: templateDir}));
+app.set('view engine', 'handlebars');
 
 app.start = function() {
   // start the web server
