@@ -12,7 +12,7 @@ var KarmaServer = require('karma').Server;
 var exec = require('child_process').exec;
 var fs = require('fs');
 var _ = require('lodash');
-var dbSetup = require('db.setup');
+//var dbSetup = require('db.setup');
 
 var rename = require('gulp-rename');
 var loopbackAngular = require('gulp-loopback-sdk-angular');
