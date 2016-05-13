@@ -6,8 +6,8 @@
             </div>
             <div class="col-xs-12 col-md-6">
                 <ul class="breadcrumb pull-right">
-                    <li><a href="#/">Home</a> <span class="divider">/</span></li>
-                    <li><a href="#">Pages</a> <span class="divider">/</span></li>
+                    <li><a href="#/">Home</a> <span class="divider"></span></li>
+                    <li><a href="#">Pages</a> <span class="divider"></span></li>
                     <li class="active">Registration</li>
                 </ul>
             </div>
@@ -15,27 +15,36 @@
     </div>
 </section>
 
-
-<section id="registration-page" class="container">
-    <div class="row">
-        <div class="col-xs-8 col-xs-offset-2">
-            <p id="register-error" ng-if="registerError">{{registerError}}</p>
-            
-        </div>
-    </div>
-    <form ng-submit="register()"> 
-        <div class="row form-group">
+<div class="container">
+    <section id="registration-page" >
+        <div class="row">
             <div class="col-xs-8 col-xs-offset-2">
-                <label>Email</label>
-                <input type="text" class="form-control" required="required" ng-model="user.email">
+                <p id="register-error" ng-if="registerError">{{registerError}}</p>
                 
-                <label>Password</label>
-                <input type="password" class="form-control" required="required" ng-model="user.password">
-                <br>
-                <button type="submit" class="btn btn-primary btn-large pull-right">Register</button>
-
             </div>
         </div>
-    </form>
-</section>
+        <form ng-submit="register()"> 
+            <div class="row form-group">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                    <label>Email</label>
+                    <input type="text" class="form-control" required="required" ng-model="user.email">
+                    
+                    <label>Password</label>
+                    <input type="password" class="form-control" required="required" ng-model="user.password">
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-large pull-right">Register</button>
+
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                <div style="border-top:1px solid grey; border-bottom: 1px solid grey">or</div>
+                <a href="/auth/facebook">Login via FAcebook</a>
+            </div>
+        </div>
+        
+    </section>    
+</div>
+
 <!-- /#registration-page -->

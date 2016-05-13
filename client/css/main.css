@@ -98,7 +98,7 @@ a:focus {
   margin-top: -1px;
   min-width: 180px;
 }
-body #ng-view > section {
+body #ng-view section {
   padding: 50px 0;
 }
 body #ng-view > section#hero {
