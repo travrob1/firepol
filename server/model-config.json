@@ -26,11 +26,11 @@
   },
   "RoleMapping": {
     "dataSource": "firepol",
-    "public": false
+    "public": true
   },
   "Role": {
     "dataSource": "firepol",
-    "public": false
+    "public": true
   },
   "Question": {
     "dataSource": "firepol",

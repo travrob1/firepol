@@ -19,7 +19,7 @@ describe('Employer', function() {
         $scope.$destroy();
     });
     
-    it('can create an employer', function(done) {
+    it('can be created', function(done) {
         $injector.invoke(function($timeout) {
             var c = Employer.create({
                 'name': 'Santa Ana Enterprises',
@@ -32,7 +32,7 @@ describe('Employer', function() {
             }, console.error, console.log);
         }, this, {$scope: $scope});
     });
-    it('can find an employer by id', function(done) {
+    it('can be found by employer id', function(done) {
         $injector.invoke(function($timeout) {
             var p = Employer.findById( {id: 'test-employer-' + testIdentifier});
             p.$promise.then(function(data) {
@@ -41,7 +41,7 @@ describe('Employer', function() {
             }, console.error, console.log);
         }, this, {$scope: $scope});
     });
-    it('can find an employer', function(done) {
+    it('be found by name', function(done) {
         $injector.invoke(function($timeout) {
             Employer.find( {filter: {where: {name:'Santa Ana Enterprises'}, limit: 10}},
                 function(data) {

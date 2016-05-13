@@ -1,0 +1,23 @@
+answer
+  $owner can create/edit
+  else deny
+comment
+  $owner can create/edit
+  $everyone can view
+employer
+  $authenticated users can add/view
+  $admin can edit
+  else deny
+firepol-user
+  default permissions should be OK.
+  $admin can edit
+question
+  $facilitator can create /edit
+  preinvite: deny
+  open: $everyone can view
+timezone
+  $everyone can view
+  else deny
+user-profile
+  $owner can create/edit
+  $everyone else dney

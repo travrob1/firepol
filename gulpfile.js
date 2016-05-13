@@ -12,6 +12,7 @@ var KarmaServer = require('karma').Server;
 var exec = require('child_process').exec;
 var fs = require('fs');
 var _ = require('lodash');
+var dbSetup = require('db.setup');
 
 var rename = require('gulp-rename');
 var loopbackAngular = require('gulp-loopback-sdk-angular');
@@ -90,20 +91,23 @@ gulp.task('integration-server', function (ready) {
 
     function start() {
         startMongo();
-        setTimeout(function() {
-          createAdminUser(startApiServer);
-          setTimeout(function() {
-              startApiServer();
-                setTimeout(function() {
-                      ready();
-                }, 100);
-          }, 1000);
-        }, 1000);
+        setTimeout(delayCreateAdminUser, 1000);
     } 
-
+    function delayCreateAdminUser() {
+        createAdminUser(startApiServer);
+        setTimeout(delayStartApiServer, 1000);
+    }
+    function delayStartApiServer() {
+         startApiServer();
+         setTimeout(ready, 100);
+    }
 });
 
-gulp.task('karma:integration', ['integration-server'], function (done) {
+gulp.task('integration-setup', function(done) {
+    dbSetup.run(done);
+});
+
+gulp.task('karma:integration', ['integration-server', 'integration-setup'], function (done) {
   new KarmaServer({
     configFile: __dirname + '/karma.integration.conf.js',
     singleRun: false
