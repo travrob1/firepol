@@ -48,7 +48,7 @@ app.middleware('auth', loopback.token({
 // Build the providers/passport config
 var config = require('../providers.json');
 
-app.middleware('session:before', loopback.cookieParser('asdfasdfasfasdfas'));
+app.middleware('session:before', loopback.cookieParser('asdf1212asdfasfas3434gggdfas'));
 app.middleware('session', loopback.session({
   secret: 'kitty',
   saveUninitialized: true,
@@ -57,7 +57,7 @@ app.middleware('session', loopback.session({
 passportConfigurator.init();
 
 passportConfigurator.setupModels({
-  userModel: app.models.user,
+  userModel: app.models.FirepolUser,
   userIdentityModel: app.models.userIdentity,
   userCredentialModel: app.models.userCredential
 });

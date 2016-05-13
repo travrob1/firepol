@@ -7,7 +7,7 @@
     "callbackURL": "/auth/facebook/callback",
     "authPath": "/auth/facebook",
     "callbackPath": "/auth/facebook/callback",
-    "successRedirect": "/auth/account",
+    "successRedirect": "/#/blog",
     "failureRedirect": "/login",
     "scope": ["email"],
     "failureFlash": true
