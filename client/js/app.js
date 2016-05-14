@@ -92,6 +92,8 @@ app.config( function($stateProvider, $urlRouterProvider) {
                     event.preventDefault(); //prevent current page from loading
                     $state.go('home');
                 });
+        } else {
+            $state.go('home');
         }
     });
 });
