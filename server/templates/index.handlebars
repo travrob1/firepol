@@ -36,8 +36,7 @@
 
         <script src="js/all.js"></script>
         <script type='text/javascript'>
-        var local_data = !{JSON.stringify(locals)};
-        angular.module('app.config', []).constant({config: local_data});
+        angular.module('app.config', []).constant('configuration', {{{config}}});
         </script>
         <!-- /Required javascript files for Slider -->
     </head>

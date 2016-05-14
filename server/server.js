@@ -1,3 +1,7 @@
+'use strict';
+
+/* globals __dirname */
+
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 var express = require('express');
@@ -18,8 +22,15 @@ app.use(express.static(path.join(__dirname, '../.build')));
 
 var templateDir = path.join(__dirname, 'templates/');
 app.set('views', templateDir);
-app.engine('handlebars', exphbs(
-  {defaultLayout: 'index', layoutsDir: templateDir}));
+app.engine('handlebars', exphbs({
+  defaultLayout: 'index',
+  layoutsDir: templateDir,
+  helpers: {
+    json: function(context) {
+      return JSON.stringify(context);
+    }
+  }
+}));
 app.set('view engine', 'handlebars');
 
 app.start = function() {
@@ -72,13 +83,5 @@ for (var s in config) {
   c.session = c.session !== false;
   passportConfigurator.configureProvider(s, c);
 }
-
-app.get('/auth/account', function (req, res, next) {
-  console.log(req.url);
-  res.send({
-    user: req.user,
-    url: req.url
-  });
-});
 
 

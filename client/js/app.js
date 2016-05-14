@@ -1,5 +1,5 @@
 /*global angular*/
-var app = angular.module('app', ['ui.router', 'ngResource', 'ui.validate', 'lbServices']);
+var app = angular.module('app', ['ui.router', 'ngResource', 'ui.validate', 'lbServices', 'app.config']);
 
 app.config( function($stateProvider, $urlRouterProvider) {
     var requireAuthUser = {
@@ -98,7 +98,7 @@ app.config( function($stateProvider, $urlRouterProvider) {
     });
 });
 
-app.controller('globalCtrl', function($scope, $location, AuthService){
+app.controller('globalCtrl', function($scope, $location, AuthService, configuration){
     AuthService.getCurrent();
 
     $scope.login = function(email, pw){
@@ -118,5 +118,7 @@ app.controller('globalCtrl', function($scope, $location, AuthService){
                 $location.path('/');
             });
     };
+
+    console.log(configuration);
 
 });
