@@ -1,22 +1,18 @@
 'use strict';
 
 /* globals describe, it, chai, angular, beforeEach, inject, afterEach,
-    $rootScope, $injector, testIdentifier */
+    $rootScope, $injector, testIdentifier, Dconsole */
 /*
 var expect = require('chai').expect,
     moment = require('moment-timezone'),
     request = require('supertest')('http://localhost:3000');
 */
 var expect = chai.expect;
-var app = require('./server/server');
 
 describe('Question', function() {
     var $scope,
         FirepolUser = $injector.get('FirepolUser'),
-        Role = app.models.Role,
-        RoleMapping = $injector.get('RoleMapping'),
         Question = $injector.get('Question'),
-        $q = $injector.get('$q'),
         email = 'theFacilitator' + testIdentifier + '@foo.com';
 
     beforeEach(function() {
@@ -44,7 +40,7 @@ describe('Question', function() {
                 .$promise
                 .then(function(data) {
                     done();
-                }, console.error, console.log);
+                }, Dconsole.error, console.log);
         }, this, {$scope: $scope});
     });
 
@@ -83,7 +79,7 @@ describe('Question', function() {
                     .then(function(data) {
                         expect(data.name).to.equal('QuestionName');
                         done();
-                }, console.error, console.log);
+                }, Dconsole.error, console.log);
             }
             findQuestion();
         }, this, {$scope: $scope});
@@ -115,8 +111,8 @@ describe('Question', function() {
                 'id': questionId
                 });
             c.$promise
-                .then(getQuestion, console.error, console.log)
-                .then(checkQuestion, console.error, console.log);
+                .then(getQuestion, Dconsole.error, console.log)
+                .then(checkQuestion, Dconsole.error, console.log);
         }, this, {$scope: $scope});
     });
 
@@ -130,7 +126,7 @@ describe('Question', function() {
                     .then(function(data) {
                         expect(data.name).to.equal('QuestionName');
                         done();
-                }, console.error, console.log);
+                }, Dconsole.error, console.log);
             }
             findQuestion();
         }, this, {$scope: $scope});

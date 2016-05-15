@@ -1,7 +1,7 @@
 'use strict';
 
 /* globals describe, it, chai, angular, beforeEach, inject, afterEach,
-    $rootScope, $injector, testIdentifier */
+    $rootScope, $injector, testIdentifier, Dconsole */
 /*
 var expect = require('chai').expect,
     moment = require('moment-timezone'),
@@ -30,7 +30,7 @@ describe('FirepolUser', function() {
                 });
             c.$promise.then(function(data) {
                 done();
-            }, console.error, console.log);
+            }, Dconsole.error, console.log);
         }, this, {$scope: $scope});
     });
     it('can find a FirepolUser by id', function(done) {
@@ -42,7 +42,7 @@ describe('FirepolUser', function() {
                     .then(function(data) {
                         expect(data.name).to.equal('A. ' + testIdentifier);
                         done();
-                }, console.error, console.log);
+                }, Dconsole.error, console.log);
             }
             FirepolUser
                 .login({ rememberMe: $scope.rememberMe },{email: email, password: 'zigless', ttl: 1000 })
@@ -59,7 +59,7 @@ describe('FirepolUser', function() {
                     .then(function(data) {
                         expect(data.name).to.equal('A. ' + testIdentifier);
                         done();
-                }, console.error, console.log);
+                }, Dconsole.error, console.log);
             }
             FirepolUser
                 .login({ rememberMe: $scope.rememberMe },{email: email, password: 'zigless', ttl: 1000 })

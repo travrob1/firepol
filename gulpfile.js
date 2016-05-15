@@ -12,7 +12,7 @@ var KarmaServer = require('karma').Server;
 var exec = require('child_process').exec;
 var fs = require('fs');
 var _ = require('lodash');
-//var dbSetup = require('db.setup');
+//var dbSetup = require('./db-setup');
 
 var rename = require('gulp-rename');
 var loopbackAngular = require('gulp-loopback-sdk-angular');
@@ -46,6 +46,7 @@ gulp.task('integration-server', function (ready) {
     }
 
     fs.exists('./.tmp-integration-data', function(status) {
+      console.log('clearing out old mongod integration DB folder.');
       if (status) {
         removeFilesSync('./.tmp-integration-data');
       }
@@ -58,6 +59,7 @@ gulp.task('integration-server', function (ready) {
       Server = require('mongodb').Server;
 
     function startMongo() {
+        console.log('starting mongo on port 3124');
         mongoChild = exec('mongod --port 3124 --dbpath ./.tmp-integration-data', function (err, stdout, stderr) {
           console.log(stdout);
           console.log(stderr);
@@ -65,6 +67,7 @@ gulp.task('integration-server', function (ready) {
     }
 
     function startApiServer() {
+        console.log('starting api server on port 3123');
         apiChild = exec('PORT=3123 node server/server.js', function (err, stdout, stderr) {
           console.log(stdout);
           console.log(stderr);
@@ -72,8 +75,8 @@ gulp.task('integration-server', function (ready) {
     }
 
     function createAdminUser(cb) {
+        console.log('creating admin user');
         var db = new Db('firepol-integration', new Server('localhost', 3124));
-        db.dropDatabase();
         db.open(function (err, db) {
           if (err) throw err;
 
@@ -103,11 +106,12 @@ gulp.task('integration-server', function (ready) {
     }
 });
 
-gulp.task('integration-setup', function(done) {
-    dbSetup.run(done);
+gulp.task('integration-setup', ['integration-server'], function(done) {
+    //dbSetup.run(done);
+    done();
 });
 
-gulp.task('karma:integration', ['integration-server', 'integration-setup'], function (done) {
+gulp.task('karma:integration', ['integration-setup'], function (done) {
   new KarmaServer({
     configFile: __dirname + '/karma.integration.conf.js',
     singleRun: false
@@ -130,6 +134,7 @@ gulp.task('karma:unit', function (done) {
 });
 
 gulp.task('default', ['client.js', 'less', 'lb-services.js'], function() {
+  return;
   if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
       gulp.watch('common/**/*', ['lb-services.js']);
       gulp.watch('client/**/!(*.spec).js', ['client.js']);
@@ -138,6 +143,7 @@ gulp.task('default', ['client.js', 'less', 'lb-services.js'], function() {
 });
 
 gulp.task('client.js', function() {
+  return;
     return gulp
         .src('client/**/!(*.spec).js')
         .pipe(concat('all.js'))

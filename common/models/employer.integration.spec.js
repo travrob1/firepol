@@ -1,7 +1,7 @@
 'use strict';
 
 /* globals describe, it, chai, angular, beforeEach, inject, afterEach,
-    $rootScope, $injector, testIdentifier */
+    $rootScope, $injector, testIdentifier, Dconsole */
 /*
 var expect = require('chai').expect,
     moment = require('moment-timezone'),
@@ -29,7 +29,7 @@ describe('Employer', function() {
                 });
             c.$promise.then(function(data) {
                 done();
-            }, console.error, console.log);
+            }, Dconsole.error, console.log);
         }, this, {$scope: $scope});
     });
     it('can be found by employer id', function(done) {
@@ -38,7 +38,7 @@ describe('Employer', function() {
             p.$promise.then(function(data) {
                 expect(data.name).to.equal('Santa Ana Enterprises');
                 done();
-            }, console.error, console.log);
+            }, Dconsole.error, console.log);
         }, this, {$scope: $scope});
     });
     it('be found by name', function(done) {
@@ -47,7 +47,7 @@ describe('Employer', function() {
                 function(data) {
                     expect(data[0].name).to.equal('Santa Ana Enterprises');
                     done();
-                }, console.error );
+                }, Dconsole.error );
         }, this, {$scope: $scope});
     });
 });
