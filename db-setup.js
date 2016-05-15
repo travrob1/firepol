@@ -1,7 +1,7 @@
 'use strict';
 
 var app, Role, RoleMapping,
-    $q = require('bluebird');
+    Promise = require('bluebird');
 
 function initialize() {
         app = require('./server/server');
@@ -10,7 +10,7 @@ function initialize() {
 }
 
 function createRoles() {
-    return $q.all([
+    return Promise.all([
         Role.create({
             'id': 'role-questionFacilitator',
             'name': 'questionFacilitator',
@@ -25,26 +25,28 @@ function createRoles() {
 }
 
 function mapRoles() {
-                var rm1 = RoleMapping.create({
-                    'id': 'rm-facilitator2questionFacilitator',
-                    'principalType': 'ROLE',
-                    'principalId': 'role-facilitator',
-                    'roleId': 'role-questionFacilitator'
-                    });
-                var rm2 = RoleMapping.create({
-                    'id': 'rm-owner2questionFacilitator',
-                    'principalType': 'ROLE',
-                    'principalId': '$owner',
-                    'roleId': 'role-questionFacilitator'
-                    });
-                return $q.all([rm1.$promise, rm2.$promise]);
+    return Promise.all([
+        RoleMapping.create({
+            'id': 'rm-facilitator2questionFacilitator',
+            'principalType': 'ROLE',
+            'principalId': 'role-facilitator',
+            'roleId': 'role-questionFacilitator'
+            }),
+        RoleMapping.create({
+            'id': 'rm-owner2questionFacilitator',
+            'principalType': 'ROLE',
+            'principalId': '$owner',
+            'roleId': 'role-questionFacilitator'
+            })
+     ]);
 }
 
 module.exports = {
     run: function(done) {
         initialize();
         createRoles()
-            .then(done)
+            .then(mapRoles)
+            .then(function() { done(); })
             .catch(console.error);
     }
 };

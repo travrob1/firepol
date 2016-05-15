@@ -12,7 +12,7 @@ var KarmaServer = require('karma').Server;
 var exec = require('child_process').exec;
 var fs = require('fs');
 var _ = require('lodash');
-//var dbSetup = require('./db-setup');
+var dbSetup = require('./db-setup');
 
 var rename = require('gulp-rename');
 var loopbackAngular = require('gulp-loopback-sdk-angular');
@@ -107,8 +107,7 @@ gulp.task('integration-server', function (ready) {
 });
 
 gulp.task('integration-setup', ['integration-server'], function(done) {
-    //dbSetup.run(done);
-    done();
+    dbSetup.run(done);
 });
 
 gulp.task('karma:integration', ['integration-setup'], function (done) {
