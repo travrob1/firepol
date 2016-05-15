@@ -13,7 +13,7 @@ describe('Question', function() {
     var $scope,
         FirepolUser = $injector.get('FirepolUser'),
         Question = $injector.get('Question'),
-        email = 'theFacilitator' + testIdentifier + '@foo.com';
+        email = 'facilitator@f.com';
 
     beforeEach(function() {
         $scope = $rootScope.$new(true);
@@ -22,7 +22,7 @@ describe('Question', function() {
         $scope.$destroy();
     });
 
-    it('can be created', function(done) {
+    it.skip('can be created', function(done) {
         $injector.invoke(function() {
             FirepolUser.create({
                 'realm': 'string',
@@ -44,10 +44,10 @@ describe('Question', function() {
         }, this, {$scope: $scope});
     });
 
-    it('can be created', function(done) {
+    it('can be created with authentication', function(done) {
         $injector.invoke(function() {
             FirepolUser
-                .login({ rememberMe: $scope.rememberMe },{email: email, password: 'aTestPassword', ttl: 1000 })
+                .login({ rememberMe: $scope.rememberMe },{email: email, password: 'testp', ttl: 1000 })
                 .$promise
                 .then(createQuestion, Dconsole.error, Dconsole.log)
                 .then(done);

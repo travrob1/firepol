@@ -1,12 +1,13 @@
 'use strict';
 
-var app, Role, RoleMapping,
+var app, Role, RoleMapping, User,
     Promise = require('bluebird');
 
 function initialize() {
         app = require('./server/server');
         Role = app.models.Role;
         RoleMapping = app.models.RoleMapping;
+        User = app.models.User;
 }
 
 function createRoles() {
@@ -41,11 +42,27 @@ function mapRoles() {
      ]);
 }
 
+function createFacilitator() {
+    return User.create({id: 'user-facilitator', username: 'facilitator', email: 'facilitator@f.com', 'password': 'testp'})
+}
+function assignFacilitatorRole() {
+    Role.findOne({where: {id: 'role-questionFacilitator'}}, cb);
+    function cb(err, role) {
+        err && console.err(err);
+        return role.principals.create({
+            principalType: RoleMapping.USER,
+            principalId: 'user-facilitator'
+        });
+    }
+}
+
 module.exports = {
     run: function(done) {
         initialize();
         createRoles()
             .then(mapRoles)
+            .then(createFacilitator)
+            .then(assignFacilitatorRole)
             .then(function() { done(); })
             .catch(console.error);
     }
