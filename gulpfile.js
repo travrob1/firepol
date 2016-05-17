@@ -40,6 +40,7 @@ gulp.task('lb-services.js', function () {
     .pipe(gulp.dest('.build/js'));
 });
 
+var mongoChild, apiChild;
 gulp.task('integration-server', function (ready) {
     if(process.env.NODE_ENV !== 'integration') {
       throw Error('integration-server is expected to be run with NODE_ENV=integration');
@@ -54,8 +55,7 @@ gulp.task('integration-server', function (ready) {
       start();
     });
 
-    var mongoChild, apiChild,
-      Db = require('mongodb').Db,
+      var Db = require('mongodb').Db,
       Server = require('mongodb').Server;
 
     function startMongo() {
@@ -111,10 +111,16 @@ gulp.task('integration-setup', ['integration-server'], function(done) {
 });
 
 gulp.task('karma:integration', ['integration-setup'], function (done) {
+  function fini() {
+    console.log('done');
+    apiChild.kill('SIGINT');
+    mongoChild.kill('SIGINT');
+    done();
+  }
   new KarmaServer({
     configFile: __dirname + '/karma.integration.conf.js',
     singleRun: true
-  }, done).start();
+  }, fini).start();
 });
 
 gulp.task('karma:integration:chrome', function (done) {

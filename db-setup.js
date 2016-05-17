@@ -23,23 +23,24 @@ function createRoles() {
     ]);
 }
 
-function mapRoles() {
+function mapRoles(r) {
+    console.log(r);
+    //Role.findOne({where: {name: 'questionFacilitator'}}, assignRole);
     return bluebird.all([
         RoleMapping.create({
-            'id': 'rm-facilitator2questionFacilitator',
             'principalType': 'ROLE',
-            'principalId': 'role-facilitator',
-            'roleId': 'role-questionFacilitator'
-            }),
-        RoleMapping.create({
-            'id': 'rm-owner2questionFacilitator',
-            'principalType': 'ROLE',
-            'principalId': '$owner',
-            'roleId': 'role-questionFacilitator'
+            'principalId': r[1].id,
+            'roleId': r[0].id
             })
      ]);
 }
-
+/*,
+        RoleMapping.create({
+            'principalType': 'ROLE',
+            'principalId': '$owner',
+            'roleId': 'questionFacilitator'
+            })
+*/
 function createFacilitator() {
     console.log('creating facilitator');
     return User.create({email: 'facilitator@f.com', 'password': 'testp'});
@@ -71,7 +72,7 @@ module.exports = {
         var userId;
         initialize();
         createRoles()
-//            .then(mapRoles)
+            .then(mapRoles)
             .then(createFacilitator)
             .then(assignFacilitatorRole)
             .then(function() { done(); })

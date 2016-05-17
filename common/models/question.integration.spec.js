@@ -56,7 +56,7 @@ describe.only('Question', function() {
                     done();
                 });
 
-            function createQuestion() {
+            function createQuestion(u) {
                 console.log('creating question' );
                 return Question.create({
                     'name': 'QuestionName',
@@ -68,26 +68,26 @@ describe.only('Question', function() {
                     'votes': 0,
                     'responses': 0,
                     'views': 0,
+                    'ownerId': u.id,
                     'id': 'test-Question-' + testIdentifier
                     })
                     .$promise;
             }
         }, this, {$scope: $scope});
     });
-return;
+
     it('can be found', function(done) {
         $injector.invoke(function() {
             var questionId = 'test-Question-' + testIdentifier;
             loginFirepolUser()
                 .then(findQuestion, Dconsole.error, Dconsole.log)
-                .then(done);
+                .then(test, Dconsole.error, console.log);
             function findQuestion() {
-                Question.findById( {id: questionId})
-                    .$promise
-                    .then(function(data) {
-                        expect(data.name).to.equal('QuestionName');
-                        done();
-                }, Dconsole.error, console.log);
+                return Question.findById( {id: questionId}).$promise;
+            }
+            function test(data) {
+                expect(data.name).to.equal('QuestionName');
+                done();
             }
         }, this, {$scope: $scope});
     });
@@ -98,8 +98,7 @@ return;
             loginFirepolUser()
                 .then(createQuestion, Dconsole.error, Dconsole.log)
                 .then(findQuestion, Dconsole.error, console.log)
-                .then(checkQuestion, Dconsole.error, console.log)
-                .then(done);
+                .then(checkQuestion, Dconsole.error, console.log);
             function createQuestion() {
                 return Question.create({
                 'name': '',
