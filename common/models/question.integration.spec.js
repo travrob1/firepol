@@ -9,7 +9,7 @@ var expect = require('chai').expect,
 */
 var expect = chai.expect;
 
-describe.only('Question', function() {
+describe('Question', function() {
     var $scope,
         FirepolUser = $injector.get('FirepolUser'),
         Question = $injector.get('Question'),
@@ -68,7 +68,7 @@ describe.only('Question', function() {
                     'votes': 0,
                     'responses': 0,
                     'views': 0,
-                    'ownerId': u.id,
+                    'ownerId': u.userId,
                     'id': 'test-Question-' + testIdentifier
                     })
                     .$promise;
@@ -99,12 +99,13 @@ describe.only('Question', function() {
                 .then(createQuestion, Dconsole.error, Dconsole.log)
                 .then(findQuestion, Dconsole.error, console.log)
                 .then(checkQuestion, Dconsole.error, console.log);
-            function createQuestion() {
+            function createQuestion(u) {
                 return Question.create({
                 'name': '',
                 'question': '',
                 'summary': '',
                 'details': '',
+                'ownerId': u.userId,
                 'id': questionId
                 }).$promise;
             }

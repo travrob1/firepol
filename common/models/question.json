@@ -53,7 +53,7 @@
       "model": "comment",
       "foreignKey": ""
     },
-    "Owner": {
+    "FirepolUser": {
       "type": "belongsTo",
       "model": "FirepolUser",
       "foreignKey": "ownerId"
@@ -79,13 +79,13 @@
     {
       "accessType": "READ",
       "principalType": "ROLE",
-      "principalId": "facilitator",
+      "principalId": "$owner",
       "permission": "ALLOW"
     },
     {
       "accessType": "WRITE",
       "principalType": "ROLE",
-      "principalId": "facilitator",
+      "principalId": "$owner",
       "permission": "ALLOW"
     },
     {
