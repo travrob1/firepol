@@ -9,11 +9,32 @@ var expect = require('chai').expect,
 */
 var expect = chai.expect;
 
-describe('Question', function() {
+describe.only('Question', function() {
     var $scope,
         FirepolUser = $injector.get('FirepolUser'),
         Question = $injector.get('Question'),
+        $q = $injector.get('$q'),
         email = 'facilitator@f.com';
+
+    function createFirepolUser() {
+        console.log('create');
+        return FirepolUser.create({
+            'name': 'A. ' + testIdentifier,
+            'username': 'zaggmore'  + testIdentifier,
+            'password': 'zigless',
+            'email': 'regularUser-' + testIdentifier + '@f.com'
+            }).$promise;
+    }
+    function loginFirepolUser() {
+        console.log('login');
+        /*
+        return FirepolUser
+            .login({ rememberMe: true },{username: 'zaggmore'  + testIdentifier, password: 'zigless', ttl: 1000 })
+            .$promise; */
+        return FirepolUser
+            .login({ rememberMe: true },{email: email, password: 'testp', ttl: 1000 })
+            .$promise;
+    }
 
     beforeEach(function() {
         $scope = $rootScope.$new(true);
@@ -22,37 +43,21 @@ describe('Question', function() {
         $scope.$destroy();
     });
 
-    it.skip('can be created', function(done) {
-        $injector.invoke(function() {
-            FirepolUser.create({
-                'realm': 'string',
-                'username': 'theFacilitator' + testIdentifier,
-                'password': 'aTestPassword',
-                'credentials': {},
-                'challenges': {},
-                'email': email,
-                'emailVerified': true,
-                'status': 'string',
-                'created': '2016-04-26',
-                'lastUpdated': '2016-04-26',
-                'id': 'test-User-' + testIdentifier
-                })
-                .$promise
-                .then(function(data) {
-                    done();
-                }, Dconsole.error, console.log);
-        }, this, {$scope: $scope});
-    });
-
     it('can be created with authentication', function(done) {
         $injector.invoke(function() {
-            FirepolUser
-                .login({ rememberMe: $scope.rememberMe },{email: email, password: 'testp', ttl: 1000 })
-                .$promise
-                .then(createQuestion, Dconsole.error, Dconsole.log)
-                .then(done);
+            $q.resolve(true)
+                //.then(createFirepolUser, Dconsole.error, console.log)
+                .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(createQuestion, Dconsole.error, console.log)
+                .then(function() { done(); })
+                .catch(function(err) {
+                    Dconsole.log(err);
+                    expect(true).to.be.false;
+                    done();
+                });
 
             function createQuestion() {
+                console.log('creating question' );
                 return Question.create({
                     'name': 'QuestionName',
                     'question': 'Why did the chicken cross the road?',
@@ -64,16 +69,19 @@ describe('Question', function() {
                     'responses': 0,
                     'views': 0,
                     'id': 'test-Question-' + testIdentifier
-                    }).$promise;
+                    })
+                    .$promise;
             }
         }, this, {$scope: $scope});
     });
-
+return;
     it('can be found', function(done) {
         $injector.invoke(function() {
-            var email = 'firepol-itest-' + testIdentifier +'@sky.chrisdavid.com';
             var questionId = 'test-Question-' + testIdentifier;
-            function findQuestion(x) {
+            loginFirepolUser()
+                .then(findQuestion, Dconsole.error, Dconsole.log)
+                .then(done);
+            function findQuestion() {
                 Question.findById( {id: questionId})
                     .$promise
                     .then(function(data) {
@@ -81,13 +89,30 @@ describe('Question', function() {
                         done();
                 }, Dconsole.error, console.log);
             }
-            findQuestion();
         }, this, {$scope: $scope});
     });
 
-    it('can create a Question with reasonable defaults', function(done) {
+    it('can be created with reasonable defaults', function(done) {
         $injector.invoke(function() {
             var questionId = 'test-Question2-' + testIdentifier;
+            loginFirepolUser()
+                .then(createQuestion, Dconsole.error, Dconsole.log)
+                .then(findQuestion, Dconsole.error, console.log)
+                .then(checkQuestion, Dconsole.error, console.log)
+                .then(done);
+            function createQuestion() {
+                return Question.create({
+                'name': '',
+                'question': '',
+                'summary': '',
+                'details': '',
+                'id': questionId
+                }).$promise;
+            }
+            function findQuestion() {
+                return Question.findById( {id: questionId})
+                    .$promise;
+            }
             function checkQuestion(data) {
                 expect(data.name).to.equal('');
                 expect(data.question).to.equal('');
@@ -100,35 +125,6 @@ describe('Question', function() {
                 expect(data.views).to.equal(0);
                 done();
             }
-            function getQuestion() {
-                return Question.findById( {id: questionId}).$promise;
-            }
-            var c = Question.create({
-                'name': '',
-                'question': '',
-                'summary': '',
-                'details': '',
-                'id': questionId
-                });
-            c.$promise
-                .then(getQuestion, Dconsole.error, console.log)
-                .then(checkQuestion, Dconsole.error, console.log);
-        }, this, {$scope: $scope});
-    });
-
-    it('can find a Question by id', function(done) {
-        $injector.invoke(function() {
-            var email = 'firepol-itest-' + testIdentifier +'@sky.chrisdavid.com';
-            var questionId = 'test-Question-' + testIdentifier;
-            function findQuestion(x) {
-                Question.findById( {id: questionId})
-                    .$promise
-                    .then(function(data) {
-                        expect(data.name).to.equal('QuestionName');
-                        done();
-                }, Dconsole.error, console.log);
-            }
-            findQuestion();
         }, this, {$scope: $scope});
     });
 });

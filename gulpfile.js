@@ -113,7 +113,7 @@ gulp.task('integration-setup', ['integration-server'], function(done) {
 gulp.task('karma:integration', ['integration-setup'], function (done) {
   new KarmaServer({
     configFile: __dirname + '/karma.integration.conf.js',
-    singleRun: false
+    singleRun: true
   }, done).start();
 });
 

@@ -53,10 +53,10 @@
       "model": "comment",
       "foreignKey": ""
     },
-    "Facilitator": {
+    "Owner": {
       "type": "belongsTo",
-      "model": "userProfile",
-      "foreignKey": "facilitatorUserProfileId"
+      "model": "FirepolUser",
+      "foreignKey": ""
     },
     "Answers": {
       "type": "hasMany",
@@ -71,9 +71,16 @@
       "permission": "DENY"
     },
     {
+      "property": "*",
       "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "$questionFacilitator",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    },
+    {
+      "property": "create",
+      "principalType": "ROLE",
+      "principalId": "facilitator",
       "permission": "ALLOW"
     },
     {

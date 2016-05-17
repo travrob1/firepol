@@ -10,7 +10,9 @@ var expect = require('chai').expect,
 var expect = chai.expect;
 
 describe('FirepolUser', function() {
-    var $scope, FirepolUser = $injector.get('FirepolUser');
+    var $scope,
+        $q = $injector.get('$q'),
+        FirepolUser = $injector.get('FirepolUser');
 
     beforeEach(function() {
         $scope = $rootScope.$new(true);
@@ -64,6 +66,31 @@ describe('FirepolUser', function() {
             FirepolUser
                 .login({ rememberMe: $scope.rememberMe },{email: email, password: 'zigless', ttl: 1000 })
                 .$promise
+                .then(findUser);
+        }, this, {$scope: $scope});
+    });
+
+    it('can login as a user created in the API', function(done) {
+        var userId;
+        function loginFirepolUser() {
+            return FirepolUser
+                .login({ rememberMe: false },{email: 'facilitator@f.com', password: 'testp', ttl: 1000 })
+                .$promise
+                .then(function(data) {
+                    userId = data.userId;
+                });
+        }
+        function findUser() {
+            FirepolUser.findById({id: userId})
+                .$promise
+                .then(function(data) {
+                    expect(data.email).to.equal('facilitator@f.com');
+                    done();
+            }, Dconsole.error, console.log);
+        }
+        $injector.invoke(function($timeout) {
+            $q.resolve(true)
+                .then(loginFirepolUser)
                 .then(findUser);
         }, this, {$scope: $scope});
     });

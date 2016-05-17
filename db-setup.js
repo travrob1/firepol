@@ -1,24 +1,22 @@
 'use strict';
 
 var app, Role, RoleMapping, User,
-    Promise = require('bluebird');
+        bluebird = require('bluebird');
 
 function initialize() {
         app = require('./server/server');
         Role = app.models.Role;
         RoleMapping = app.models.RoleMapping;
-        User = app.models.User;
+        User = app.models.FirepolUser;
 }
 
 function createRoles() {
-    return Promise.all([
+    return bluebird.all([
         Role.create({
-            'id': 'role-questionFacilitator',
             'name': 'questionFacilitator',
             'description': 'should be facilitator and owner'
             }),
         Role.create({
-            'id': 'role-facilitator',
             'name': 'facilitator',
             'description': 'just a facilitator'
             })
@@ -26,7 +24,7 @@ function createRoles() {
 }
 
 function mapRoles() {
-    return Promise.all([
+    return bluebird.all([
         RoleMapping.create({
             'id': 'rm-facilitator2questionFacilitator',
             'principalType': 'ROLE',
@@ -43,24 +41,37 @@ function mapRoles() {
 }
 
 function createFacilitator() {
-    return User.create({id: 'user-facilitator', username: 'facilitator', email: 'facilitator@f.com', 'password': 'testp'})
+    console.log('creating facilitator');
+    return User.create({email: 'facilitator@f.com', 'password': 'testp'});
 }
-function assignFacilitatorRole() {
+function assignFacilitatorRole(u) {
+    console.log(u);
+    Role.findOne({where: {name: 'facilitator'}}, assignRole);
+    function assignRole(err, role) {
+        err && console.err(err);
+        console.log(role);
+        return role.principals.create({
+            principalType: RoleMapping.USER,
+            principalId: u.id
+        });
+    }
+    return;
     Role.findOne({where: {id: 'role-questionFacilitator'}}, cb);
     function cb(err, role) {
         err && console.err(err);
         return role.principals.create({
             principalType: RoleMapping.USER,
-            principalId: 'user-facilitator'
+            principalId: u.id
         });
     }
 }
 
 module.exports = {
     run: function(done) {
+        var userId;
         initialize();
         createRoles()
-            .then(mapRoles)
+//            .then(mapRoles)
             .then(createFacilitator)
             .then(assignFacilitatorRole)
             .then(function() { done(); })

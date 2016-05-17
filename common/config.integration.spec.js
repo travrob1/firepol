@@ -9,8 +9,11 @@ function apiErrorHandler(err) {
 var Dconsole = {
     error: function (x) {
         console.error(JSON.stringify(x, null, 2));
+    },
+    log: function (x) {
+        console.log(JSON.stringify(x, null, 2));
     }
-}
+};
 
 var $rootScope, $injector, testIdentifier;
 (function() {
