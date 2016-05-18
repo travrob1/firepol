@@ -7,21 +7,24 @@ module.exports = function(app) {
             }
             cb(null, false);
         }
-        if (context.modelName !== 'Question') {
-            // the target model is not project
-            return reject();
-        }
+
         var userId = context.accessToken.userId;
         if (!userId) {
             return reject(); // do not allow anonymous users
         }
         
         // check if userId is in team table for the given project id
-        context.model.findById(context.modelId, function(err, question) {
-            if (err || !question) {
+        context.model.findById(context.modelId, function(err, modelInstance) {
+            if (err || !modelInstance) {
                 return reject(err);
             }
-            cb(null, question.status !== 'preinvite');
+            if (context.modelName === 'Question') {
+                cb(null, modelInstance.status !== 'preinvite');
+            } else if (context.modelName === 'Comment') {
+                cb(null, true);
+            } else {
+                return reject(err);
+            }
         });
     });
 };

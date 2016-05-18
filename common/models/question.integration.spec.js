@@ -13,10 +13,10 @@ describe('Question', function() {
     var $scope,
         FirepolUser = $injector.get('FirepolUser'),
         Question = $injector.get('Question'),
+        Comment = $injector.get('Comment'),
         $q = $injector.get('$q'),
         email1 = 'facilitator@f.com',
         questionId1 = 'test-Question-' + testIdentifier;
-
 
     function loginFirepolUser() {
         /*
@@ -179,7 +179,34 @@ describe('Question', function() {
         $injector.invoke(function() {
             $q.resolve(true)
                 .then(loginAnotherUser, Dconsole.error, console.log)
-                .then((findQuestion1), Dconsole.error, console.log)
+                .then(findQuestion1, Dconsole.error, console.log)
+                .then(function() {
+                    expect(true).to.be.true;
+                    done();
+                })
+                .catch(function(e) {
+                    console.log(e);
+                    expect(true).to.be.false;
+                    done();
+                });
+        }, this, {$scope: $scope});
+    });
+
+    it('should allow another user to place a comment', function(done) {
+        var currentUserId;
+        function placeCommentOnQuestion1(q) {
+            Comment.create({
+                'text': 'we think BOCA 2012 part 16 is not pertinent to this situation.',
+                'questionId': q.id,
+                'ownerId': currentUserId
+            });
+        }
+        $injector.invoke(function() {
+            $q.resolve(true)
+                .then(loginAnotherUser, Dconsole.error, console.log)
+                .then(function(u) { currentUserId = u.id; return u;})
+                .then(findQuestion1, Dconsole.error, console.log)
+                .then(placeCommentOnQuestion1, Dconsole.error, console.log)
                 .then(function() {
                     expect(true).to.be.true;
                     done();

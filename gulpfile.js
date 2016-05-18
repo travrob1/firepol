@@ -112,7 +112,7 @@ gulp.task('integration-setup', ['integration-server'], function(done) {
 
 gulp.task('karma:integration', ['integration-setup'], function (done) {
   function fini() {
-    //return; //uncomment this to keep mongo running for inspection.
+    return; //uncomment this to keep mongo running for inspection.
     console.log('done');
     apiChild.kill('SIGINT');
     mongoChild.kill('SIGINT');
