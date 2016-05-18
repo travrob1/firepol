@@ -14,17 +14,10 @@ describe('Question', function() {
         FirepolUser = $injector.get('FirepolUser'),
         Question = $injector.get('Question'),
         $q = $injector.get('$q'),
-        email = 'facilitator@f.com';
+        email1 = 'facilitator@f.com',
+        questionId1 = 'test-Question-' + testIdentifier;
 
-    function createFirepolUser() {
-        console.log('create');
-        return FirepolUser.create({
-            'name': 'A. ' + testIdentifier,
-            'username': 'zaggmore'  + testIdentifier,
-            'password': 'zigless',
-            'email': 'regularUser-' + testIdentifier + '@f.com'
-            }).$promise;
-    }
+
     function loginFirepolUser() {
         console.log('login');
         /*
@@ -32,7 +25,12 @@ describe('Question', function() {
             .login({ rememberMe: true },{username: 'zaggmore'  + testIdentifier, password: 'zigless', ttl: 1000 })
             .$promise; */
         return FirepolUser
-            .login({ rememberMe: true },{email: email, password: 'testp', ttl: 1000 })
+            .login({ rememberMe: true },{email: email1, password: 'testp', ttl: 1000 })
+            .$promise;
+    }
+
+    function findQuestion1() {
+        return Question.findById( {id: questionId1})
             .$promise;
     }
 
@@ -46,7 +44,6 @@ describe('Question', function() {
     it('can be created with authentication', function(done) {
         $injector.invoke(function() {
             $q.resolve(true)
-                //.then(createFirepolUser, Dconsole.error, console.log)
                 .then(loginFirepolUser, Dconsole.error, console.log)
                 .then(createQuestion, Dconsole.error, console.log)
                 .then(function() { done(); })
@@ -78,12 +75,11 @@ describe('Question', function() {
 
     it('can be found', function(done) {
         $injector.invoke(function() {
-            var questionId = 'test-Question-' + testIdentifier;
             loginFirepolUser()
                 .then(findQuestion, Dconsole.error, Dconsole.log)
                 .then(test, Dconsole.error, console.log);
             function findQuestion() {
-                return Question.findById( {id: questionId}).$promise;
+                return Question.findById( {id: questionId1}).$promise;
             }
             function test(data) {
                 expect(data.name).to.equal('QuestionName');
@@ -94,7 +90,7 @@ describe('Question', function() {
 
     it('can be created with reasonable defaults', function(done) {
         $injector.invoke(function() {
-            var questionId = 'test-Question2-' + testIdentifier;
+            var questionId2 = 'test-Question2-' + testIdentifier;
             loginFirepolUser()
                 .then(createQuestion, Dconsole.error, Dconsole.log)
                 .then(findQuestion, Dconsole.error, console.log)
@@ -106,11 +102,11 @@ describe('Question', function() {
                 'summary': '',
                 'details': '',
                 'ownerId': u.userId,
-                'id': questionId
+                'id': questionId2
                 }).$promise;
             }
             function findQuestion() {
-                return Question.findById( {id: questionId})
+                return Question.findById( {id: questionId2})
                     .$promise;
             }
             function checkQuestion(data) {
@@ -125,6 +121,57 @@ describe('Question', function() {
                 expect(data.views).to.equal(0);
                 done();
             }
+        }, this, {$scope: $scope});
+    });
+
+    it('another user cannot access the question', function(done) {
+        var email2 = 'regularUser-' + testIdentifier + '@f.com';
+        function createAnotherUser() {
+            console.log('creating user without rights');
+            return FirepolUser.create({
+                'name': 'A. ' + testIdentifier,
+                'username': 'zaggmore'  + testIdentifier,
+                'password': 'zigless',
+                'email': email2
+                }).$promise;
+        }
+        function loginAnotherUser() {
+            console.log('login user without rights');
+            return FirepolUser
+                .login({ rememberMe: true },{email: email2, password: 'zigless', ttl: 1000 })
+                .$promise;
+        }
+        $injector.invoke(function() {
+            $q.resolve(true)
+                .then(createAnotherUser, Dconsole.error, console.log)
+                .then(loginAnotherUser, Dconsole.error, console.log)
+                .then((findQuestion1), Dconsole.error, console.log)
+                .then(function() {
+                    expect(true).to.be.false;
+                })
+                .catch(function(e) {
+                    console.log(e);
+                    expect(true).to.be.true;
+                    done();
+                });
+        }, this, {$scope: $scope});
+    });
+
+    it('can be set into active ', function(done) {
+        function setQuestion1Active(q) {
+            console.log(q);
+            q.status = 'active';
+            return q.$save();
+        }
+        $injector.invoke(function() {
+            $q.resolve(true)
+                .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(findQuestion1, Dconsole.error, console.log)
+                .then(setQuestion1Active)
+                .then(function(q) {
+                    expect(q.status).to.equal('active');
+                    done();
+                 });
         }, this, {$scope: $scope});
     });
 });
