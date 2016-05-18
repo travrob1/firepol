@@ -19,7 +19,6 @@ describe('Question', function() {
 
 
     function loginFirepolUser() {
-        console.log('login');
         /*
         return FirepolUser
             .login({ rememberMe: true },{username: 'zaggmore'  + testIdentifier, password: 'zigless', ttl: 1000 })
@@ -30,7 +29,16 @@ describe('Question', function() {
     }
 
     function findQuestion1() {
+        console.log('findQuestion1');
         return Question.findById( {id: questionId1})
+            .$promise;
+    }
+
+    var email2 = 'regularUser-' + testIdentifier + '@f.com';
+    function loginAnotherUser() {
+        console.log('loginAnotherUser');
+        return FirepolUser
+            .login({ rememberMe: true },{email: email2, password: 'zigless', ttl: 1000 })
             .$promise;
     }
 
@@ -125,7 +133,6 @@ describe('Question', function() {
     });
 
     it('another user cannot access the question', function(done) {
-        var email2 = 'regularUser-' + testIdentifier + '@f.com';
         function createAnotherUser() {
             console.log('creating user without rights');
             return FirepolUser.create({
@@ -134,12 +141,6 @@ describe('Question', function() {
                 'password': 'zigless',
                 'email': email2
                 }).$promise;
-        }
-        function loginAnotherUser() {
-            console.log('login user without rights');
-            return FirepolUser
-                .login({ rememberMe: true },{email: email2, password: 'zigless', ttl: 1000 })
-                .$promise;
         }
         $injector.invoke(function() {
             $q.resolve(true)
@@ -150,7 +151,7 @@ describe('Question', function() {
                     expect(true).to.be.false;
                 })
                 .catch(function(e) {
-                    console.log(e);
+//                    console.log(e);
                     expect(true).to.be.true;
                     done();
                 });
@@ -159,7 +160,6 @@ describe('Question', function() {
 
     it('can be set into active ', function(done) {
         function setQuestion1Active(q) {
-            console.log(q);
             q.status = 'active';
             return q.$save();
         }
@@ -172,6 +172,23 @@ describe('Question', function() {
                     expect(q.status).to.equal('active');
                     done();
                  });
+        }, this, {$scope: $scope});
+    });
+
+    it('should allow another user to access', function(done) {
+        $injector.invoke(function() {
+            $q.resolve(true)
+                .then(loginAnotherUser, Dconsole.error, console.log)
+                .then((findQuestion1), Dconsole.error, console.log)
+                .then(function() {
+                    expect(true).to.be.true;
+                    done();
+                })
+                .catch(function(e) {
+                    console.log(e);
+                    expect(true).to.be.false;
+                    done();
+                });
         }, this, {$scope: $scope});
     });
 });

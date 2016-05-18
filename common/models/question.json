@@ -91,7 +91,7 @@
     {
       "accessType": "READ",
       "principalType": "ROLE",
-      "principalId": "$invitees",
+      "principalId": "$invitee",
       "permission": "ALLOW"
     }
   ],
