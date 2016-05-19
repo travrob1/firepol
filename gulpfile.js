@@ -142,7 +142,6 @@ gulp.task('karma:unit', function (done) {
 });
 
 gulp.task('default', ['client.js', 'less', 'lb-services.js'], function() {
-  return;
   if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
       gulp.watch('common/**/*', ['lb-services.js']);
       gulp.watch('client/**/!(*.spec).js', ['client.js']);
@@ -151,7 +150,6 @@ gulp.task('default', ['client.js', 'less', 'lb-services.js'], function() {
 });
 
 gulp.task('client.js', function() {
-  return;
     return gulp
         .src('client/**/!(*.spec).js')
         .pipe(concat('all.js'))

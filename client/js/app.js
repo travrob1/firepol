@@ -92,13 +92,12 @@ app.config( function($stateProvider, $urlRouterProvider) {
                     event.preventDefault(); //prevent current page from loading
                     $state.go('home');
                 });
-        } else {
-            $state.go('home');
         }
     });
 });
 
 app.controller('globalCtrl', function($scope, $location, AuthService, configuration){
+    
     AuthService.getCurrent();
 
     $scope.login = function(email, pw){
@@ -119,6 +118,5 @@ app.controller('globalCtrl', function($scope, $location, AuthService, configurat
             });
     };
 
-    console.log(configuration);
 
 });
