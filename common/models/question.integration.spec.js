@@ -16,6 +16,8 @@ describe('Question', function() {
         Comment = $injector.get('Comment'),
         $q = $injector.get('$q'),
         email1 = 'facilitator@f.com',
+        commentId1 = 'comment-' + testIdentifier,
+        commentId2 = 'comment2-' + testIdentifier,
         questionId1 = 'test-Question-' + testIdentifier;
 
     function loginFirepolUser() {
@@ -31,6 +33,12 @@ describe('Question', function() {
     function findQuestion1() {
         console.log('findQuestion1');
         return Question.findById( {id: questionId1})
+            .$promise;
+    }
+
+    function findComment1() {
+        console.log('findComment1');
+        return Question.Comments.findById({id: questionId1, fk: commentId1})
             .$promise;
     }
 
@@ -62,7 +70,7 @@ describe('Question', function() {
                 });
 
             function createQuestion(u) {
-                console.log('creating question' );
+                console.log('creating: ' + questionId1);
                 return Question.create({
                     'name': 'QuestionName',
                     'question': 'Why did the chicken cross the road?',
@@ -74,7 +82,7 @@ describe('Question', function() {
                     'responses': 0,
                     'views': 0,
                     'ownerId': u.userId,
-                    'id': 'test-Question-' + testIdentifier
+                    'id': questionId1
                     })
                     .$promise;
             }
@@ -104,6 +112,7 @@ describe('Question', function() {
                 .then(findQuestion, Dconsole.error, console.log)
                 .then(checkQuestion, Dconsole.error, console.log);
             function createQuestion(u) {
+                console.log('creating: ' + questionId2);
                 return Question.create({
                 'name': '',
                 'question': '',
@@ -193,22 +202,59 @@ describe('Question', function() {
     });
 
     it('should allow another user to place a comment', function(done) {
-        var currentUserId;
+        var currentUserId, questionId;
         function placeCommentOnQuestion1(q) {
-            Comment.create({
+            questionId = q.id;
+            return Question.Comments.create({
+                'id': questionId}, {
+                'id': commentId1,
                 'text': 'we think BOCA 2012 part 16 is not pertinent to this situation.',
-                'questionId': q.id,
                 'ownerId': currentUserId
-            });
+            })
+            .$promise;
+        }
+        function placeAnotherCommentOnQuestion1(q) {
+            return Question.Comments.create(
+                { 'id': questionId},
+                {
+                    'id': commentId2,
+                    'text': 'we think BOCA 2012 part 16 IS pertinent to this situation.',
+                    'ownerId': currentUserId
+                })
+            .$promise;
         }
         $injector.invoke(function() {
             $q.resolve(true)
                 .then(loginAnotherUser, Dconsole.error, console.log)
-                .then(function(u) { currentUserId = u.id; return u;})
+                .then(function(u) { currentUserId = u.userId; return u;})
                 .then(findQuestion1, Dconsole.error, console.log)
                 .then(placeCommentOnQuestion1, Dconsole.error, console.log)
-                .then(function() {
-                    expect(true).to.be.true;
+                .then(function(c) {
+                    expect(c.questionId).to.equal(questionId1);
+                    expect(c.ownerId).to.equal(currentUserId);
+                    expect(c.id).to.equal(commentId1);
+                })
+                .then(placeAnotherCommentOnQuestion1, Dconsole.error, console.log)
+                .then(function(c) {
+                    expect(c.questionId).to.equal(questionId1);
+                    expect(c.ownerId).to.equal(currentUserId);
+                    expect(c.id).to.equal(commentId2);
+                    done();
+                })
+                .catch(function(e) {
+                    Dconsole.log(e);
+                    expect(true).to.be.false;
+                    done();
+                });
+        }, this, {$scope: $scope});
+    });
+    it('should be found from a comment', function(done) {
+        $injector.invoke(function() {
+            $q.resolve(true)
+                .then(loginAnotherUser, Dconsole.error, console.log)
+                .then(findComment1)
+                .then(function(c) {
+                    expect(c.questionId).to.equal(questionId1);
                     done();
                 })
                 .catch(function(e) {

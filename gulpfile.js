@@ -18,7 +18,6 @@ var rename = require('gulp-rename');
 var loopbackAngular = require('gulp-loopback-sdk-angular');
 
 function removeFilesSync(dirPath) {
-      //console.log('shutdown');
       var files;
       try { files = fs.readdirSync(dirPath); }
       catch(e) { return; }
@@ -111,17 +110,20 @@ gulp.task('integration-setup', ['integration-server'], function(done) {
 });
 
 gulp.task('karma:integration', ['integration-setup'], function (done) {
-  function fini() {
-    return; //uncomment this to keep mongo running for inspection.
-    console.log('done');
-    apiChild.kill('SIGINT');
-    mongoChild.kill('SIGINT');
-    done();
-  }
-  new KarmaServer({
-    configFile: __dirname + '/karma.integration.conf.js',
-    singleRun: true
-  }, fini).start();
+    function fini() {
+        if(process.env.INTEGRATION_PAUSE !== undefined) {
+            // leave node running for inspection, use ctrl-c to break
+            return;
+        }
+        console.log('done');
+        apiChild.kill('SIGINT');
+        mongoChild.kill('SIGINT');
+        done();
+    }
+    new KarmaServer({
+        configFile: __dirname + '/karma.integration.conf.js',
+        singleRun: true
+    }, fini).start();
 });
 
 gulp.task('karma:integration:chrome', function (done) {

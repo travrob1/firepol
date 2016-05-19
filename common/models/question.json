@@ -50,8 +50,8 @@
   "relations": {
     "Comments": {
       "type": "hasMany",
-      "model": "comment",
-      "foreignKey": ""
+      "model": "Comment",
+      "foreignKey": "questionId"
     },
     "FirepolUser": {
       "type": "belongsTo",
@@ -90,6 +90,12 @@
     },
     {
       "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$invitee",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
       "principalType": "ROLE",
       "principalId": "$invitee",
       "permission": "ALLOW"

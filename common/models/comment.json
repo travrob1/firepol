@@ -21,11 +21,6 @@
       "model": "FirepolUser",
       "foreignKey": "ownerId"
     },
-    "Question": {
-      "type": "belongsTo",
-      "model": "Question",
-      "foreignKey": "questionId"
-    },
     "inReferenceTo": {
       "type": "belongsTo",
       "model": "comment",

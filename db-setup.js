@@ -20,15 +20,12 @@ function createRoles() {
 }
 
 function createFacilitator() {
-    console.log('creating facilitator');
     return User.create({email: 'facilitator@f.com', 'password': 'testp'});
 }
 function assignFacilitatorRole(u) {
-    console.log(u);
     Role.findOne({where: {name: 'facilitator'}}, assignRole);
     function assignRole(err, role) {
         err && console.err(err);
-        console.log(role);
         return role.principals.create({
             principalType: RoleMapping.USER,
             principalId: u.id
