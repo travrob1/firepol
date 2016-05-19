@@ -13,7 +13,6 @@ describe('Question', function() {
     var $scope,
         FirepolUser = $injector.get('FirepolUser'),
         Question = $injector.get('Question'),
-        Comment = $injector.get('Comment'),
         $q = $injector.get('$q'),
         email1 = 'facilitator@f.com',
         commentId1 = 'comment-' + testIdentifier,
