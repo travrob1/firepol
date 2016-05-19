@@ -15,7 +15,13 @@ then
 `gulp`
 
 ## To run integration tests:
-NODE_ENV=integration gulp karma:integration
+`NODE_ENV=integration gulp karma:integration`
+
+or if you want the mongod and webapi to stay running after the test:
+`NODE_ENV=integration INTEGRATION_PAUSE=y gulp karma:integration`
+and then point your browser to:
+localhost:3123/explorer
+
 
 
 ## One time setup stuff
