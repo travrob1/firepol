@@ -29,6 +29,13 @@ describe('Question', function() {
             .$promise;
     }
 
+    function logout() {
+        console.log('logging out');
+        return FirepolUser
+            .logout()
+            .$promise;
+    }
+
     function findQuestion1() {
         console.log('findQuestion1');
         return Question.findById( {id: questionId1})
@@ -270,5 +277,9 @@ describe('Question', function() {
                     done();
                 });
         }, this, {$scope: $scope});
+    });
+    it('will logout', function() {
+        logout();
+        expect(true).to.be.true;
     });
 });

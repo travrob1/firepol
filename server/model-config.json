@@ -27,7 +27,8 @@
     "public": false
   },
   "User": {
-    "dataSource": "firepol"
+    "dataSource": "firepol",
+    "public": false
   },
   "AccessToken": {
     "dataSource": "firepol",
@@ -39,11 +40,11 @@
   },
   "RoleMapping": {
     "dataSource": "firepol",
-    "public": true
+    "public": false
   },
   "Role": {
     "dataSource": "firepol",
-    "public": true
+    "public": false
   },
   "Question": {
     "dataSource": "firepol",

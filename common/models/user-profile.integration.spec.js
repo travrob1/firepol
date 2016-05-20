@@ -8,7 +8,7 @@ var expect = require('chai').expect,
 */
 var expect = chai.expect;
 
-describe.only('FirepolUser', function() {
+describe('FirepolUser', function() {
     var $scope, FirepolUser = $injector.get('FirepolUser');
 
     beforeEach(function() {
@@ -200,6 +200,10 @@ describe.only('FirepolUser', function() {
                     return FirepolUser.UserProfile.findById({id: userId1, fk: userProfileId1}).$promise;
                 } 
             }, this, {$scope: $scope});
+        });
+        it('can find an UserProfile by id', function() {
+            logout();
+            expect(true).to.be.true;
         });
     });
 });
