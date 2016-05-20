@@ -67,17 +67,30 @@
   },
   "validations": [],
   "relations": {
-    "employer": {
-      "type": "belongsTo",
-      "model": "employer",
+    "Employer": {
+      "type": "hasOne",
+      "model": "Employer",
       "foreignKey": "employerId"
     },
-    "user": {
+    "FirepolUser": {
       "type": "belongsTo",
-      "model": "User",
-      "foreignKey": ""
+      "model": "FirepolUser",
+      "foreignKey": "ownerId"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "DENY"
+    },
+    {
+        "property": "getUserProfileDefinition",
+        "accessType": "EXECUTE",
+        "principalType": "ROLE",
+        "principalId": "$authenticated",
+        "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }

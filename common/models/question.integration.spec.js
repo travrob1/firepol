@@ -255,7 +255,7 @@ describe('Question', function() {
                 });
         }, this, {$scope: $scope});
     });
-    it('should be found from a comment', function(done) {
+    it('comment should a correct questionID', function(done) {
         $injector.invoke(function() {
             $q.resolve(true)
                 .then(loginAnotherUser, Dconsole.error, console.log)
