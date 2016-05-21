@@ -262,7 +262,7 @@ describe('Question', function() {
                 });
         }, this, {$scope: $scope});
     });
-    it('comment should a correct questionID', function(done) {
+    it('comment should have a correct questionID', function(done) {
         $injector.invoke(function() {
             $q.resolve(true)
                 .then(loginAnotherUser, Dconsole.error, console.log)
@@ -274,6 +274,32 @@ describe('Question', function() {
                 .catch(function(e) {
                     console.log(e);
                     expect(true).to.be.false;
+                    done();
+                });
+        }, this, {$scope: $scope});
+    });
+    it('should not allow a comment without an ownerId', function(done) {
+        var currentUserId, questionId;
+        function placeCommentOnQuestion1(q) {
+            questionId = q.id;
+            return Question.Comments.create({
+                'id': questionId}, {
+                'text': 'who do I think I am...'
+            })
+            .$promise;
+        }
+
+        $injector.invoke(function() {
+            $q.resolve(true)
+                .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(findQuestion1, Dconsole.error, console.log)
+                .then(placeCommentOnQuestion1)
+                .then(function(c) {
+                    expect(true).to.be.false;
+                    Dconsole.error(c);
+                })
+                .catch(function(e) {
+                    expect(true).to.be.true;
                     done();
                 });
         }, this, {$scope: $scope});

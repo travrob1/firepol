@@ -25,17 +25,30 @@
   },
   "validations": [],
   "relations": {
-    "question": {
+    "FirepolUser": {
       "type": "belongsTo",
-      "model": "question",
-      "foreignKey": ""
-    },
-    "forecastor": {
-      "type": "belongsTo",
-      "model": "userProfile",
-      "foreignKey": "forecastorUserProfileId"
+      "model": "FirepolUser",
+      "foreignKey": "ownerId"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }

@@ -201,7 +201,7 @@ describe('FirepolUser', function() {
                 } 
             }, this, {$scope: $scope});
         });
-        it('can find an UserProfile by id', function() {
+        it('will logout', function() {
             logout();
             expect(true).to.be.true;
         });
