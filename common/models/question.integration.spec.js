@@ -279,7 +279,7 @@ describe('Question', function() {
         }, this, {$scope: $scope});
     });
     it('should not allow a comment without an ownerId', function(done) {
-        var currentUserId, questionId;
+        var questionId;
         function placeCommentOnQuestion1(q) {
             questionId = q.id;
             return Question.Comments.create({
@@ -294,16 +294,39 @@ describe('Question', function() {
                 .then(loginFirepolUser, Dconsole.error, console.log)
                 .then(findQuestion1, Dconsole.error, console.log)
                 .then(placeCommentOnQuestion1)
-                .then(function(c) {
-                    expect(true).to.be.false;
-                    Dconsole.error(c);
-                })
                 .catch(function(e) {
-                    expect(true).to.be.true;
+                    expect(e.data.error.message).to.equal('Comment must have an ownerId');
+                    expect(e.status).to.equal(400);
+                    done();
+                });
+;
+        }, this, {$scope: $scope});
+    });
+
+    it('should not allow an answer without an ownerId', function(done) {
+        var questionId;
+        function placeAnswerOnQuestion1(q) {
+            questionId = q.id;
+            return Question.Answers.create({
+                'id': questionId}, {
+                'text': 'who do I think I am...'
+            })
+            .$promise;
+        }
+
+        $injector.invoke(function() {
+            $q.resolve(true)
+                .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(findQuestion1, Dconsole.error, console.log)
+                .then(placeAnswerOnQuestion1)
+                .catch(function(e) {
+                    expect(e.data.error.message).to.equal('Answer must have an ownerId');
+                    expect(e.status).to.equal(400);
                     done();
                 });
         }, this, {$scope: $scope});
     });
+
     it('will logout', function() {
         logout();
         expect(true).to.be.true;

@@ -1,7 +1,5 @@
 module.exports = function(Comment) {
     Comment.observe('before save', function(ctx, next) {
-        next();
-        return;
         if (ctx.instance && ! ctx.instance.ownerId ||
               ctx.data && !ctx.data.ownerId ) {
             var err = new Error('Comment must have an ownerId');
@@ -12,5 +10,4 @@ module.exports = function(Comment) {
             next();
         }
      });
-
 };
