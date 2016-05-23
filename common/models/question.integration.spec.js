@@ -17,7 +17,7 @@ describe('Question', function() {
         email1 = 'facilitator@f.com',
         commentId1 = 'comment-' + testIdentifier,
         commentId2 = 'comment2-' + testIdentifier,
-        questionId1 = 'test-Question-' + testIdentifier;
+        questionId1;
 
     function loginFirepolUser() {
         /*
@@ -26,6 +26,13 @@ describe('Question', function() {
             .$promise; */
         return FirepolUser
             .login({ rememberMe: true },{email: email1, password: 'testp', ttl: 1000 })
+            .$promise;
+    }
+
+    function logout() {
+        console.log('logging out');
+        return FirepolUser
+            .logout()
             .$promise;
     }
 
@@ -80,10 +87,12 @@ describe('Question', function() {
                     'votes': 0,
                     'responses': 0,
                     'views': 0,
-                    'ownerId': u.userId,
-                    'id': questionId1
+                    'ownerId': u.userId
                     })
-                    .$promise;
+                    .$promise.then(function(q) {
+                        questionId1 = q.id;
+                        return q;
+                    });
             }
         }, this, {$scope: $scope});
     });
@@ -117,9 +126,11 @@ describe('Question', function() {
                 'question': '',
                 'summary': '',
                 'details': '',
-                'ownerId': u.userId,
-                'id': questionId2
-                }).$promise;
+                'ownerId': u.userId
+                }).$promise.then(function(q) {
+                    questionId2 = q.id;
+                    return q;
+                });
             }
             function findQuestion() {
                 return Question.findById( {id: questionId2})
@@ -206,21 +217,25 @@ describe('Question', function() {
             questionId = q.id;
             return Question.Comments.create({
                 'id': questionId}, {
-                'id': commentId1,
                 'text': 'we think BOCA 2012 part 16 is not pertinent to this situation.',
                 'ownerId': currentUserId
             })
-            .$promise;
+            .$promise.then(function(c) {
+                commentId1 = c.id;
+                return c;
+            });
         }
         function placeAnotherCommentOnQuestion1(q) {
             return Question.Comments.create(
                 { 'id': questionId},
                 {
-                    'id': commentId2,
                     'text': 'we think BOCA 2012 part 16 IS pertinent to this situation.',
                     'ownerId': currentUserId
                 })
-            .$promise;
+            .$promise.then(function(c) {
+                commentId2 = c.id;
+                return c;
+            });
         }
         $injector.invoke(function() {
             $q.resolve(true)
@@ -247,7 +262,7 @@ describe('Question', function() {
                 });
         }, this, {$scope: $scope});
     });
-    it('should be found from a comment', function(done) {
+    it('comment should have a correct questionID', function(done) {
         $injector.invoke(function() {
             $q.resolve(true)
                 .then(loginAnotherUser, Dconsole.error, console.log)
@@ -262,5 +277,58 @@ describe('Question', function() {
                     done();
                 });
         }, this, {$scope: $scope});
+    });
+    it('should not allow a comment without an ownerId', function(done) {
+        var questionId;
+        function placeCommentOnQuestion1(q) {
+            questionId = q.id;
+            return Question.Comments.create({
+                'id': questionId}, {
+                'text': 'who do I think I am...'
+            })
+            .$promise;
+        }
+
+        $injector.invoke(function() {
+            $q.resolve(true)
+                .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(findQuestion1, Dconsole.error, console.log)
+                .then(placeCommentOnQuestion1)
+                .catch(function(e) {
+                    expect(e.data.error.message).to.equal('Comment must have an ownerId');
+                    expect(e.status).to.equal(400);
+                    done();
+                });
+;
+        }, this, {$scope: $scope});
+    });
+
+    it('should not allow an answer without an ownerId', function(done) {
+        var questionId;
+        function placeAnswerOnQuestion1(q) {
+            questionId = q.id;
+            return Question.Answers.create({
+                'id': questionId}, {
+                'text': 'who do I think I am...'
+            })
+            .$promise;
+        }
+
+        $injector.invoke(function() {
+            $q.resolve(true)
+                .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(findQuestion1, Dconsole.error, console.log)
+                .then(placeAnswerOnQuestion1)
+                .catch(function(e) {
+                    expect(e.data.error.message).to.equal('Answer must have an ownerId');
+                    expect(e.status).to.equal(400);
+                    done();
+                });
+        }, this, {$scope: $scope});
+    });
+
+    it('will logout', function() {
+        logout();
+        expect(true).to.be.true;
     });
 });
