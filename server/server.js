@@ -84,4 +84,9 @@ for (var s in config) {
   passportConfigurator.configureProvider(s, c);
 }
 
+app.get('/auth/logout', function (req, res, next) {
+  req.logout();
+  res.json({});
+});
+
 

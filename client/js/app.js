@@ -96,7 +96,7 @@ app.config( function($stateProvider, $urlRouterProvider) {
     });
 });
 
-app.controller('globalCtrl', function($scope, $location, AuthService, configuration){
+app.controller('globalCtrl', function($scope, $location, $http, AuthService, configuration){
     
     AuthService.getCurrent();
 
@@ -112,6 +112,12 @@ app.controller('globalCtrl', function($scope, $location, AuthService, configurat
     };
 
     $scope.logout = function(){
+        if($scope.$root.authenticatedUser.profiles){
+            $http.get('/auth/logout');
+            $scope.$root.authenticatedUser = undefined;
+            $location.path('/');
+            return;
+        }
         AuthService.logout()
             .then(function(){
                 $location.path('/');
