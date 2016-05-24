@@ -278,8 +278,8 @@ describe('Question', function() {
                 });
         }, this, {$scope: $scope});
     });
-    it('should not allow a comment without an ownerId', function(done) {
-        var questionId;
+    it('should allow a comment without an ownerId', function(done) {
+        var questionId, userId;
         function placeCommentOnQuestion1(q) {
             questionId = q.id;
             return Question.Comments.create({
@@ -292,11 +292,11 @@ describe('Question', function() {
         $injector.invoke(function() {
             $q.resolve(true)
                 .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(function(u) { userId = u.userId;})
                 .then(findQuestion1, Dconsole.error, console.log)
                 .then(placeCommentOnQuestion1)
-                .catch(function(e) {
-                    expect(e.data.error.message).to.equal('Comment must have an ownerId');
-                    expect(e.status).to.equal(400);
+                .then(function(c) {
+                    expect(c.ownerId).to.equal(userId);
                     done();
                 });
         }, this, {$scope: $scope});
