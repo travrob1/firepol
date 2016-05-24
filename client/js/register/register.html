@@ -19,6 +19,14 @@
     <section id="registration-page" >
         <div class="row">
             <div class="col-xs-8 col-xs-offset-2">
+                <a class="btn btn-large btn-block social-login-btn login-facebook" href="/auth/facebook"><i class="fa fa-facebook"></i>&nbsp; Sign up with Facebook</a>
+                <br/>
+                <a class="btn btn-large btn-block social-login-btn login-google" href="/auth/google"><i class="fa fa-google-plus"></i>&nbsp; Sign up with Google+</a>
+                <div class="form-divide"><span>OR REGISTER WITH EMAIL</span></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
                 <p id="register-error" ng-if="registerError">{{registerError}}</p>
                 
             </div>
@@ -37,12 +45,6 @@
                 </div>
             </div>
         </form>
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-                <div style="border-top:1px solid grey; border-bottom: 1px solid grey">or</div>
-                <a href="/auth/facebook">Login via FAcebook</a>
-            </div>
-        </div>
         
     </section>    
 </div>
