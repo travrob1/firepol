@@ -13,7 +13,8 @@ module.exports = function(app) {
             return reject(); // do not allow anonymous users
         }
         //console.log(context.modelName, context.modelId, context.property, context.method);
-        if (context.property === '__create__Comments') {
+        if (context.property === '__create__Comments' ||
+            context.property === '__create__Answers') {
             cb(null, true);
             return;
         }
