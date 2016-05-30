@@ -16,12 +16,24 @@ app.config( function($stateProvider, $urlRouterProvider) {
             url: '/',
             templateUrl: 'js/marketing/marketing.html',
             controller: 'marketingCtrl'
+        }).state('home2', {
+            url: '',
+            templateUrl: 'js/marketing/marketing.html',
+            controller: 'marketingCtrl'
         }).state('register', {
             url: '/register',
             templateUrl: 'js/register/register.html',
             controller: 'registerCtrl'
         }).state('about-us', {
             url: '/about-us',
+            templateUrl: 'js/about-us/about-us.html',
+            controller: 'globalCtrl'
+        }).state('questions', {
+            url: '/questions',
+            templateUrl: 'js/about-us/about-us.html',
+            controller: 'globalCtrl'
+        }).state('ask-question', {
+            url: '/ask-question',
             templateUrl: 'js/about-us/about-us.html',
             controller: 'globalCtrl'
         }).state('services', {
@@ -77,6 +89,10 @@ app.config( function($stateProvider, $urlRouterProvider) {
             url: '/account',
             templateUrl: 'js/account/account.html',
             controller: 'accountCtrl',
+            authenticate: true
+        }).state('login-redirect', {
+            url: '/login-redirect',
+            controller: 'loginRedirectCtrl',
             authenticate: true
         });
 
