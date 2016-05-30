@@ -278,8 +278,8 @@ describe('Question', function() {
                 });
         }, this, {$scope: $scope});
     });
-    it('should not allow a comment without an ownerId', function(done) {
-        var questionId;
+    it('should allow a comment without an ownerId', function(done) {
+        var questionId, userId;
         function placeCommentOnQuestion1(q) {
             questionId = q.id;
             return Question.Comments.create({
@@ -292,24 +292,25 @@ describe('Question', function() {
         $injector.invoke(function() {
             $q.resolve(true)
                 .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(function(u) { userId = u.userId;})
                 .then(findQuestion1, Dconsole.error, console.log)
                 .then(placeCommentOnQuestion1)
-                .catch(function(e) {
-                    expect(e.data.error.message).to.equal('Comment must have an ownerId');
-                    expect(e.status).to.equal(400);
+                .then(function(c) {
+                    expect(c.ownerId).to.equal(userId);
                     done();
                 });
-;
         }, this, {$scope: $scope});
     });
 
-    it('should not allow an answer without an ownerId', function(done) {
-        var questionId;
+    it('should allow an answer without an ownerId', function(done) {
+        var questionId, userId;
         function placeAnswerOnQuestion1(q) {
             questionId = q.id;
             return Question.Answers.create({
                 'id': questionId}, {
-                'text': 'who do I think I am...'
+                'liklihood': 0.1,
+                'liklihoodAcceptance': 0.1,
+                'decisionCertainty': 0.1
             })
             .$promise;
         }
@@ -317,11 +318,64 @@ describe('Question', function() {
         $injector.invoke(function() {
             $q.resolve(true)
                 .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(function(u) { userId = u.userId;})
                 .then(findQuestion1, Dconsole.error, console.log)
                 .then(placeAnswerOnQuestion1)
+                .then(function(a) {
+                    expect(a.ownerId).to.equal(userId);
+                    done();
+                });
+        }, this, {$scope: $scope});
+    });
+
+    it('should allow answers to be placed', function(done) {
+        var currentUserId, questionId, answerId1, answerId2;
+        function placeAnswerOnQuestion1(q) {
+            questionId = q.id;
+            return Question.Answers.create({
+                'id': questionId}, {
+                'liklihood': 0.5,
+                'liklihoodAcceptance': 0.5,
+                'decisionCertainty': 0.8
+            })
+            .$promise.then(function(a) {
+                answerId1 = a.id;
+                return a;
+            });
+        }
+        function placeAnswer2OnQuestion1(q) {
+            return Question.Answers.create({
+                'id': questionId}, {
+                'liklihood': 0.6,
+                'liklihoodAcceptance': 0.3,
+                'decisionCertainty': 1.0
+            })
+            .$promise.then(function(a) {
+                answerId2 = a.id;
+                return a;
+            });
+        }
+        $injector.invoke(function() {
+            $q.resolve(true)
+                .then(loginAnotherUser, Dconsole.error, console.log)
+                .then(function(u) { currentUserId = u.userId; return u;})
+                .then(findQuestion1, Dconsole.error, console.log)
+                .then(placeAnswerOnQuestion1, Dconsole.error, console.log)
+                .then(function(a) {
+                    expect(a.questionId).to.equal(questionId1);
+                    expect(a.ownerId).to.equal(currentUserId);
+                    expect(a.id).to.equal(answerId1);
+                })
+                .then(placeAnswer2OnQuestion1, Dconsole.error, console.log)
+                .then(function(a) {
+                    expect(a.questionId).to.equal(questionId1);
+                    expect(a.ownerId).to.equal(currentUserId);
+                    expect(a.id).to.equal(answerId2);
+                    done();
+                })
                 .catch(function(e) {
-                    expect(e.data.error.message).to.equal('Answer must have an ownerId');
-                    expect(e.status).to.equal(400);
+                    Dconsole.log(e);
+                    expect(true).to.be.false;
                     done();
                 });
         }, this, {$scope: $scope});
