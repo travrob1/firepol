@@ -77,7 +77,6 @@ describe('Question', function() {
                 }).$promise;
         }
         function assignFacilitatorRole(u) {
-            debugger;
             return FirepolUser.grantRole({id: u.id, roleName: 'facilitator'}).$promise;
         }
             $q.resolve(true)

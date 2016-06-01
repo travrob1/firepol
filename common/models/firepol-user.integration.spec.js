@@ -94,4 +94,72 @@ describe('FirepolUser', function() {
                 .then(findUser);
         }, this, {$scope: $scope});
     });
+    
+    it('can create a FirepolUser with a space in the username', function(done) {
+        $injector.invoke(function($timeout) {
+            var c = FirepolUser.create({
+                'name': 'A. ' + testIdentifier,
+                'username': 'za gg more-' + testIdentifier,
+                'password': 'zigless',
+                'email': 'firepol-utest1-' + testIdentifier +'@sky.chrisdavid.com',
+                'id': 'test-FirepolUser1-' + testIdentifier
+                });
+            c.$promise.then(function(data) {
+                done();
+            }, Dconsole.error, console.log);
+        }, this, {$scope: $scope});
+    });
+
+    it('can create a FirepolUser with a period in the username', function(done) {
+        $injector.invoke(function($timeout) {
+            var c = FirepolUser.create({
+                'name': 'A. ' + testIdentifier,
+                'username': 'zagg.more-' + testIdentifier,
+                'password': 'zigless',
+                'email': 'firepol-utest2-' + testIdentifier +'@sky.chrisdavid.com',
+                'id': 'test-FirepolUser2-' + testIdentifier
+                });
+            c.$promise.then(function(data) {
+                done();
+            }, Dconsole.error, console.log);
+        }, this, {$scope: $scope});
+    });
+
+    it('can create a FirepolUser with an underscore in the username', function(done) {
+        $injector.invoke(function($timeout) {
+            var c = FirepolUser.create({
+                'name': 'A. ' + testIdentifier,
+                'username': 'zagg_more-' + testIdentifier,
+                'password': 'zigless',
+                'email': 'firepol-utest3-' + testIdentifier +'@sky.chrisdavid.com',
+                'id': 'test-FirepolUser3-' + testIdentifier
+                });
+            c.$promise.then(function(data) {
+                done();
+            }, Dconsole.error, console.log);
+        }, this, {$scope: $scope});
+    });
+
+    it('can prevent a duplicate FirepolUser with an underscore in the username', function(done) {
+        $injector.invoke(function($timeout) {
+            function createUser() {
+                return FirepolUser.create({
+                    'name': 'A. ' + testIdentifier,
+                    'username': 'zagg_more-' + testIdentifier,
+                    'password': 'zigless',
+                    'email': 'firepol-utest3-' + testIdentifier +'@sky.chrisdavid.com',
+                    'id': 'test-FirepolUser3-' + testIdentifier
+                    }).$promise;
+            } 
+            $q.resolve(true)
+                .then(function(data) {
+                    expect(true).to.be.false;
+                }, Dconsole.error, console.log)
+                .catch(function(data) {
+                    expect(true).to.be.true;
+                    done();
+                }, Dconsole.error, console.log);
+        }, this, {$scope: $scope});
+    });
+
 });
