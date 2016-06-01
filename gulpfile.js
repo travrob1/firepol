@@ -13,6 +13,7 @@ var exec = require('child_process').exec;
 var fs = require('fs');
 var _ = require('lodash');
 var dbSetup = require('./db-setup');
+var dbSeed = require('./db-seed');
 
 var rename = require('gulp-rename');
 var loopbackAngular = require('gulp-loopback-sdk-angular');
@@ -110,6 +111,10 @@ gulp.task('integration-server', function (ready) {
 
 gulp.task('db-setup', function(done) {
     dbSetup.run(done);
+});
+
+gulp.task('db-seed', ['db-setup'], function(done) {
+    dbSeed.run(done);
 });
 
 gulp.task('karma:integration', ['integration-server'], function (done) {

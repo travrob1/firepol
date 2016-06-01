@@ -20,9 +20,7 @@ module.exports = function(FirepolUser) {
         };
     }
 
-    console.log('very early');
     FirepolUser.grantRole = function(id, roleName, cb) {
-        console.log('how about here created mapping');
         if (! app) {
             FirepolUser.getApp(getTableReferences(run));
         } else {
@@ -33,7 +31,6 @@ module.exports = function(FirepolUser) {
                 cb(null, 'invalid rolename');
                 return;
             }
-            console.log('created mapping');
             RoleMapping.create({
                 principalType: 'USER',
                 principalId: id,
