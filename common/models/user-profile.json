@@ -10,8 +10,7 @@
       "type": "string"
     },
     "yearBorn": {
-      "type": "number",
-      "default": "JobTitle"
+      "type": "number"
     },
     "jobTitle": {
       "type": "string"
