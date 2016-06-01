@@ -17,17 +17,37 @@
 
 <div class="container">
     <section id="registration-page" >
-        <form ng-submit="register()"> 
-            <div class="row form-group">
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-                    <label>Name</label>
-                    <input type="text" class="form-control" required="required" ng-model="user.email">
-                    
-                    <button type="submit" class="btn btn-primary btn-large pull-right">Update</button>
+        <div class="row form-group">
+            <form ng-submit="updateAccount()"> 
+                
+                    <div class="col-xs-12 col-sm-5">
+                        <label>Full name</label>
+                        <input type="text" class="form-control" ng-model="user.name">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" required="required" ng-model="user.email">
+                        <br>
+                        
+                        <button type="submit" class="btn btn-primary btn-large pull-right">Update</button>
 
-                </div>
-            </div>
-        </form>
+                    </div>
+            </form>
+
+            <form ng-submit="updatePassword()"> 
+                    <div class="col-xs-12 col-sm-5  col-sm-offset-1">
+                        <label>New Password</label>
+                        <input type="text" class="form-control" required="required" ng-model="user.newPassword">
+                        <label for="email">Confirm Password</label>
+                        <input type="text" class="form-control" required="required" ng-model="user.confirmPassword">
+                        <br>
+                        
+                        <button type="submit" class="btn btn-primary btn-large pull-right">Update</button>
+
+                    </div>
+            </form>
+        </div>
+
+
+        
     </section>    
 </div>
 

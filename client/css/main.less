@@ -410,11 +410,14 @@ header .dropdown-menu:before {
     
     #login-failed {
         position: absolute;
-        top: 5px;
-        left: 34px;
+       top: -26px;
+       left: 19px;
         font-size: 14px;
         text-transform: capitalize;
         color: #FF2929;
+    }
+    #form-login {
+        position: relative;
     }
 
     .modal-header {
@@ -977,11 +980,13 @@ ul.faq li>div h3 {
     .category-content-wrapper{
         padding:10px;
         div[radio-template],
+        div[checkbox-template],
         div[select-template]{
             margin: 10px 0;
             border-bottom: 1px solid #ccc
         }
         div[radio-template].last,
+        div[checkbox-template].last,
         div[select-template].last{
             border-bottom: none;
         }
