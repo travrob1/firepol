@@ -74,7 +74,7 @@ describe('FirepolUser', function() {
         var userId;
         function loginFirepolUser() {
             return FirepolUser
-                .login({ rememberMe: false },{email: 'facilitator@f.com', password: 'testp', ttl: 1000 })
+                .login({ rememberMe: false },{username: 'admin', password: 'admin4231', ttl: 1000 })
                 .$promise
                 .then(function(data) {
                     userId = data.userId;
@@ -84,7 +84,7 @@ describe('FirepolUser', function() {
             FirepolUser.findById({id: userId})
                 .$promise
                 .then(function(data) {
-                    expect(data.email).to.equal('facilitator@f.com');
+                    expect(data.email).to.equal('fpadmin@sky.chrisdavid.com');
                     done();
             }, Dconsole.error, console.log);
         }

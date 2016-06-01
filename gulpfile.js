@@ -101,15 +101,18 @@ gulp.task('integration-server', function (ready) {
     }
     function delayStartApiServer() {
          startApiServer();
-         setTimeout(ready, 100);
+         setTimeout(setupDb, 100);
+    }
+    function setupDb() {
+        dbSetup.run(ready);
     }
 });
 
-gulp.task('integration-setup', ['integration-server'], function(done) {
+gulp.task('db-setup', function(done) {
     dbSetup.run(done);
 });
 
-gulp.task('karma:integration', ['integration-setup'], function (done) {
+gulp.task('karma:integration', ['integration-server'], function (done) {
     function fini() {
         if(process.env.INTEGRATION_PAUSE !== undefined) {
             // leave node running for inspection, use ctrl-c to break
@@ -126,7 +129,7 @@ gulp.task('karma:integration', ['integration-setup'], function (done) {
     }, fini).start();
 });
 
-gulp.task('karma:integration:chrome', function (done) {
+gulp.task('karma:integration:chrome', ['integration-server'], function (done) {
   new KarmaServer({
     browsers: ['Chrome'],
     configFile: __dirname + '/karma.integration.conf.js',

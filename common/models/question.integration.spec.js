@@ -14,18 +14,21 @@ describe('Question', function() {
         FirepolUser = $injector.get('FirepolUser'),
         Question = $injector.get('Question'),
         $q = $injector.get('$q'),
-        email1 = 'facilitator@f.com',
+        emailAdmin = 'fpadmin@sky.chrisdavid.com',
+        email1 = 'fpfacilitator@sky.chrisdavid.com',
         commentId1 = 'comment-' + testIdentifier,
         commentId2 = 'comment2-' + testIdentifier,
         questionId1;
 
-    function loginFirepolUser() {
-        /*
+    function loginAdmin() {
         return FirepolUser
-            .login({ rememberMe: true },{username: 'zaggmore'  + testIdentifier, password: 'zigless', ttl: 1000 })
-            .$promise; */
+            .login({ rememberMe: true },{email: emailAdmin, password: 'admin4231', ttl: 1000 })
+            .$promise;
+    }
+
+    function loginFacilitator() {
         return FirepolUser
-            .login({ rememberMe: true },{email: email1, password: 'testp', ttl: 1000 })
+            .login({ rememberMe: true },{email: email1, password: 'zigmore', ttl: 1000 })
             .$promise;
     }
 
@@ -63,10 +66,36 @@ describe('Question', function() {
         $scope.$destroy();
     });
 
+    it('needs a facilitator to create questions', function(done) {
+        function createUser() {
+            console.log('creating user with facilitator rights');
+            return FirepolUser.create({
+                'name': 'A. Facilitator',
+                'username': 'test-facilitator',
+                'password': 'zigmore',
+                'email': email1
+                }).$promise;
+        }
+        function assignFacilitatorRole(u) {
+            debugger;
+            return FirepolUser.grantRole({id: u.id, roleName: 'facilitator'}).$promise;
+        }
+            $q.resolve(true)
+                .then(loginAdmin, Dconsole.error, console.log)
+                .then(createUser, Dconsole.error, console.log)
+                .then(assignFacilitatorRole, Dconsole.error, console.log)
+                .then(function() { done(); })
+                .catch(function(err) {
+                    Dconsole.log(err);
+                    expect(true).to.be.false;
+                    done();
+                });
+    });
+
     it('can be created with authentication', function(done) {
         $injector.invoke(function() {
             $q.resolve(true)
-                .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(loginFacilitator, Dconsole.error, console.log)
                 .then(createQuestion, Dconsole.error, console.log)
                 .then(function() { done(); })
                 .catch(function(err) {
@@ -99,7 +128,7 @@ describe('Question', function() {
 
     it('can be found', function(done) {
         $injector.invoke(function() {
-            loginFirepolUser()
+            loginFacilitator()
                 .then(findQuestion, Dconsole.error, Dconsole.log)
                 .then(test, Dconsole.error, console.log);
             function findQuestion() {
@@ -115,7 +144,7 @@ describe('Question', function() {
     it('can be created with reasonable defaults', function(done) {
         $injector.invoke(function() {
             var questionId2 = 'test-Question2-' + testIdentifier;
-            loginFirepolUser()
+            loginFacilitator()
                 .then(createQuestion, Dconsole.error, Dconsole.log)
                 .then(findQuestion, Dconsole.error, console.log)
                 .then(checkQuestion, Dconsole.error, console.log);
@@ -184,7 +213,7 @@ describe('Question', function() {
         }
         $injector.invoke(function() {
             $q.resolve(true)
-                .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(loginFacilitator, Dconsole.error, console.log)
                 .then(findQuestion1, Dconsole.error, console.log)
                 .then(setQuestion1Active)
                 .then(function(q) {
@@ -291,7 +320,7 @@ describe('Question', function() {
 
         $injector.invoke(function() {
             $q.resolve(true)
-                .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(loginFacilitator, Dconsole.error, console.log)
                 .then(function(u) { userId = u.userId;})
                 .then(findQuestion1, Dconsole.error, console.log)
                 .then(placeCommentOnQuestion1)
@@ -317,7 +346,7 @@ describe('Question', function() {
 
         $injector.invoke(function() {
             $q.resolve(true)
-                .then(loginFirepolUser, Dconsole.error, console.log)
+                .then(loginFacilitator, Dconsole.error, console.log)
                 .then(function(u) { userId = u.userId;})
                 .then(findQuestion1, Dconsole.error, console.log)
                 .then(placeAnswerOnQuestion1)

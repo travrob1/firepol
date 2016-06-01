@@ -1,6 +1,6 @@
 'use strict';
 /* globals angular, mocha */
-mocha.setup({ timeout: 5000 });
+mocha.setup({ timeout: 15000 });
 
 function apiErrorHandler(err) {
     console.error(JSON.stringify(err, null, 4));
