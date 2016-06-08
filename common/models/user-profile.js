@@ -124,6 +124,11 @@ var _ = require('lodash'),
               'single family attached',
               'multiple families living together'
           ],
+          memberOptions: [
+              'fGeneralHomeOccupancy_singleFamilyDetached',
+              'fGeneralHomeOccupancy_singleFamilyAttached',
+              'fGeneralHomeOccupancy_multipleFamiliesLivingTogether'
+          ],
           message: 'invalid home occupancy familiarity option'
         },
         { label: 'Mixed zoning',
@@ -135,6 +140,11 @@ var _ = require('lodash'),
               'residental',
               'industrial',
               'mixed residential and industrial'
+          ],
+          memberOptions: [
+              'fGeneralZoningMix_residental',
+              'fGeneralZoningMix_industrial',
+              'fGeneralZoningMix_mixedResidentialAndIndustrial'
           ],
           message: 'invalid zoning mix familiarity option'
         },
@@ -151,6 +161,14 @@ var _ = require('lodash'),
               'hurricanes',
               'sinkholes'
           ],
+          memberOptions: [
+              'fGeneralDisaster_fire',
+              'fGeneralDisaster_earthquakes',
+              'fGeneralDisaster_tsunamis',
+              'fGeneralDisaster_tornadoes',
+              'fGeneralDisaster_hurricanes',
+              'fGeneralDisaster_sinkholes'
+          ],
           message: 'invalid disaster familiarity option'
         },
         { label: 'Probability & Statistics',
@@ -161,10 +179,18 @@ var _ = require('lodash'),
           options: [
               'some self taught',
               'some coursework',
-              'more than 2 courses',
+              'more than two courses',
               'undergrad major',
               'post graduate',
               'expert or doctor'
+          ],
+          memberOptions: [
+              'fGeneralProbablityStatistics_someSelfTaught',
+              'fGeneralProbablityStatistics_someCoursework',
+              'fGeneralProbablityStatistics_moreThanTwoCourses',
+              'fGeneralProbablityStatistics_undergradMajor',
+              'fGeneralProbablityStatistics_postGraduate',
+              'fGeneralProbablityStatistics_expertOrDoctor'
           ]
         }
     ];

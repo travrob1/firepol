@@ -1,6 +1,6 @@
 'use strict';
 
-/* globals describe, it, chai, angular, beforeEach, inject, afterEach, $rootScope, $injector, testIdentifier, apiErrorHandler, _ */
+/* globals describe, it, chai, angular, beforeEach, inject, afterEach, $rootScope, $injector, testIdentifier, apiErrorHandler, _, Dconsole */
 /*
 var expect = require('chai').expect,
     moment = require('moment-timezone'),
@@ -8,7 +8,7 @@ var expect = require('chai').expect,
 */
 var expect = chai.expect;
 
-describe('FirepolUser', function() {
+describe.only('FirepolUser', function() {
     var $scope, FirepolUser = $injector.get('FirepolUser');
 
     beforeEach(function() {
@@ -199,6 +199,24 @@ describe('FirepolUser', function() {
                 function findUserProfile() {
                     return FirepolUser.UserProfile.findById({id: userId1, fk: userProfileId1}).$promise;
                 } 
+            }, this, {$scope: $scope});
+        });
+        it('can find an UserProfile with just the userid', function(done) {
+            $injector.invoke(function($timeout) {
+                $q.resolve(true)
+                    .then(loginFirepolUser)
+                    .then(findUserProfile)
+                    .then(function(up) {
+                        done();
+                    })
+                    .catch(function(e) {
+                        Dconsole.log(e);
+                        expect(false).to.be.true;
+                        done();
+                    });
+                function findUserProfile() {
+                    return FirepolUser.UserProfile({id: userId1}).$promise;
+                }
             }, this, {$scope: $scope});
         });
         it('will logout', function() {
