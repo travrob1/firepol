@@ -8,7 +8,7 @@ var expect = require('chai').expect,
 */
 var expect = chai.expect;
 
-describe.only('FirepolUser', function() {
+describe('FirepolUser', function() {
     var $scope, FirepolUser = $injector.get('FirepolUser');
 
     beforeEach(function() {
