@@ -14,7 +14,7 @@
   "homepage": "",
   "private": true,
   "dependencies": {
-    "angular-modal-service": "~0.6.9",
+    "angular-modal-service": "~0.9.10",
     "bootstrap": "~3.3.5",
     "angular-route": "~1.4.8",
     "angular-resource": "~1.4.8",
