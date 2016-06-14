@@ -1,9 +1,12 @@
 'use strict';
 
-var app, Role, RoleMapping, FirepolUser, Question,
+
+var app, Role, RoleMapping, FirepolUser, Question, Comment,
     user1Id,
+    userIdList = [],
     testIdentifier = Math.random(),
-        bluebird = require('bluebird');
+    bluebird = require('bluebird'),
+    _ = require('lodash');
 
 function initialize() {
         app = require('./server/server');
@@ -11,6 +14,7 @@ function initialize() {
         RoleMapping = app.models.RoleMapping;
         FirepolUser = app.models.FirepolUser;
         Question = app.models.Question;
+        Comment = app.models.Comment;
         return bluebird.resolve();
 }
 
@@ -24,14 +28,14 @@ function createRoles() {
 }
 
 function createUsers() {
-    function setUserId(u) {
-        user1Id = u.id;
+    function rememberUser(u) {
+        userIdList.push(u.id);
     }
     return bluebird.all([
-        FirepolUser.create({username: 'user1'+testIdentifier, email: 'fpuser1'+testIdentifier+'@sky.chrisdavid.com', 'password': 'user4231'}).then(setUserId),
-        FirepolUser.create({username: 'user2'+testIdentifier, email: 'fpuser2'+testIdentifier+'@sky.chrisdavid.com', 'password': 'user4231'}),
-        FirepolUser.create({username: 'user3'+testIdentifier, email: 'fpuser3'+testIdentifier+'@sky.chrisdavid.com', 'password': 'user4231'}),
-        FirepolUser.create({username: 'user4'+testIdentifier, email: 'fpuser4'+testIdentifier+'@sky.chrisdavid.com', 'password': 'user4231'})
+        FirepolUser.create({username: 'user1'+testIdentifier, email: 'fpuser1'+testIdentifier+'@sky.chrisdavid.com', 'password': 'user4231'}).then(rememberUser),
+        FirepolUser.create({username: 'user2'+testIdentifier, email: 'fpuser2'+testIdentifier+'@sky.chrisdavid.com', 'password': 'user4231'}).then(rememberUser),
+        FirepolUser.create({username: 'user3'+testIdentifier, email: 'fpuser3'+testIdentifier+'@sky.chrisdavid.com', 'password': 'user4231'}).then(rememberUser),
+        FirepolUser.create({username: 'user4'+testIdentifier, email: 'fpuser4'+testIdentifier+'@sky.chrisdavid.com', 'password': 'user4231'}).then(rememberUser)
     ]);
 }
 
@@ -72,12 +76,39 @@ function createQuestions() {
     ]);
 }
 
+function addComments(qList) {
+    var userIdx = 0;
+    var commentTemplate = {
+        text: 'E un fapt bine stabilit că cititorul va fi sustras de conţinutul citibil al unei pagini atunci când se uită la aşezarea în pagină. Scopul utilizării a Lorem Ipsum, este acela că are o distribuţie a literelor mai mult sau mai puţin normale, faţă de utilizarea a ceva de genul Conţinutaici, conţinut acolo.'
+    };
+    function comment(questionId, inReferenceTo) {
+        var c = _.assign({questionId: questionId, ownerId: userIdList[userIdx]}, commentTemplate);
+        if (inReferenceTo) {
+            c.inReferenceTo = inReferenceTo;
+        }
+        userIdx += 1;
+        userIdx %= userIdList.length;
+        return c;
+    }
+    function addReply(c) {
+        return Comment.create(comment(c.questionId, c.id));
+    }
+    var commentTasks = [];
+    _.forEach(qList, applyComments);
+    function applyComments(q) {
+        commentTasks.push(
+            Comment.create(comment(q.id))
+                .then(addReply)
+        );
+    }
+}
 
 module.exports = {
     run: function(done) {
         initialize()
             .then(createUsers)
             .then(createQuestions)
+            .then(addComments)
             .then(function() { done(); })
             .catch(console.error);
     }
