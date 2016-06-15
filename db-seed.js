@@ -4,7 +4,6 @@
 var app, Role, RoleMapping, FirepolUser, Question, Comment,
     user1Id,
     userIdList = [],
-    testIdentifier = Math.random(),
     bluebird = require('bluebird'),
     _ = require('lodash');
 
@@ -32,10 +31,11 @@ function createUsers() {
         userIdList.push(u.id);
     }
     return bluebird.all([
-        FirepolUser.create({username: 'user1'+testIdentifier, email: 'fpuser1'+testIdentifier+'@sky.chrisdavid.com', 'password': 'user4231'}).then(rememberUser),
-        FirepolUser.create({username: 'user2'+testIdentifier, email: 'fpuser2'+testIdentifier+'@sky.chrisdavid.com', 'password': 'user4231'}).then(rememberUser),
-        FirepolUser.create({username: 'user3'+testIdentifier, email: 'fpuser3'+testIdentifier+'@sky.chrisdavid.com', 'password': 'user4231'}).then(rememberUser),
-        FirepolUser.create({username: 'user4'+testIdentifier, email: 'fpuser4'+testIdentifier+'@sky.chrisdavid.com', 'password': 'user4231'}).then(rememberUser)
+        FirepolUser.findOrCreate({where: {username: 'user1'}}, {username: 'user1', email: 'fpuser1@sky.chrisdavid.com', 'password': 'user4231'}).then(rememberUser),
+        FirepolUser.findOrCreate({where: {username: 'user2'}}, {username: 'user2', email: 'fpuser2@sky.chrisdavid.com', 'password': 'user4231'}).then(rememberUser),
+        FirepolUser.findOrCreate({where: {username: 'user3'}}, {username: 'user3', email: 'fpuser3@sky.chrisdavid.com', 'password': 'user4231'}).then(rememberUser),
+        FirepolUser.findOrCreate({where: {username: 'user4'}}, {username: 'user4', email: 'fpuser4@sky.chrisdavid.com', 'password': 'user4231'}).then(rememberUser),
+
     ]);
 }
 
@@ -51,29 +51,36 @@ function assignFacilitatorRole(u) {
 }
 
 function createQuestions() {
-    var questionTemplate = {
-        'name': 'Safety of stairwells',
-        'question': 'Should stairwells be the only exit out of buildings with more than 4 stories?',
-        'summary': 'Nullam bibendum egestas metus, vitae tincidunt tellus malesuada in. Nunc egestas turpis ac quam pretium interdum. Integer consectetur suscipit augue sed elementum. Nulla efficitur, ex sit amet placerat mattis, urna leo malesuada tellus, in dictum purus dolor eget quam. Sed consectetur, leo quis pellentesque dictum, tortor sem consectetur lectus, quis feugiat risus ante sed eros. Cras eu mattis ipsum, ut condimentum ipsum. Etiam metus ex, iaculis et bibendum at, tincidunt vel augue. Nam feugiat et lectus ac placerat. Fusce quis sollicitudin dolor, vitae convallis augue. Proin suscipit malesuada ligula, et auctor magna scelerisque ut. Ut sit amet dolor a dolor malesuada venenatis et quis mi. Donec a pretium magna.',
-        'details': 'Cras sit amet tellus commodo, sagittis lacus et, mollis erat. Nullam laoreet nunc sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mi neque, sollicitudin at tellus a, luctus molestie ligula. Morbi sagittis felis quis purus aliquet, nec vehicula leo tincidunt. Cras vel accumsan mauris. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris tempus suscipit tempus. Praesent sed iaculis enim, nec posuere velit. Aenean semper tortor vel metus consectetur, sollicitudin pretium ex convallis. Nullam a lacinia elit. Sed id orci lectus. In auctor lorem quis interdum blandit. Praesent risus dui, vestibulum ut ultrices tristique, vulputate accumsan sem. Suspendisse et pulvinar massa.',
-        'status': 'preinvite',
-        'closingTime': '2017-06-10',
-        'ownerId': user1Id
-    };
-
-
-    return bluebird.all([
-        Question.create(questionTemplate),
-        Question.create(questionTemplate),
-        Question.create(questionTemplate),
-        Question.create(questionTemplate),
-        Question.create(questionTemplate),
-        Question.create(questionTemplate),
-        Question.create(questionTemplate),
-        Question.create(questionTemplate),
-        Question.create(questionTemplate),
-        Question.create(questionTemplate)
-    ]);
+    function questionTemplate(question) {
+        return {
+            'question': question,
+            'details': 'Cras sit amet tellus commodo, sagittis lacus et, mollis erat. Nullam laoreet nunc sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mi neque, sollicitudin at tellus a, luctus molestie ligula. Morbi sagittis felis quis purus aliquet, nec vehicula leo tincidunt. Cras vel accumsan mauris. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris tempus suscipit tempus. Praesent sed iaculis enim, nec posuere velit. Aenean semper tortor vel metus consectetur, sollicitudin pretium ex convallis. Nullam a lacinia elit. Sed id orci lectus. In auctor lorem quis interdum blandit. Praesent risus dui, vestibulum ut ultrices tristique, vulputate accumsan sem. Suspendisse et pulvinar massa.',
+            'status': 'preinvite',
+            'closingTime': '2017-06-10',
+            'ownerId': user1Id
+        };
+    }
+    var idx=0;
+    var questionList = [
+        'Should stairwells be the only exit out of buildings with more than 4 stories?',
+        'Would 1 gallon of gasoline in 5 gallon container potentially explode bad enough to cause a fatality on a stage that has pyrotechnics?',
+        'Should a warehouse be shutdown while the foam system is under repair?',
+        'Could stairwells positioned 203 feet, which is 3 feet over code, be a significant risk factor?',
+        'Would fire department dry pipes without covers and stuffed with garbage pose a fatal risk?',
+        'Does stacking paper products 20 feet high pose a fatal risk if the sprinkler head density in increased by a factor of 4?',
+        'What is the minimum distance stick built structures should be seperated by in order to prevent fire from moving from once structure to the next?',
+        'Do fire department spigot valves need working handles given that Fire Departments generally carry tools to turn the stem of the spigot?',
+        'Does a stick built complex of buildings require security to prevent arson?',
+        'Should residential sprinklers be checked after sitting dormant in a home for 35 years?',
+        'Does an alarm system require battery backup at a power generation facility?',
+        'What defensable distance should be maintained between a oil & gas shale extraction facility and surrounding forest?',
+    ];
+    var questions = questionList.map(function(q) {
+        var filter = {where: {question: q}};
+        var template = questionTemplate(q);
+        return Question.findOrCreate(filter, template);
+    });
+    return bluebird.all(questions);
 }
 
 function addComments(qList) {
