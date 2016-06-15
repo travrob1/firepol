@@ -116,7 +116,11 @@ module.exports = {
             .then(createUsers)
             .then(createQuestions)
             .then(addComments)
-            .then(function() { done(); })
+            .then(function() {
+                console.log('paste this into mongo to delete many tables');
+                console.log('db.Answer.drop(); db.Comment.drop(); db.FirepolUser.drop(); db.UserProfile.drop(); db.accessToken.drop(); db.userIdentity.drop(); db.Question.drop();');
+                done();
+            })
             .catch(console.error);
     }
 };
