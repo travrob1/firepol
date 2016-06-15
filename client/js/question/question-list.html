@@ -22,9 +22,8 @@
             <div a ui-sref="question({ id: question.id, })">
                 <span class="number">{{$index}}</span>
                 <div>
-                    <h3>{{question.name}}</h3>
-                    <h4>{{question.question}}</h4>
-                    <p>{{question.summary}}</p>
+                    <h3>{{question.question}}</h3>
+                    <p>{{question.details | limitTo: 400 }}</p>
                 </div>
              <div>
         </li>

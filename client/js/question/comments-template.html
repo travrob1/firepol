@@ -1,14 +1,16 @@
 <div style="border-left: 1px solid #d8d8d8; padding-left:15px;">
     <div class="comments-list">
         <div ng-repeat="comment in comments" class="comment media">
+          <div ng-style="{'margin-left':comment.indent+'px'}">
             <div class="pull-left">
-                <img class="avatar" src="images/sample/cAvatar1.jpg" alt="">  
+                <img class="avatar" src="images/sample/cAvatar1.jpg" alt="">
             </div>
             <div class="media-body">
-                <strong>Posted by <a href="#">Krikor</a></strong><br>
+                <strong>Posted by <a href="#">{{comment.name}}</a></strong><br>
                 <small>{{comment.time | timeToWords}}</small><br>
-                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage</p>
+                <p>{{comment.text}} <a href="#">Reply</a></p>
             </div>
+          </div>
         </div>
     </div>
     <br>
