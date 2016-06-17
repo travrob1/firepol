@@ -6,6 +6,7 @@ module.exports = function(Comment) {
         return function(err, theApp) {
             if (err) console.error(err);
             app = theApp;
+            cb();
         };
     }
     Comment.observe('before save', function(ctx, next) {
@@ -20,10 +21,15 @@ module.exports = function(Comment) {
             if (userContext) {
                 var userId = userContext.active.http.req.accessToken.userId;
                 dataOrInstance.ownerId = userId;
-                dataOrInstance.name = app.FirepolUser({id: userId}).username;
+                app.models.FirepolUser.findById(userId, function(err, usr){
+                    if(usr){
+                        dataOrInstance.name = usr.username;
+                    }
+                    next();
+                });
+
             }
             dataOrInstance.time = Date.now();
-            next();
         }
      });
 };

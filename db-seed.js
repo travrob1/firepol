@@ -87,7 +87,7 @@ function addComments(qList) {
     function comment(questionId, inReferenceTo) {
         var c = {questionId: questionId,
                  ownerId: userList[userIdx][0].id,
-                 name: userList[userIdx][0].name,
+                 name: userList[userIdx][0].username,
                  text: 'E un fapt bine stabilit că cititorul va fi sustras de conţinutul citibil al unei pagini atunci când se uită la aşezarea în pagină. Scopul utilizării a Lorem Ipsum, este acela că are o distribuţie a literelor mai mult sau mai puţin normale, faţă de utilizarea a ceva de genul Conţinutaici, conţinut acolo.'};
         if (inReferenceTo) {
             c.inReferenceTo = inReferenceTo;

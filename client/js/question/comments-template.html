@@ -1,17 +1,32 @@
 <div style="border-left: 1px solid #d8d8d8; padding-left:15px;">
     <div class="comments-list">
-        <div ng-repeat="comment in comments" class="comment media">
-          <div ng-style="{'margin-left':comment.indent+'px'}">
-            <div class="pull-left">
-                <img class="avatar" src="images/sample/cAvatar1.jpg" alt="">
+        <form name="reply-form" id="reply-form">
+        
+            <div ng-repeat="comment in comments" class="comment media">
+            <div class="row">
+
+                <div ng-style="{'margin-left':comment.indent+'px'}">
+                  <div class="pull-left">
+                      <img class="avatar" src="images/sample/cAvatar1.jpg" alt="">
+                  </div>
+                  <div class="media-body">
+                      <strong>Posted by <a href="#">{{comment.name}}</a></strong><br>
+                      <small>{{comment.time | timeToWords}}</small><br>
+                      <p>{{comment.text}} <span ng-click=" activeComment.id = comment.id">Reply</span></p>
+                      
+                      <div class="col-xs-11" ng-if=" activeComment.id === comment.id">
+                          <textarea ng-model="activeComment.text" rows="5" name="commentReply" required="required" class="input-block-level commentReply" placeholder="Reply"></textarea>
+                          
+                      </div>
+                      <div class="col-xs-1" ng-if=" activeComment.id === comment.id">
+                          <button ng-click="makeReply(comment.id)" class="btn btn-primary">Submit</button>
+                      </div>
+                  </div>
+                </div>
             </div>
-            <div class="media-body">
-                <strong>Posted by <a href="#">{{comment.name}}</a></strong><br>
-                <small>{{comment.time | timeToWords}}</small><br>
-                <p>{{comment.text}} <a href="#">Reply</a></p>
+              
             </div>
-          </div>
-        </div>
+        </form>
     </div>
     <br>
     <div class="comment-form">
