@@ -30,11 +30,32 @@
     </div>
     <br>
     <div class="comment-form">
-        <h3>Post your Answer</h3>
-        <form name="comment-form" id="comment-form">
+        <h3 ng-click="activeComment.id = false">Post a Comment</h3>
+        <form name="comment-form" id="comment-form" ng-if="activeComment.id === false">
 
-            <textarea rows="10" name="message" id="message" required="required" class="input-block-level" placeholder="Message"></textarea>
-            <input type="submit" value="Submit Comment" class="btn btn-large btn-primary">
+            <textarea rows="5" ng-model="activeComment.text" name="message" id="message" required="required" class="input-block-level" placeholder="Message"></textarea>
+            <input ng-click="makeReply()" type="submit" value="Submit Comment" class="btn btn-large btn-primary">
+        </form>
+    </div>
+    <div class="risk-assesment">
+        <h3>Submit Answer</h3>
+        <form>
+            <label for="risk">
+                <select name="odds" ng-model="odds" ng-options="odd.val for odd in oddsList" required class="odds">
+                    <option value="">-- Please Select --</option>
+                </select>  &nbsp;  &nbsp;  &nbsp;
+              {{ oddsDescription }} &nbsp;
+            </label>
+
+
+
+            <div>
+                 How certain are you?
+                 <select name="certainty" ng-model="certainty" ng-options="certain.val for certain in certaintyList" required class="certainty">
+                   <option value=""> ??? </option>
+                   </select>
+                 % : {{ certaintyDescription }}
+                 </div>
         </form>
     </div>
 </div>
