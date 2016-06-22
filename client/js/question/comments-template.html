@@ -1,30 +1,27 @@
 <div style="border-left: 1px solid #d8d8d8; padding-left:15px;">
     <div class="comments-list">
         <form name="reply-form" id="reply-form">
-        
             <div ng-repeat="comment in comments" class="comment media">
-            <div class="row">
-
-                <div ng-style="{'margin-left':comment.indent+'px'}">
-                  <div class="pull-left">
-                      <img class="avatar" src="images/sample/cAvatar1.jpg" alt="">
-                  </div>
-                  <div class="media-body">
-                      <strong>Posted by <a href="#">{{comment.name}}</a></strong><br>
-                      <small>{{comment.time | timeToWords}}</small><br>
-                      <p>{{comment.text}} <span ng-click=" activeComment.id = comment.id">Reply</span></p>
-                      
-                      <div class="col-xs-11" ng-if=" activeComment.id === comment.id">
-                          <textarea ng-model="activeComment.text" rows="5" name="commentReply" required="required" class="input-block-level commentReply" placeholder="Reply"></textarea>
-                          
-                      </div>
-                      <div class="col-xs-1" ng-if=" activeComment.id === comment.id">
-                          <button ng-click="makeReply(comment.id)" class="btn btn-primary">Submit</button>
-                      </div>
-                  </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div ng-class="{'parent-comment': comment.indent === 0 , 'child-comment child-comment-one': comment.indent > 0 &&  comment.indent <=33, 'child-comment child-comment-plus-one': comment.indent > 33}" ng-style="{'margin-left':comment.indent+'px'}">
+                            <div class="pull-left">
+                                <img class="avatar" src="images/sample/cAvatar1.jpg" alt="">
+                            </div>
+                            <div class="media-body">
+                                <strong>Posted by <a href="#">{{comment.name}}</a></strong><br>
+                                <small>{{comment.time | timeToWords}}</small><br>
+                                <p>{{comment.text}} <span class="comment-reply" ng-click="replyToComment(comment.id, $event)">Reply</span></p>
+                                <div class="col-xs-11" ng-if=" activeComment.id === comment.id">
+                                    <textarea  ng-model="activeComment.text" rows="10" name="commentReply" required="required" class="input-block-level commentReply" ng-class="{selectedCommentInput: activeComment.id === comment.id}" placeholder="Reply"></textarea>
+                                </div>
+                                <div class="col-xs-1" ng-if=" activeComment.id === comment.id">
+                                    <button ng-click="makeReply(comment.id)" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-              
             </div>
         </form>
     </div>
@@ -32,30 +29,9 @@
     <div class="comment-form">
         <h3 ng-click="activeComment.id = false">Post a Comment</h3>
         <form name="comment-form" id="comment-form" ng-if="activeComment.id === false">
-
             <textarea rows="5" ng-model="activeComment.text" name="message" id="message" required="required" class="input-block-level" placeholder="Message"></textarea>
             <input ng-click="makeReply()" type="submit" value="Submit Comment" class="btn btn-large btn-primary">
         </form>
     </div>
-    <div class="risk-assesment">
-        <h3>Submit Answer</h3>
-        <form>
-            <label for="risk">
-                <select name="odds" ng-model="odds" ng-options="odd.val for odd in oddsList" required class="odds">
-                    <option value="">-- Please Select --</option>
-                </select>  &nbsp;  &nbsp;  &nbsp;
-              {{ oddsDescription }} &nbsp;
-            </label>
-
-
-
-            <div>
-                 How certain are you?
-                 <select name="certainty" ng-model="certainty" ng-options="certain.val for certain in certaintyList" required class="certainty">
-                   <option value=""> ??? </option>
-                   </select>
-                 % : {{ certaintyDescription }}
-                 </div>
-        </form>
-    </div>
+    
 </div>

@@ -12,7 +12,7 @@
     },
     "liklihoodAcceptance": {
       "type": "number",
-      "required": true
+      "required": false
     },
     "decisionCertainty": {
       "type": "number",

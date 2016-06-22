@@ -970,3 +970,23 @@ ul.faq li > div h3 {
 .category-container .category-content-wrapper div[select-template].last {
   border-bottom: none;
 }
+#reply-form .media {
+  margin-top: 0;
+}
+#reply-form .comment-reply {
+  cursor: pointer;
+  color: #2dcc70;
+}
+.parent-comment {
+  padding: 10px;
+}
+.child-comment {
+  border-left: 1px solid #2dcc70;
+  padding: 10px;
+}
+.child-comment-one img {
+  width: 40px;
+}
+.child-comment-plus-one img {
+  width: 20px;
+}

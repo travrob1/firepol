@@ -20,6 +20,35 @@
             <br>
             <br>
             <question-comments></question-comments>
+
+            <div class="risk-assesment">
+                <h3>Submit Answer</h3>
+                <form>
+                <div class="form-group">
+                    <label for="risk">{{field.label}}</label>
+
+                    <select name="odds" ng-model="odds" ng-options="odd.val for odd in oddsList" required class="odds">
+                        <option value="">Select</option>
+                    </select>
+                    &nbsp;  &nbsp;  &nbsp;
+                    {{ oddsDescription }} &nbsp;
+                </div>
+
+
+                    <div>
+                        How certain are you?
+                        <select name="certainty" ng-model="certainty" ng-options="certain.val for certain in certaintyList" required class="certainty">
+                            <option value=""> ??? </option>
+                        </select>
+                        % : {{ certaintyDescription }}
+                        <div>
+                            <button ng-click="submitAnswer()" class="btn btn-primary">Submit Answer</button>
+                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 
