@@ -30,6 +30,7 @@ function questionView($scope, $q, $stateParams, $timeout, Question) {
         $scope.question = data[0];
         var comments = data[1];
         var answers = data[2];
+        $scope.answers = answers;
 
         function sortComments() {
             comments = _.sortBy(comments, function(a) {
@@ -86,7 +87,8 @@ function questionView($scope, $q, $stateParams, $timeout, Question) {
                     $scope.question,
                     Question.Comments({
                         id: $stateParams.id
-                    }).$promise
+                    }).$promise,
+                    $scope.answers
                 ])
                 .then(displayComments);
         });
@@ -104,16 +106,6 @@ function questionView($scope, $q, $stateParams, $timeout, Question) {
         }, {
             'liklihood': $scope.odds.val,
             'decisionCertainty': $scope.certainty.val
-        }).$promise.then(function(res) {
-            return;
-            $q
-                .all([
-                    $scope.question,
-                    Question.Comments({
-                        id: $stateParams.id
-                    }).$promise
-                ])
-                .then(displayComments);
         });
     };
 
