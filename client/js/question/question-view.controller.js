@@ -118,8 +118,9 @@ function questionView($scope, $q, $stateParams, $timeout, Question) {
     });
 
     /* certainty of odds */
+    // TODO: ASK ABOUT VAL
     $scope.certaintyList = [{
-        'val': 50,
+        'val': '50 %',
         'description': 'on the fence.'
     }, {
         'val': 70,

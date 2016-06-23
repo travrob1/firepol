@@ -1,6 +1,6 @@
 <div>
     <div class="comments-list">
-        <form name="reply-form" id="reply-form">
+        <form name="reply-form" id="reply-form" class="clearfix">
             <div ng-repeat="comment in comments" class="comment media">
                 <div class="row">
                     <div class="col-xs-12">
@@ -24,12 +24,11 @@
         </form>
     </div>
     <br>
-    <div class="comment-form">
-        <h3 ng-click="activeComment.id = false">Post a Comment</h3>
-        <form name="comment-form" id="comment-form" ng-if="activeComment.id === false">
+    <div class="comment-form ">
+        <h3 ng-click="activeComment.id = false" ng-class="{'link-style': activeComment.id}">Post a Comment</h3>
+        <form name="comment-form" id="comment-form" ng-if="activeComment.id === false" class="clearfix">
             <textarea rows="5" ng-model="activeComment.text" name="message" id="message" required="required" class="input-block-level" placeholder="Message"></textarea>
-            <br>
-            <input ng-click="makeReply()" type="submit" value="Submit Comment" class="btn btn-large btn-primary">
+            <button class="btn btn-primary comment-reply-btn" ng-click="makeReply()" class="btn btn-primary">Submit</button>
         </form>
     </div>
     
