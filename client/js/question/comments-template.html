@@ -1,4 +1,4 @@
-<div style="border-left: 1px solid #d8d8d8; padding-left:15px;">
+<div>
     <div class="comments-list">
         <form name="reply-form" id="reply-form">
             <div ng-repeat="comment in comments" class="comment media">
@@ -12,11 +12,9 @@
                                 <strong>Posted by <a href="#">{{comment.name}}</a></strong><br>
                                 <small>{{comment.time | timeToWords}}</small><br>
                                 <p>{{comment.text}} <span class="comment-reply" ng-click="replyToComment(comment.id, $event)">Reply</span></p>
-                                <div class="col-xs-11" ng-if=" activeComment.id === comment.id">
+                                <div ng-if=" activeComment.id === comment.id">
                                     <textarea  ng-model="activeComment.text" rows="10" name="commentReply" required="required" class="input-block-level commentReply" ng-class="{selectedCommentInput: activeComment.id === comment.id}" placeholder="Reply"></textarea>
-                                </div>
-                                <div class="col-xs-1" ng-if=" activeComment.id === comment.id">
-                                    <button ng-click="makeReply(comment.id)" class="btn btn-primary">Submit</button>
+                                    <button class="btn btn-primary comment-reply-btn" ng-click="makeReply(comment.id)" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -30,6 +28,7 @@
         <h3 ng-click="activeComment.id = false">Post a Comment</h3>
         <form name="comment-form" id="comment-form" ng-if="activeComment.id === false">
             <textarea rows="5" ng-model="activeComment.text" name="message" id="message" required="required" class="input-block-level" placeholder="Message"></textarea>
+            <br>
             <input ng-click="makeReply()" type="submit" value="Submit Comment" class="btn btn-large btn-primary">
         </form>
     </div>
