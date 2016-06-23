@@ -18,15 +18,19 @@
                 <div class="form-group">
                     <label for="certainty">How certain are you?</label>
                     <select name="certainty" ng-model="certainty" ng-options="certain.val for certain in certaintyList" required class="form-control certainty">
-                        <option value=""> ? </option>
+                        <option value="">Select</option>
                     </select>
-                    % : {{ certaintyDescription }}
+                    {{ certaintyDescription }}
                     <div>
-                        <button ng-click="submitAnswer()" class="btn btn-primary">Submit Answer</button>
                         
                     </div>
                 </div>
             </div>
+            <div class="col-xs-12">
+                <button ng-click="submitAnswer()" class="btn btn-primary">Submit Answer</button>
+            </div>
+
+
         </div>
         
             
