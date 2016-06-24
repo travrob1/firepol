@@ -15,15 +15,18 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" ng-click='mobileCollapseNav()'>
         <!-- <li><a href="#/">Home</a></li> -->
         <li><a href="#/questions">Questions</a></li>
-        <li><a href="#/services">Services</a></li>
+        <!-- <li><a href="#/services">Services</a></li> -->
+        <li><a href="#/user-profile">Profile</a></li>
+        <li><a href="#/account">Account</a></li>
+        <li><a style="cursor: pointer;" ng-click="logout()">Logout</a></li>
 
-        <li class="dropdown" ng-show="authenticatedUser">
+        <!-- <li class="dropdown" ng-show="authenticatedUser">
           <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
           <ul class="dropdown-menu">
-          <!--   <li><a href="#/blog">Blog</a></li> 
+            <li><a href="#/blog">Blog</a></li> 
             <li><a href="#/career">Career</a></li>
             <li><a href="#/blog-item">Blog Single</a></li>
             <li><a href="#/faq">FAQ</a></li>
@@ -31,13 +34,11 @@
             <li><a href="#/portfolio">Portfolio</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#/privacy">Privacy Policy</a></li>
-            <li><a href="#/terms">Terms of Use</a></li> -->
-            <li><a href="#/user-profile">Profile</a></li>
-            <li><a href="#/account">Account</a></li>
-            <li><a style="cursor: pointer;" ng-click="logout()">Logout</a></li>
+            <li><a href="#/terms">Terms of Use</a></li>
+            
 
           </ul>
-        </li>
+        </li> -->
         <li ng-hide="authenticatedUser"><a href="#/register">Register</a></li>
         <!-- <li><a href="#/contact">Contact Us</a></li> -->
 

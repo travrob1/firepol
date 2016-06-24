@@ -1,4 +1,4 @@
-/*global angular*/
+/*global angular, $*/
 var app = angular.module('app', ['ui.router', 'ngResource', 'ui.validate', 'lbServices', 'app.config']);
 
 app.config( function($stateProvider, $urlRouterProvider) {
@@ -142,6 +142,9 @@ app.controller('globalCtrl', function($scope, $location, $http, AuthService, con
             .then(function(){
                 $location.path('/');
             });
+    };
+    $scope.mobileCollapseNav = function(){
+        $('.navbar-collapse').collapse('hide');
     };
 
 
