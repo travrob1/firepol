@@ -38,8 +38,8 @@ app.config( function($stateProvider, $urlRouterProvider) {
             controller: 'questionList'
         }).state('ask-question', {
             url: '/ask-question',
-            templateUrl: 'js/about-us/about-us.html',
-            controller: 'globalCtrl'
+            templateUrl: 'js/question/question-create.html',
+            controller: 'questionCreateCtrl'
         }).state('services', {
             url: '/services',
             templateUrl: 'js/services/services.html',
