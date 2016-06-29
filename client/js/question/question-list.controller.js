@@ -7,6 +7,8 @@ angular.module('app')
 
 function questionList($scope, Question) {
     $scope.questionList = Question.find();
-    $scope.questionList.$promise.then(function(x) { console.log('here', x); });
+    $scope.questionList.$promise.catch(function(e){
+        console.log('error', e);
+    });
     
 }

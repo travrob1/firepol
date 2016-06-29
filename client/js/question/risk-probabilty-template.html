@@ -7,7 +7,7 @@
                 <div class="form-group">
                     <label for="odds">What is the probibilty for risk in this scenerio?</label>
 
-                    <select name="odds" ng-model="odds" ng-options="odd.val for odd in oddsList" required class=" form-control odds">
+                    <select name="odds" ng-model="odds" ng-options="odd.val as odd.label for odd in oddsList" required class=" form-control odds">
                         <option value="">Select</option>
                     </select>
                     
@@ -17,7 +17,7 @@
             <div class="col-xs-12 col-sm-6">
                 <div class="form-group">
                     <label for="certainty">How certain are you?</label>
-                    <select name="certainty" ng-model="certainty" ng-options="certain.val for certain in certaintyList" required class="form-control certainty">
+                    <select name="certainty" ng-model="certainty" ng-options="certainty.val as certainty.label for certainty in certaintyList" required class="form-control certainty">
                         <option value="">Select</option>
                     </select>
                     {{ certaintyDescription }}

@@ -13,14 +13,17 @@
 <section id="question" class="container">
     <div class="row">
         <div class="col-xs-12 ">
-            <h1>{{question.question}}</h1>
+            <div id="question-wrapper">
+                <h1>{{question.question}}</h1>
 
-            <p>{{question.details}}</p>
+                <p>{{question.details}}</p>
+            </div>
             <br>
             <br>
             <question-comments></question-comments>
             <!-- <br> -->
             <hr>
+            <redisplay-question></redisplay-question>
             <risk-probibilty-submitition></risk-probibilty-submitition>
 
         </div>

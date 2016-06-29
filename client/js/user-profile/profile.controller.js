@@ -11,7 +11,7 @@ var Dconsole = {
 
 
 /*global angular, _ */
-angular.module('app').controller('profileCtrl', function($scope, $filter, $q, UserProfile, FirepolUser){
+angular.module('app').controller('profileCtrl', function($scope, $filter, $q, $state, configuration, UserProfile, FirepolUser){
     $scope.capitalize = $filter('capitalize');
     $scope.userProfile = {}; //UserProfile.create({userId: '1', sex: 'male'});
 
@@ -50,6 +50,13 @@ angular.module('app').controller('profileCtrl', function($scope, $filter, $q, Us
         .then(findOrCreateProfile);
 
      $scope.update = function() {
-        FirepolUser.UserProfile.updateById({id: $scope.$root.authenticatedUser.id, fk: $scope.userProfile.id}, $scope.userProfile);
+        FirepolUser.UserProfile.updateById({
+            id: $scope.$root.authenticatedUser.id, 
+            fk: $scope.userProfile.id
+        }, $scope.userProfile);
+
+        if (configuration.user.profiles[0].created === configuration.user.profiles[0].modified){
+            $state.transitionTo('questions');
+        }
      };
 });
