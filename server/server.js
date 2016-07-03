@@ -59,7 +59,7 @@ boot(app, __dirname, function(err) {
 
 // The access token is only available after boot
 app.middleware('auth', loopback.token({
-    model: app.models.accessToken
+  model: app.models.accessToken
 }));
 
 // Build the providers/passport config
@@ -67,30 +67,26 @@ var config = require('../providers.json');
 
 app.middleware('session:before', loopback.cookieParser('asdf1212asdfasfas3434gggdfas'));
 app.middleware('session', loopback.session({
-    secret: 'kitty',
-    saveUninitialized: true,
-    resave: true
+  secret: 'kitty',
+  saveUninitialized: true,
+  resave: true
 }));
 passportConfigurator.init();
 
 passportConfigurator.setupModels({
-    userModel: app.models.FirepolUser,
-    userIdentityModel: app.models.userIdentity,
-    userCredentialModel: app.models.userCredential
+  userModel: app.models.FirepolUser,
+  userIdentityModel: app.models.userIdentity,
+  userCredentialModel: app.models.userCredential
 });
 for (var s in config) {
-    var c = config[s];
-    c.session = c.session !== false;
-    passportConfigurator.configureProvider(s, c);
+  var c = config[s];
+  c.session = c.session !== false;
+  passportConfigurator.configureProvider(s, c);
 }
 
 app.get('/auth/logout', function (req, res, next) {
-    req.logout();
-    res.json({});
+  req.logout();
+  res.json({});
 });
-app.get('/auth/getCurrent', function (req, res) {
-  res.json({
-    user: req.user
-  })
-})
+
 

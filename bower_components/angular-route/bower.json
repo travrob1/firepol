@@ -1,8 +1,8 @@
 {
-  "name": "angular-resource",
+  "name": "angular-route",
   "version": "1.4.10",
   "license": "MIT",
-  "main": "./angular-resource.js",
+  "main": "./angular-route.js",
   "ignore": [],
   "dependencies": {
     "angular": "1.4.10"

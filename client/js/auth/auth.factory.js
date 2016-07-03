@@ -2,18 +2,7 @@
 
 /*global angular, $, _ */
 
-angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, configuration, $http, $q, $location) {
-    function race(promises) {
-      var deferred = $q.defer();
-
-      _.forEach(promises, function(promise) {
-        $q.when(promise).then(deferred.resolve);
-      });
-
-      return deferred.promise;
-    }
-
-
+angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, configuration) {
     function login(email, password) {
         var TWO_WEEKS = 60 * 60 * 24 * 7 * 2;
         return FirepolUser
@@ -36,19 +25,11 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
     }
 
     function logout() {
-        function socialLogout() {
-            return $http.get('/auth/logout');
-        }
-        function loopbackLogout() {
-            return FirepolUser
-                .logout()
-                .$promise
-        }
-        return race([socialLogout(), loopbackLogout()])
-        .then(function() {
-            debugger
-                $rootScope.authenticatedUser = undefined;
-                $location.path('/');
+        return FirepolUser
+            .logout()
+            .$promise
+            .then(function() {
+                $rootScope.authenticatedUser = null;
             });
     }
 
@@ -62,26 +43,21 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
     }
 
     function getCurrent() {
-        debugger
-        if (configuration.bootstrapLogin) {
-            return $http.get('auth/getCurrent')
-            .then(function (res) {
-                $rootScope.authenticatedUser = res.data.user;
-            })
+        if (_.has(configuration, 'user.id')) {
+            $rootScope.authenticatedUser = configuration.user;
         } else {
             return FirepolUser.getCurrent(
                 function(response) {
-                    console.log('res', response);
                     $rootScope.authenticatedUser = {
                         id: response.id,
-                        email: response.email,
-                        username: response.username
+                        email: response.email
                     };
                 },
                 function(error) {
-                    console.log('no logged in user')
+                    //no logged in user
                 }).$promise;
         }
+
     }
 
     return {
