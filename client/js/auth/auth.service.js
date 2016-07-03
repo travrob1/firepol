@@ -46,7 +46,6 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
         }
         return race([socialLogout(), loopbackLogout()])
         .then(function() {
-            debugger
                 $rootScope.authenticatedUser = undefined;
                 $location.path('/');
             });
@@ -62,11 +61,12 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
     }
 
     function getCurrent() {
-        debugger
         if (configuration.bootstrapLogin) {
             return $http.get('auth/getCurrent')
             .then(function (res) {
                 $rootScope.authenticatedUser = res.data.user;
+                $rootScope.$broadcast('UserSetToScope')
+
             })
         } else {
             return FirepolUser.getCurrent(

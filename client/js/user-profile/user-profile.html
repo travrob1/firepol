@@ -1,41 +1,32 @@
 <section class="title">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-xs-12">
                 <h1>User Profile</h1>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <ul class="breadcrumb pull-right">
-                    <li><a href="#/">Home</a> <span class="divider">/</span></li>
-                    <li><a href="#">Pages</a> <span class="divider">/</span></li>
-                    <li class="active">Pricing</li>
-                </ul>
             </div>
         </div>
     </div>
 </section>
 <div class="container">
-    <section id="contact-page">
-        <div class="row">
-            <div class="col-xs-12">
+    <section id="user-profile-page">
                 <div class="status alert alert-success" style="display: none"></div>
                 <form id="main-contact-form" ng-submit="update()" class="contact-form" name="contact-form" >
-                    <div class="col-xs-12 col-sm-6 col-md-4 category-container" ng-repeat="category in categoryList">
-                        <h2 class="category-title">{{category.category | capitalize}}</h2>
-                        <div class="category-content-wrapper">
-                            <div class="row" class="" ng-repeat="rowDef in category.rowDefList">
-                                <div class="col-xs-12">
-                                    <div radio-template  ng-if="rowDef.type == 'radio'" def='rowDef' ng-class="{'last': $last}"></div>
-                                    <div select-template  ng-if="rowDef.type == 'select'" def='rowDef' ng-class="{'last': $last}"></div>
-                                    <div checkbox-template  ng-if="rowDef.type == 'checkbox'" def='rowDef' ng-class="{'last': $last}"></div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4 category-container" ng-repeat="category in categoryList">
+                            <h4 class="category-title">{{category.category | capitalize}}</h4>
+                            <div class="category-content-wrapper">
+                                <div class="row" class="" ng-repeat="rowDef in category.rowDefList">
+                                    <div class="col-xs-12">
+                                        <div radio-template  ng-if="rowDef.type == 'radio'" def='rowDef' ng-class="{'last': $last}"></div>
+                                        <div select-template  ng-if="rowDef.type == 'select'" def='rowDef' ng-class="{'last': $last}"></div>
+                                        <div checkbox-template  ng-if="rowDef.type == 'checkbox'" def='rowDef' ng-class="{'last': $last}"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-large pull-right">Save</button>
-                    <p> </p>
+                    
+                    <button type="submit" class="btn btn-primary btn-large">Update</button>
                 </form>
-            </div>    
-        </div>
     </section>
 </div>
