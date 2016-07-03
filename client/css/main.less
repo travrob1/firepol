@@ -459,14 +459,7 @@ header .dropdown-menu:before {
 .modal {
     border: 0;
     
-    #login-failed {
-        position: absolute;
-       top: -26px;
-       left: 19px;
-        font-size: 14px;
-        text-transform: capitalize;
-        color: #FF2929;
-    }
+    
     #form-login {
         position: relative;
     }
@@ -475,6 +468,7 @@ header .dropdown-menu:before {
         border: 0;
         padding: 20px 20px 0
     }
+
     .modal-header>h4 {
         font-weight: 300;
         font-size: 14px;
@@ -485,12 +479,7 @@ header .dropdown-menu:before {
     .modal-body {
         padding: 20px
     }
-    input[type="text"],
-    input[type="password"] {
-        padding: 5px 10px;
-        min-height: 30px;
-        margin-right: 10px
-    }
+    
     .icon-remove {
         color: #848484;
         position: absolute;
@@ -507,9 +496,31 @@ header .dropdown-menu:before {
         border-radius: 100%;
         cursor: pointer
     }
-    button {
-        margin-left: 10px;
-        border: 0
+
+    &#loginForm {
+
+        #login-failed {
+            position: absolute;
+           top: -26px;
+           left: 19px;
+            font-size: 14px;
+            text-transform: capitalize;
+            color: #FF2929;
+        }
+        #form-login {
+            .col-sm-4,
+            .col-xs-12 {
+                padding-right: 5px;
+                padding-left: 5px;
+            }
+            input,
+            button {
+                min-height: 30px;
+                margin-bottom: 10px;
+            }
+
+            
+        }
     }
 }
 

@@ -5,7 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Login Form</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body login-modal">
                 <div class="row">
                     <div class="col-xs-8 col-xs-offset-2">
                         <a class="btn btn-large btn-block social-login-btn login-facebook" href="/auth/facebook"><i class="fa fa-facebook"></i>&nbsp; Login with Facebook</a>
@@ -16,16 +16,19 @@
                 </div>
                 <br>
                 <form class="form-inline clearfix" id="form-login" ng-submit="login(login.email, login.password)">
-                    <p ng-if="loginFailed" id="login-failed">{{loginFailed}}</p>
-                    <div class="col-xs-12 col-sm-4">
-                        <input type="text" class="input-small form-control" placeholder="Email" ng-model="login.email">
+                    <div class="row">
+                        <p ng-if="loginFailed" id="login-failed">{{loginFailed}}</p>
+                        <div class="col-xs-12 col-sm-4">
+                            <input type="text" class="input-small form-control" placeholder="Email" ng-model="login.email">
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <input type="password" class="input-small form-control" placeholder="Password" ng-model="login.password">
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                        </div>
                     </div>
-                    <div class="col-xs-12 col-sm-4">
-                        <input type="password" class="input-small form-control" placeholder="Password" ng-model="login.password">
-                    </div>
-                    <div class="col-xs-12 col-sm-4">
-                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                    </div>
+                    
                 </form>
                 <br>
             </div>
