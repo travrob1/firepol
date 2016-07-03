@@ -1,13 +1,14 @@
 /*global angular*/
 
 angular.module('app')
-.controller('registerCtrl',function($scope, AuthService, $location){
+.controller('registerCtrl',function($scope, AuthService, $location, state){
     $scope.register = function(){
         AuthService.register($scope.user.email, $scope.user.password)
             .then(function(res){
                 return AuthService.login($scope.user.email, $scope.user.password);
             })
             .then(function(){
+                state.ui.firstTimeLoggedIn = true;
                 $location.path('/user-profile');
             })
             .catch(function(err){
