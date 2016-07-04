@@ -40,9 +40,9 @@ app.config( function($stateProvider, $urlRouterProvider) {
             url: '/ask-question',
             templateUrl: 'js/question/question-create.html',
             controller: 'questionCreateCtrl'
-        }).state('services', {
-            url: '/services',
-            templateUrl: 'js/services/services.html',
+        }).state('setUsername', {
+            url: '/set-username',
+            templateUrl: 'js/register/set-username.html',
             controller: 'globalCtrl'
         }).state('portfolio', {
             url: '/portfolio',

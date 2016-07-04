@@ -51,11 +51,12 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
             });
     }
 
-    function register(email, password) {
+    function register(email, password, username) {
         return FirepolUser
             .create({
                 email: email,
-                password: password
+                password: password,
+                username: username
             })
             .$promise;
     }

@@ -1,0 +1,29 @@
+<section class="title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Username</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <section id="registration-page" >
+        <form ng-submit="register()"> 
+            <div class="row form-group">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                    <h4>Please add a username to your account that will be your display name on all posts and comments.</h4>
+                    <label>Username:</label>
+                    <input type="text" class="form-control" required="required" ng-model="user.username">
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-large pull-right">Add Username</button>
+
+                </div>
+            </div>
+        </form>
+        
+    </section>    
+</div>
+
+<!-- /#registration-page -->

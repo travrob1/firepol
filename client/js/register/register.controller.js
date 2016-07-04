@@ -3,7 +3,7 @@
 angular.module('app')
 .controller('registerCtrl',function($scope, AuthService, $location, state){
     $scope.register = function(){
-        AuthService.register($scope.user.email, $scope.user.password)
+        AuthService.register($scope.user.email, $scope.user.password, $scope.user.username)
             .then(function(res){
                 return AuthService.login($scope.user.email, $scope.user.password);
             })
