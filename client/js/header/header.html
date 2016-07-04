@@ -16,12 +16,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
       <ul class="nav navbar-nav navbar-right" ng-click='mobileCollapseNav()'>
-        <li><a href="#/ask-question">Ask Questions</a></li>
+        <li ng-hide="!authenticatedUser"><a href="#/ask-question">Ask Questions</a></li>
         <li><a href="#/questions">Questions</a></li>
-        <li><a href="#/user-profile">Profile</a></li>
-        <li><a href="#/account">Account</a></li>
+        <li ng-hide="!authenticatedUser"><a href="#/user-profile">Profile</a></li>
+        <li ng-hide="!authenticatedUser"><a href="#/account">Account</a></li>
         
-        <li ng-hide="!authenticatedUser && false"><a style="cursor: pointer;" ng-click="logout()">Logout</a></li>
+        <li ng-hide="!authenticatedUser"><a style="cursor: pointer;" ng-click="logout()">Logout</a></li>
         <li ng-hide="authenticatedUser"><a href="#/register">Register</a></li>
         <li class="login" ng-hide="authenticatedUser">
             <a style="cursor: pointer;" data-toggle="modal" data-target="#loginForm" ><i class="fa fa-lock"></i>&nbsp;Login</a>

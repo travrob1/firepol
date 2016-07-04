@@ -123,7 +123,7 @@ app.controller('globalCtrl', function($scope, $location, $http, AuthService, con
     $scope.login = function(email, pw){
         AuthService.login(email, pw)
             .then(function(){
-                $location.path('/user-profile');
+                $location.path('/questions');
             })
             .catch(function(err){
                 $scope.loginFailed = err.data.error.message;
