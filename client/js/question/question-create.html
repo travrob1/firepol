@@ -4,50 +4,51 @@
                 <div class="span12">
                     <h1>Ask a Question</h1>
                 </div>
-                
+            </div>
+        </div>
+</section>
+
+<div class="container">
+    <section id="ask-question">
+        <div class="row">
+            <div class="col-xs-12 ">
+                <form name="ask-question-form" id="ask-question-form" class="clearfix">
+                    <div class="form-group">
+                        <label for="question">Question:</label>
+                        <small>One to two sentance</small>
+                        <input type="text" ng-model="question.question" name="question" required="required" class="input-block-level form-control" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="details">Details:</label>
+                        <textarea rows="5" ng-model="question.details" name="details" class="input-block-level form-control" ></textarea>
+                    </div>
+
+
+                    <button class="btn btn-primary comment-reply-btn" ng-click="createQuestion()" class="btn btn-primary">Submit</button>
+                    
+                </form>
+            </div>
+        </div>
+        <br>
+        <h2 ng-show="question.question && question.details">Question Preview</h2>
+        <div class="row" id="question-preview-container" ng-show="question.question && question.details">
+            <div class="col-xs-12">
+                    <section id="question" class="container">
+                        <div class="row">
+                            <div class="preview-question-wrapper col-xs-12 ">
+                                <h1>{{question.question}}</h1>
+
+                                <p>{{question.details}}</p>
+                                <hr>
+                                <risk-probibilty-submitition></risk-probibilty-submitition>
+
+                            </div>
+                        </div>
+                    </section>
+                    <div id="glass-wall"></div>
             </div>
         </div>
     </section>
+</div>
 
-
-<section id="ask-question" class="container">
-    <div class="row">
-        <div class="col-xs-12 ">
-            <form name="ask-question-form" id="ask-question-form" class="clearfix">
-                <div class="form-group">
-                    <label for="question">Question</label>
-                    <small>Remember: Users will submit answers in the form of 'Odds of </small>
-                    <input type="text" ng-model="question.question" name="question" required="required" class="input-block-level form-control" />
-
-                </div>
-                <div class="form-group">
-                    <label for="details">Details</label>
-                    <textarea rows="5" ng-model="question.details" name="details" class="input-block-level form-control" ></textarea>
-                </div>
-
-
-                <button class="btn btn-primary comment-reply-btn" ng-click="makeReply()" class="btn btn-primary">Submit</button>
-                
-            </form>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-xs-12">
-                <section id="question" class="container">
-                    <div class="row">
-                        <div class="preview-question-wrapper col-xs-12 ">
-                            <h1>{{question.question}}</h1>
-
-                            <p>{{question.details}}</p>
-                            <hr>
-                            <risk-probibilty-submitition></risk-probibilty-submitition>
-
-                        </div>
-                    </div>
-                </section>
-        </div>
-    </div>
-
-    
-</section>

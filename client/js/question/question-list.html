@@ -1,35 +1,30 @@
     <section class="title">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-md-6">
+                <div class="col-xs-12">
                     <h1>Questions</h1>
                 </div>
-                <div class="col-xs-12 col-md-6">
-                    <ul class="breadcrumb pull-right">
-                        <li><a href="#/">Home</a> <span class="divider">/</span></li>
-                        <li><a href="#">Pages</a> <span class="divider">/</span></li>
-                        <li class="active">Frequently Asked Questions</li>
-                    </ul>
-                </div>
+                
             </div>
         </div>
     </section>
     <!-- / .title -->       
+    <div class="container">
+        <section id="question-list">
+            <ul class="faq">
+                 <li ng-repeat="question in questionList">
+                    <div a ui-sref="question({ id: question.id, })">
+                        <span class="number">{{$index}}</span>
+                        <div>
+                            <h3>{{question.question}}</h3>
+                            <p>{{question.details | limitTo: 400 }}</p>
+                        </div>
+                     <div>
+                </li>
+            </ul>
+            <p>&nbsp;</p>
+            
+        </section>
 
-    <section id="faqs" class="container">
-        <ul class="faq">
-         <li ng-repeat="question in questionList">
-            <div a ui-sref="question({ id: question.id, })">
-                <span class="number">{{$index}}</span>
-                <div>
-                    <h3>{{question.question}}</h3>
-                    <p>{{question.details | limitTo: 400 }}</p>
-                </div>
-             <div>
-        </li>
-
-       
-    </ul>
-    <p>&nbsp;</p>
+    </div>
     
-</section>

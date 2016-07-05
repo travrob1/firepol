@@ -1,15 +1,8 @@
 <section class="title">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12">
                 <h1>Registration</h1>
-            </div>
-            <div class="col-xs-12 col-md-6">
-                <ul class="breadcrumb pull-right">
-                    <li><a href="#/">Home</a> <span class="divider"></span></li>
-                    <li><a href="#">Pages</a> <span class="divider"></span></li>
-                    <li class="active">Registration</li>
-                </ul>
             </div>
         </div>
     </div>
@@ -37,8 +30,13 @@
                     <label>Email</label>
                     <input type="text" class="form-control" required="required" ng-model="user.email">
                     
+                    <label>Username/Displayname</label>
+                    <input type="text" class="form-control" required="required" ng-model="user.username">
+                    
                     <label>Password</label>
                     <input type="password" class="form-control" required="required" ng-model="user.password">
+                    
+
                     <br>
                     <button type="submit" class="btn btn-primary btn-large pull-right">Register</button>
 

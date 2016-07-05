@@ -24,6 +24,10 @@ app.config( function($stateProvider, $urlRouterProvider) {
             url: '/register',
             templateUrl: 'js/register/register.html',
             controller: 'registerCtrl'
+        }).state('setUsername', {
+            url: '/set-username',
+            templateUrl: 'js/register/set-username.html',
+            controller: 'registerCtrl'
         }).state('about-us', {
             url: '/about-us',
             templateUrl: 'js/about-us/about-us.html',
@@ -40,10 +44,6 @@ app.config( function($stateProvider, $urlRouterProvider) {
             url: '/ask-question',
             templateUrl: 'js/question/question-create.html',
             controller: 'questionCreateCtrl'
-        }).state('services', {
-            url: '/services',
-            templateUrl: 'js/services/services.html',
-            controller: 'globalCtrl'
         }).state('portfolio', {
             url: '/portfolio',
             templateUrl: 'js/portfolio/portfolio.html',
@@ -123,7 +123,7 @@ app.controller('globalCtrl', function($scope, $location, $http, AuthService, con
     $scope.login = function(email, pw){
         AuthService.login(email, pw)
             .then(function(){
-                $location.path('/user-profile');
+                $location.path('/questions');
             })
             .catch(function(err){
                 $scope.loginFailed = err.data.error.message;
@@ -132,12 +132,6 @@ app.controller('globalCtrl', function($scope, $location, $http, AuthService, con
     };
 
     $scope.logout = function(){
-        if($scope.$root.authenticatedUser.profiles){
-            $http.get('/auth/logout');
-            $scope.$root.authenticatedUser = undefined;
-            $location.path('/');
-            return;
-        }
         AuthService.logout()
             .then(function(){
                 $location.path('/');

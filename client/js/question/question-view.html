@@ -9,22 +9,25 @@
         </div>
     </section>
 
+<div class="container">
+    <section id="question">
+        <div class="row">
+            <div class="col-xs-12 ">
+                <div id="question-wrapper">
+                    <h1 class="no-margin-top">{{question.question}}</h1>
 
-<section id="question" class="container">
-    <div class="row">
-        <div class="col-xs-12 ">
-            <h1>{{question.question}}</h1>
+                    <p>{{question.details}}</p>
+                </div>
+                <br>
+                <br>
+                <question-comments></question-comments>
+                <!-- <br> -->
+                <hr>
+                <redisplay-question></redisplay-question>
+                <risk-probibilty-submitition></risk-probibilty-submitition>
 
-            <p>{{question.details}}</p>
-            <br>
-            <br>
-            <question-comments></question-comments>
-            <!-- <br> -->
-            <hr>
-            <risk-probibilty-submitition></risk-probibilty-submitition>
-
+            </div>
         </div>
-    </div>
+    </section>
+</div>
 
-    
-</section>

@@ -1,13 +1,14 @@
 /*global angular*/
 
 angular.module('app')
-.controller('registerCtrl',function($scope, AuthService, $location){
+.controller('registerCtrl',function($scope, $state,  AuthService, $location, state, FirepolUser){
     $scope.register = function(){
-        AuthService.register($scope.user.email, $scope.user.password)
+        AuthService.register($scope.user.email, $scope.user.password, $scope.user.username)
             .then(function(res){
                 return AuthService.login($scope.user.email, $scope.user.password);
             })
             .then(function(){
+                state.ui.firstTimeLoggedIn = true;
                 $location.path('/user-profile');
             })
             .catch(function(err){
@@ -20,4 +21,14 @@ angular.module('app')
                 }
             });
     };
+
+    $scope.addUserName = function () {
+        return FirepolUser.prototype$updateAttributes(
+            { id: $scope.$root.authenticatedUser.id }, {username: $scope.update.username}
+        ).$promise
+        .then(function () {
+            $state.transitionTo('user-profile');
+        });
+    }
+
 });

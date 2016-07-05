@@ -1,6 +1,17 @@
 @import url(http://fonts.googleapis.com/css?family=Fjalla+One);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700,300);
-
+.no-margin-top{
+    margin-top: 0;
+}
+.no-margin-bottom{
+    margin-bottom: 0;
+}
+.no-margin-left{
+    margin-left: 0;
+}
+.no-margin-right{
+    margin-right: 0;
+}
 .clearfix {
     *zoom: 1
 }
@@ -32,7 +43,10 @@ body {
     padding-top: 90px;
     font-size: 12px;
     color: #34495e;
-    background: #f5f5f5
+    background: #f5f5f5;
+    @media screen and (max-width: 767px){
+        padding-top: 50px;
+    }
 }
 body h1,
 body h2,
@@ -50,6 +64,7 @@ body h3,
 body h4 {
     margin-top: 0
 }
+
 .btn {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -77,7 +92,14 @@ body h4 {
     text-decoration: none
 }
 .btn-primary {
-    background-color: #2dcc70
+    background-color: #2dcc70;
+    &:focus,
+    &:active:focus {
+        color: #fff;
+        background-color: #2dcc70;
+        border-color: #2dcc70;
+        outline: none;
+    }
 }
 .btn-primary:hover {
     background-color: #24a259
@@ -117,8 +139,18 @@ a:focus,
     margin-top: -1px;
     min-width: 180px;
 }
+
+//header tags and button tags
+@media screen and (max-width: 767px){
+    h1 {
+        font-size: 1.9em;
+    }
+}
 body #ng-view section {
-    padding: 50px 0
+    padding: 50px 0;
+    @media screen and (max-width: 767px){
+        padding: 25px 0
+    }
 }
 body #ng-view > section#hero {
     height: auto;
@@ -158,6 +190,11 @@ body #ng-view > section#hero {
     @media screen and (max-width: 660px){
         font-size: 70%
     }
+    @media screen and (max-width: 480px){
+        h1 {
+            line-height: 32px;
+        }
+    }
 }
 #recent-works {
     background: #2dcc70;
@@ -191,7 +228,13 @@ body #ng-view > section#hero {
 div#ng-view .title {
     background: #2dcc70;
     color: #fff;
-    padding: 20px 0
+    padding: 20px 0;
+    @media screen and (max-width: 767px){
+        padding: 14px 0;
+        & h1 {
+            margin: 0;
+        }
+    }
 }
 .center {
     text-align: center
@@ -298,6 +341,9 @@ header #logo {
     height: 90px;
     background: url(../images/firepol-logo.svg) no-repeat 0 50%;
     background-size: 100% 100%;
+    @media screen and (max-width: 767px){
+        height: 50px;
+    }
 }
 header.navbar {
     margin-bottom: 0
@@ -413,14 +459,7 @@ header .dropdown-menu:before {
 .modal {
     border: 0;
     
-    #login-failed {
-        position: absolute;
-       top: -26px;
-       left: 19px;
-        font-size: 14px;
-        text-transform: capitalize;
-        color: #FF2929;
-    }
+    
     #form-login {
         position: relative;
     }
@@ -429,6 +468,7 @@ header .dropdown-menu:before {
         border: 0;
         padding: 20px 20px 0
     }
+
     .modal-header>h4 {
         font-weight: 300;
         font-size: 14px;
@@ -439,12 +479,7 @@ header .dropdown-menu:before {
     .modal-body {
         padding: 20px
     }
-    input[type="text"],
-    input[type="password"] {
-        padding: 5px 10px;
-        min-height: 30px;
-        margin-right: 10px
-    }
+    
     .icon-remove {
         color: #848484;
         position: absolute;
@@ -461,9 +496,31 @@ header .dropdown-menu:before {
         border-radius: 100%;
         cursor: pointer
     }
-    button {
-        margin-left: 10px;
-        border: 0
+
+    &#loginForm {
+
+        #login-failed {
+            position: absolute;
+           top: -26px;
+           left: 19px;
+            font-size: 14px;
+            text-transform: capitalize;
+            color: #FF2929;
+        }
+        #form-login {
+            .col-sm-4,
+            .col-xs-12 {
+                padding-right: 5px;
+                padding-left: 5px;
+            }
+            input,
+            button {
+                min-height: 30px;
+                margin-bottom: 10px;
+            }
+
+            
+        }
     }
 }
 
@@ -912,7 +969,8 @@ ul.gallery li .preview:hover .links {
 }
 ul.faq {
     list-style: none;
-    margin: 0
+    margin: 0;
+    padding-left: 0;
 }
 ul.faq li {
     margin-top: 30px
@@ -974,8 +1032,6 @@ ul.faq li>div h3 {
 
 // USER PROFILE Pages
 .category-container {
-    border: 1px solid grey;
-    border-radius: 3px;
     margin-bottom: 20px;
     .category-title {
         background-color: grey;
@@ -998,10 +1054,90 @@ ul.faq li>div h3 {
         }
         
     }
+    &:nth-child(1){
+        border-right: 1px solid grey;
+        height: 375px;
+    }
+    &:nth-child(2){
+        border-right: 1px solid grey;
+        height: 375px;
+    }
+    &:nth-child(5) {
+        border-right: 1px solid grey;
+        border-left: 1px solid grey;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 991px){
+        
+        &:nth-child(2){
+            height: 375px;
+            border: none;
+        }
+        &:nth-child(4){
+            border-left: 1px solid grey;
+        }
+
+        &:nth-child(5) {
+            border-left: none;
+        }
+    }
+
+    @media screen and (max-width: 767px){
+        border-left: none !important;
+        border-right: none !important;
+        height: auto !important;
+    }
+
 
 }
 
+
+
 // QUESTION VIEW Pages
+#question {
+    textarea{
+        width: 90%;
+        height: 176px;
+        float: left;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        border-color: #2dcc70;
+        resize: none;
+    }
+    .comment-reply-btn {
+        width: 10%;
+        float: left;
+        display: table-cell;
+        position: relative;
+        height: 176px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        text-align: center;
+        padding: 73px 0;
+    }
+
+    
+    @media screen and (max-width: 767px){
+        h1 {
+            font-size: 22px;
+        }
+    }
+    @media screen and (max-width: 660px){
+        textarea{
+            width: 100%;
+            height:75px;
+            resize: vertical;
+
+        }
+        .comment-reply-btn {
+            width: 100%;
+            padding: 10px;
+            height: auto;
+            margin-top: 5px;
+            border-radius: 0
+        }
+    }
+}
 #reply-form {
     .media {
         margin-top: 0;
@@ -1011,47 +1147,8 @@ ul.faq li>div h3 {
         color: #2dcc70;
         
     }
-    textarea.commentReply{
-        width: 90%;
-        float: left;
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
-        border-color: #2dcc70;
-        
-    }
-    .comment-reply-btn {
-        width: 10%;
-        float: left;
-        display: table-cell;
-        position: relative;
-        height: 176px;
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-        text-align: center;
-        padding: 73px 0;
-    }
 }
-#comment-form {
-    textarea{
-        width: 90%;
-        float: left;
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
-        border-color: #2dcc70;
-        
-    }
-    .comment-reply-btn {
-        width: 10%;
-        float: left;
-        display: table-cell;
-        position: relative;
-        height: 176px;
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-        text-align: center;
-        padding: 73px 0;
-    }
-}
+
 .parent-comment {
     padding: 10px
 }
@@ -1079,6 +1176,17 @@ section#ask-question {
         .preview-question-wrapper {
             background-color: white;
         }
+    }
+    #glass-wall {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: not-allowed;
+    }
+    #question-preview-container {
+        opacity: 0.7;
     }
     #question-submit-answer-btn {
         display: none;

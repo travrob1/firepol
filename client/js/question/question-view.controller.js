@@ -65,12 +65,8 @@ function questionView($scope, $q, $stateParams, $timeout, Question) {
         $scope.comments = sortComments();
         
         if (answers[0]) {
-            $scope.certainty = _.find($scope.certaintyList, {
-                val: answers[0].decisionCertainty
-            });
-            $scope.odds = _.find($scope.oddsList, {
-                val: answers[0].liklihood
-            });
+            $scope.certainty = answers[0].decisionCertainty;
+            $scope.odds = answers[0].liklihood;
 
         }
     }
@@ -104,8 +100,8 @@ function questionView($scope, $q, $stateParams, $timeout, Question) {
         Question.Answers.create({
             'id': $scope.question.id
         }, {
-            'liklihood': $scope.odds.val,
-            'decisionCertainty': $scope.certainty.val
+            'liklihood': $scope.odds,
+            'decisionCertainty': $scope.certainty
         });
     };
 
