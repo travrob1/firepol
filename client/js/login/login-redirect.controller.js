@@ -7,7 +7,6 @@ angular.module('app')
     if (configuration.bootstrapLogin){
         $scope.$on('UserSetToScope',function () {
             if (_.get($rootScope, 'authenticatedUser.profiles[0].created') === _.get($rootScope, 'authenticatedUser.profiles[0].modified')) {
-                // TODO: ticket - prompt social logins user for username on next page
                 state.ui.firstTimeLoggedIn = true;
                 $state.transitionTo('setUsername');
             } else {

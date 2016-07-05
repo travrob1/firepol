@@ -24,6 +24,10 @@ app.config( function($stateProvider, $urlRouterProvider) {
             url: '/register',
             templateUrl: 'js/register/register.html',
             controller: 'registerCtrl'
+        }).state('setUsername', {
+            url: '/set-username',
+            templateUrl: 'js/register/set-username.html',
+            controller: 'registerCtrl'
         }).state('about-us', {
             url: '/about-us',
             templateUrl: 'js/about-us/about-us.html',
@@ -40,10 +44,6 @@ app.config( function($stateProvider, $urlRouterProvider) {
             url: '/ask-question',
             templateUrl: 'js/question/question-create.html',
             controller: 'questionCreateCtrl'
-        }).state('setUsername', {
-            url: '/set-username',
-            templateUrl: 'js/register/set-username.html',
-            controller: 'globalCtrl'
         }).state('portfolio', {
             url: '/portfolio',
             templateUrl: 'js/portfolio/portfolio.html',
