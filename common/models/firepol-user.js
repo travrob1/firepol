@@ -48,6 +48,63 @@ module.exports = function(FirepolUser) {
         }
     );
 
+    //http://stackoverflow.com/questions/31931084/what-is-the-correct-way-to-change-password-in-angular-strongloop-app
+    FirepolUser.updatePassword = function (ctx, oldPassword, newPassword, cb) {
+    var newErrMsg, newErr;
+    try {
+        this.findOne({where: {id: ctx.req.accessToken.userId}}, function (err, user) {
+        if (err) {
+            cb(err);
+        } else if (!user) {
+            newErrMsg = 'No match between provided current logged user and email';
+            newErr = new Error(newErrMsg);
+            newErr.statusCode = 401;
+            newErr.code = 'LOGIN_FAILED_EMAIL';
+            cb(newErr);
+        } else {
+            //user.hasPassword(oldPassword, function (err, isMatch) {
+            //if (isMatch) {
+    
+                // TODO ...further verifications should be done here (e.g. non-empty new password, complex enough password etc.)...
+    
+                user.updateAttributes({'password': newPassword}, function (err, instance) {
+                if (err) {
+                    cb(err);
+                } else {
+                    cb(null, true);
+                }
+                });
+                /*
+            } else {
+                newErrMsg = 'User specified wrong current password !';
+                newErr = new Error(newErrMsg);
+                newErr.statusCode = 401;
+                newErr.code = 'LOGIN_FAILED_PWD';
+                return cb(newErr);
+            }
+            });*/
+        }
+        });
+    } catch (err) {
+        console.error(err);
+        cb(err);
+    }
+    };
+
+    FirepolUser.remoteMethod(
+        'updatePassword',
+        {
+            description: 'Allows a logged user to change his/her password.',
+            http: {verb: 'put'},
+            accepts: [
+            {arg: 'ctx', type: 'object', http: {source: 'context'}},
+            {arg: 'oldPassword', type: 'string', required: true, description: 'The user old password'},
+            {arg: 'newPassword', type: 'string', required: true, description: 'The user NEW password'}
+            ],
+            returns: {arg: 'passwordChange', type: 'boolean'}
+        }
+    );
+
     return;
     FirepolUser.revokeRole = function(roleName, cb) {
       cb(null, moment.tz.names());

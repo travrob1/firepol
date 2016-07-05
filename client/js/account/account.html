@@ -21,9 +21,11 @@
             <form ng-submit="updateAccount()"> 
                 
                     <div class="col-xs-12 col-sm-5">
-                        <label>Full name</label>
+                        <label>Display name</label>
+                        <div>Identifies you to the general public.  It can be a handle or nickname.</div>
                         <input type="text" class="form-control" ng-model="user.name">
                         <label for="email">Email</label>
+                        <div>This is not shared publicly.</div>
                         <input type="text" class="form-control" required="required" ng-model="user.email">
                         <br>
                         
@@ -34,10 +36,12 @@
 
             <form ng-submit="updatePassword()"> 
                     <div class="col-xs-12 col-sm-5  col-sm-offset-1">
+                        <label>Existing Password</label>
+                        <input type="text" class="form-control" required="required" ng-model="userPasswords.oldPassword">
                         <label>New Password</label>
-                        <input type="text" class="form-control" required="required" ng-model="user.newPassword">
+                        <input type="text" class="form-control" required="required" ng-model="userPasswords.newPassword">
                         <label for="email">Confirm Password</label>
-                        <input type="text" class="form-control" required="required" ng-model="user.confirmPassword">
+                        <input type="text" class="form-control" required="required" ng-model="confirmPassword">
                         <br>
                         
                         <button type="submit" class="btn btn-primary btn-large pull-right">Update</button>

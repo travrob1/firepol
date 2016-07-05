@@ -74,6 +74,14 @@
       "principalType": "ROLE",
       "principalId": "admin",
       "permission": "ALLOW"
+    },
+    {
+       "comment":"allow authenticated users to change their password",
+       "accessType": "EXECUTE",
+       "property":"updatePassword",
+       "principalType": "ROLE",
+       "principalId": "$authenticated",
+       "permission": "ALLOW"
     }
   ],
   "methods": {}
