@@ -8,6 +8,15 @@ angular.module('app')
 function questionView($scope, $q, $stateParams, $timeout, Question) {
 
     var questionId = $stateParams.id;
+    function getAnswer() {
+        if($scope.$root.authenticatedUser){
+            return Question.Answers({
+                id: questionId
+            }).$promise
+        } else {
+            return [];
+        }
+    }
     $q
         .all([
             Question.findById({
@@ -16,9 +25,7 @@ function questionView($scope, $q, $stateParams, $timeout, Question) {
             Question.Comments({
                 id: questionId
             }).$promise,
-            Question.Answers({
-                id: questionId
-            }).$promise,
+            getAnswer()
         ])
         .then(displayComments);
 
@@ -27,11 +34,13 @@ function questionView($scope, $q, $stateParams, $timeout, Question) {
             id: false,
             text: ''
         };
+
         $scope.question = data[0];
         var comments = data[1];
+        
         var answers = data[2];
         $scope.answers = answers;
-
+        
         function sortComments() {
             comments = _.sortBy(comments, function(a) {
                 return a.time;
