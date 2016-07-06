@@ -116,14 +116,24 @@ app.config( function($stateProvider, $urlRouterProvider) {
     });
 });
 
-app.controller('globalCtrl', function($scope, $location, $http, AuthService, configuration){
-    
+app.controller('globalCtrl', function($scope, $location, $http, AuthService, configuration, state){
     AuthService.getCurrent();
+    var theState = window.sessionStorage.getItem('state.ui');
+    if (theState) {
+        _.merge(state.ui, JSON.parse(theState));
+        window.sessionStorage.removeItem('state.ui');
+    }
+
 
     $scope.login = function(email, pw){
         AuthService.login(email, pw)
             .then(function(){
-                $location.path('/questions');
+                if(state.ui.comeBackUrl){
+                    $location.path(state.ui.comeBackUrl);
+                    delete state.ui.comeBackUrl;
+                }else {
+                    $location.path('/questions');
+                }
             })
             .catch(function(err){
                 $scope.loginFailed = err.data.error.message;
@@ -140,6 +150,9 @@ app.controller('globalCtrl', function($scope, $location, $http, AuthService, con
     $scope.mobileCollapseNav = function(){
         $('.navbar-collapse').collapse('hide');
     };
+    $scope.registerFromModal = function(){
+        $('.modal').modal('hide')
+    }
 
 
 });

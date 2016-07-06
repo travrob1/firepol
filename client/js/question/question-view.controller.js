@@ -5,35 +5,39 @@
 angular.module('app')
     .controller('questionViewCtrl', questionView);
 
-function questionView($scope, $q, $stateParams, $timeout, Question) {
-
+function questionView($scope, $q, $stateParams, $timeout, Question, state) {
+    $scope.activeComment = {
+        id: false,
+        text: ''
+    };
     var questionId = $stateParams.id;
-    function getAnswer() {
-        if($scope.$root.authenticatedUser){
-            return Question.Answers({
-                id: questionId
-            }).$promise
+    function checkStateForUnsavedOrGetAnswer() {
+        if(state.ui.comeBackUrl){
+            _.merge($scope, state.ui.returnToQuestionScope);
+            delete state.ui.returnToQuestionScope;
+            delete state.ui.comeBackUrl;
+            if (state.ui.wasSubmittingAnswer) {
+                return $scope.submitAnswer().then(getSavedAnswer);
+            } else {
+                return getSavedAnswer();
+            }
+            delete state.ui.wasSubmittingAnswer;
         } else {
-            return [];
+            return getSavedAnswer();
+        }
+
+        function getSavedAnswer() {
+            if($scope.$root.authenticatedUser){
+                return Question.Answers({
+                    id: questionId
+                }).$promise
+            } else {
+                return [];
+            }
         }
     }
-    $q
-        .all([
-            Question.findById({
-                id: questionId
-            }).$promise,
-            Question.Comments({
-                id: questionId
-            }).$promise,
-            getAnswer()
-        ])
-        .then(displayComments);
-
+        
     function displayComments(data) {
-        $scope.activeComment = {
-            id: false,
-            text: ''
-        };
 
         $scope.question = data[0];
         var comments = data[1];
@@ -80,23 +84,46 @@ function questionView($scope, $q, $stateParams, $timeout, Question) {
         }
     }
 
+    function setSessionStorage(){
+        state.ui.comeBackUrl = '/question/' + questionId;
+        state.ui.returnToQuestionScope = {
+            activeComment: $scope.activeComment,
+            odds: $scope.odds,
+            certainty: $scope.certainty
+        };
+        var stringifiedData = JSON.stringify(state.ui);
+
+        window.sessionStorage.setItem('state.ui', stringifiedData);
+        $('.modal').modal('show');
+
+    }
+
     $scope.makeReply = function(commentId) {
-        Question.Comments.create({
-            'id': $scope.question.id
-        }, {
-            'text': $scope.activeComment.text,
-            'inReferenceTo': commentId
-        }).$promise.then(function(res) {
-            $q
-                .all([
-                    $scope.question,
-                    Question.Comments({
-                        id: $stateParams.id
-                    }).$promise,
-                    $scope.answers
-                ])
-                .then(displayComments);
-        });
+        if(!$scope.$root.authenticatedUser){
+            setSessionStorage()
+
+           
+        }else {
+            Question.Comments.create({
+                'id': $scope.question.id
+            }, {
+                'text': $scope.activeComment.text,
+                'inReferenceTo': commentId
+            }).$promise.then(function(res) {
+                $scope.activeComment = {
+                    id: false,
+                    text: ''
+                };
+                $q.all([
+                        $scope.question,
+                        Question.Comments({
+                            id: $stateParams.id
+                        }).$promise,
+                        $scope.answers
+                    ])
+                    .then(displayComments);
+            });
+        }
     };
 
     $scope.replyToComment = function(commentId, e) {
@@ -105,13 +132,33 @@ function questionView($scope, $q, $stateParams, $timeout, Question) {
             e.target.parentNode.parentNode.getElementsByClassName('selectedCommentInput')[0].focus();
         }, 100);
     };
+
     $scope.submitAnswer = function() {
-        Question.Answers.create({
-            'id': $scope.question.id
-        }, {
-            'liklihood': $scope.odds,
-            'decisionCertainty': $scope.certainty
-        });
+
+        if(!$scope.$root.authenticatedUser){
+            state.ui.wasSubmittingAnswer = true;
+            setSessionStorage()
+        } else {
+
+            return Question.Answers.create({
+                'id': questionId
+            }, {
+                'liklihood': $scope.odds,
+                'decisionCertainty': $scope.certainty
+            }).$promise;
+        }
+        
     };
+
+    $q.all([
+            Question.findById({
+                id: questionId
+            }).$promise,
+            Question.Comments({
+                id: questionId
+            }).$promise,
+            checkStateForUnsavedOrGetAnswer()
+        ])
+        .then(displayComments);
 
 }
