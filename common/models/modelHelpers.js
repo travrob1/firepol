@@ -34,8 +34,30 @@ function logErrorsThenCall(cb) {
     };
 }
 
+var internalApiToken = (function() {
+    var token = 'zombo___YouCanDoAnything____' + Math.floor(Math.random() * 100000000000);
+    return function() {
+        return token;
+    };
+}
+)();
+function internalApiTokenize(obj) {
+    obj[internalApiToken()] = true;
+    return obj;
+}
+function internalApiConsumeToken(obj) {
+    if ( obj[internalApiToken()] ) {
+        delete obj[internalApiToken()];
+        return true;
+    } else {
+        return false;
+    }
+}
 module.exports = {
     getAppReference: getAppReference,
     timestamp: timestamp,
-    logErrorsThenCall: logErrorsThenCall
+    logErrorsThenCall: logErrorsThenCall,
+    internalApiToken: internalApiToken,
+    internalApiTokenize: internalApiTokenize,
+    internalApiConsumeToken: internalApiConsumeToken
 };

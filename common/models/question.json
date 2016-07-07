@@ -36,6 +36,10 @@
       "type": "number",
       "required": true,
       "default": 0
+    },
+    "odds": {
+        "type": "number",
+        "required": false
     }
   },
   "validations": [],
