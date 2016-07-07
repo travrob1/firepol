@@ -26,7 +26,16 @@ function timestamp(model, id, attribute) {
         modelInstance.updateAttributes(update);
     }
 }
+
+function logErrorsThenCall(cb) {
+    return function (err, info) {
+        if(err){console.log(err);}
+        cb();
+    };
+}
+
 module.exports = {
     getAppReference: getAppReference,
-    timestamp: timestamp
+    timestamp: timestamp,
+    logErrorsThenCall: logErrorsThenCall
 };
