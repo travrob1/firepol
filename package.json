@@ -6,7 +6,7 @@
     "start": "node-dev .",
     "pretest": "jshint .",
     "posttest": "nsp check",
-    "postinstall": "gulp"
+    "postinstall": "gulp default-prod"
   },
   "dependencies": {
     "bluebird": "^3.3.5",

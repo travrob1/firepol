@@ -149,6 +149,8 @@ gulp.task('karma:unit', function (done) {
   }, done).start();
 });
 
+gulp.task('default-prod', ['client.js', 'less', 'lb-services.js']);
+
 gulp.task('default', ['client.js', 'less', 'lb-services.js'], function() {
   if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
       gulp.watch('common/**/*', ['lb-services.js']);
