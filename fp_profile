@@ -21,4 +21,4 @@ export PS1="(activated)\w\$ "
 GIT_PROJ_DIR=$(cd ..; pwd)
 [ -e ~/.git-manifold-extensions ] && . ~/.git-manifold-extensions
 
-nvm use latest || >&2 echo 'please setup nvm alias:  i.e. `nvm alias latest v4.4.3`'
+#nvm use latest || >&2 echo 'please setup nvm alias:  i.e. `nvm alias latest v4.4.3`'
