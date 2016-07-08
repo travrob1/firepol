@@ -30,7 +30,7 @@ function questionView($scope, $q, $stateParams, $timeout, Question, state) {
             if($scope.$root.authenticatedUser){
                 return Question.Answers({
                     id: questionId
-                }).$promise
+                }).$promise;
             } else {
                 return [];
             }
@@ -102,7 +102,7 @@ function questionView($scope, $q, $stateParams, $timeout, Question, state) {
 
     $scope.makeReply = function(commentId) {
         if(!$scope.$root.authenticatedUser){
-            setSessionStorage()
+            setSessionStorage();
 
            
         }else {

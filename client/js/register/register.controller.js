@@ -8,8 +8,12 @@ angular.module('app')
                 return AuthService.login($scope.user.email, $scope.user.password);
             })
             .then(function(){
-                state.ui.firstTimeLoggedIn = true;
-                $location.path('/user-profile');
+                if(state.ui.comeBackUrl){
+                    $location.path(state.ui.comeBackUrl);
+                }else {
+                    state.ui.firstTimeLoggedIn = true;
+                    $location.path('/user-profile');
+                }
             })
             .catch(function(err){
                 var message = err.data.error.message;
@@ -27,8 +31,11 @@ angular.module('app')
             { id: $scope.$root.authenticatedUser.id }, {username: $scope.update.username}
         ).$promise
         .then(function () {
-            $state.transitionTo('user-profile');
+            if(state.ui.comeBackUrl){
+                $location.path(state.ui.comeBackUrl);
+            } else {
+                $state.transitionTo('user-profile');
+            }
         });
-    }
-
+    };
 });

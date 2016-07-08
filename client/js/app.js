@@ -130,7 +130,6 @@ app.controller('globalCtrl', function($scope, $location, $http, AuthService, con
             .then(function(){
                 if(state.ui.comeBackUrl){
                     $location.path(state.ui.comeBackUrl);
-                    delete state.ui.comeBackUrl;
                 }else {
                     $location.path('/questions');
                 }
@@ -151,8 +150,8 @@ app.controller('globalCtrl', function($scope, $location, $http, AuthService, con
         $('.navbar-collapse').collapse('hide');
     };
     $scope.registerFromModal = function(){
-        $('.modal').modal('hide')
-    }
+        $('.modal').modal('hide');
+    };
 
 
 });
