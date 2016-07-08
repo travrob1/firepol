@@ -67,6 +67,9 @@
     "type": "",
     "url": ""
   },
+  "engines": {
+    "node": "4.2.5"
+  },
   "license": "UNLICENSED",
   "description": "fire-pol"
 }
