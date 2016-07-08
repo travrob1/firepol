@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node-dev .",
     "pretest": "jshint .",
-    "posttest": "nsp check"
+    "posttest": "nsp check",
+    "postinstall": "gulp"
   },
   "dependencies": {
     "bluebird": "^3.3.5",
