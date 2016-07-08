@@ -1,15 +1,30 @@
+// {
+//   "db": {
+//     "name": "db",
+//     "connector": "memory"
+//   },
+//   "firepol": {
+//     "host": "localhost",
+//     "port": 0,
+//     "database": "firepol",
+//     "password": "firepol",
+//     "name": "firepol",
+//     "user": "firepol",
+//     "connector": "mongodb"
+//   }
+// }
+
 {
   "db": {
     "name": "db",
     "connector": "memory"
   },
   "firepol": {
-    "host": "localhost",
-    "port": 0,
-    "database": "firepol",
-    "password": "firepol",
-    "name": "firepol",
-    "user": "firepol",
+    "host": "ds017155.mlab.com",
+    "port": 17155,
+    "database": "heroku_j2shq883",
+    "password": "M1gVGnBjWLI922Sax1fhsm",
+    "username": "heroku_j2shq883",
     "connector": "mongodb"
   }
 }
