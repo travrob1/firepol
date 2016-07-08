@@ -23,8 +23,8 @@
     "host": "ds017155.mlab.com",
     "port": 17155,
     "database": "heroku_j2shq883",
-    "password": "M1gVGnBjWLI922Sax1fhsm",
-    "username": "heroku_j2shq883",
+    "password": "firepol1",
+    "username": "firepol",
     "connector": "mongodb"
   }
 }
