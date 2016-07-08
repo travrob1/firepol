@@ -36,7 +36,9 @@ function questionView($scope, $q, $stateParams, $timeout, Question, state) {
             }
         }
     }
-        
+    $scope.showAnswer = function() {
+        return $scope.question && $scope.question.odds && !_.isEmpty($scope.answers);
+    };
     function displayComments(data) {
 
         $scope.question = data[0];
@@ -145,7 +147,10 @@ function questionView($scope, $q, $stateParams, $timeout, Question, state) {
             }, {
                 'liklihood': $scope.odds,
                 'decisionCertainty': $scope.certainty
-            }).$promise;
+            }).$promise
+            .then(function (a) {
+                $scope.answers = [a];
+            });
         }
         
     };

@@ -5,16 +5,14 @@
 angular.module('app')
     .directive('redisplayQuestion', reShowquestion);
 
-function reShowquestion($window){
+function reShowquestion($window, $compile){
     return {
         restrict: 'E',
-        template: '<div ng-if="reShow === true"><h1>{{question.question}}</h1><p>{{question.details}}</p></div>',
+        template: '<div ng-show="reShow === true"><ng-include src="\'js/question/question-view-core.html\'"></ng-include></div>',
         link: function(scope, elem, attrs){
             scope.reShow = false;
-            
-            var scrollTop;
-            var questionWrapper = $('#question-wrapper');
 
+            var questionWrapper = $('.question-wrapper');
             $window.onscroll = function() {
                 if (questionWrapper.length === 0){
                     return;
@@ -26,7 +24,6 @@ function reShowquestion($window){
                 var questionContentHeight = questionWrapper.outerHeight();
                 var navbarHeight = $('.navbar').outerHeight();
 
-
                 if(scrollTop >= topOfQuestion + questionContentHeight - navbarHeight){
                         scope.reShow = true;
                         scope.$digest();
@@ -35,9 +32,7 @@ function reShowquestion($window){
                         scope.$digest();
 
                 }
-        
             };
-
 
         }
     };

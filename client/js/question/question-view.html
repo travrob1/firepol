@@ -13,10 +13,8 @@
     <section id="question">
         <div class="row">
             <div class="col-xs-12 ">
-                <div id="question-wrapper">
-                    <h1 class="no-margin-top">{{question.question}}</h1>
-
-                    <p>{{question.details}}</p>
+                <div class="question-wrapper">
+                    <ng-include src="'js/question/question-view-core.html'">
                 </div>
                 <br>
                 <br>
