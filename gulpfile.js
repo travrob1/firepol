@@ -151,7 +151,7 @@ gulp.task('karma:unit', function (done) {
 
 gulp.task('default-prod', ['client.js', 'less', 'lb-services.js']);
 
-gulp.task('default', ['client.js', 'less', 'lb-services.js'], function() {
+gulp.task('default', ['client.js', 'less'], function() {
   if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
       gulp.watch('common/**/*', ['lb-services.js']);
       gulp.watch('client/**/!(*.spec).js', ['client.js']);
