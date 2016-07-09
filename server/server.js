@@ -15,6 +15,7 @@ var loopbackPassport = require('loopback-component-passport');
 var PassportConfigurator = loopbackPassport.PassportConfigurator;
 var passportConfigurator = new PassportConfigurator(app);
 var exphbs  = require('express-handlebars');
+var session = require('cookie-session');
 
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(express.static(path.join(__dirname, '../bower_components')));
@@ -65,12 +66,19 @@ app.middleware('auth', loopback.token({
 // Build the providers/passport config
 var config = require('../providers.json');
 
-app.middleware('session:before', loopback.cookieParser('asdf1212asdfasfas3434gggdfas'));
-app.middleware('session', loopback.session({
-    secret: 'kitty',
-    saveUninitialized: true,
-    resave: true
-}));
+app.middleware('session:before', cookieParser('asdf1212asdfasfas3434gggdfas'));
+var expiryDate = new Date( Date.now() + 60 * 60 * 1000 * 1.5 ); // 1.5 hour
+app.middleware('session', session({
+  name: 'session',
+  keys: ['key1', 'key2'],
+  cookie: { secure: true,
+          httpOnly: true,
+          domain: 'example.com',
+          path: 'foo/bar',
+          expires: expiryDate
+          }
+  }));
+
 passportConfigurator.init();
 
 passportConfigurator.setupModels({
