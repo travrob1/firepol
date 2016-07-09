@@ -4,7 +4,7 @@
     "connector": "memory"
   },
   "firepol": {
-    "url": "mongodb://firepol:aldk48fj302fj19473@lamppost.8.mongolayer.com:10316,lamppost.9.mongolayer.com:10319/app53361702",
+    "url": "mongodb://firepol:aldk48fj302fj19473@lamppost.8.mongolayer.com:10316/app53361702",
     "connector": "mongodb"
   }
 }
