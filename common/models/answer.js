@@ -55,6 +55,9 @@ module.exports = function(Answer) {
 
     Answer.observe('access', function logQuery(ctx, next) {
         var userContext = loopback.getCurrentContext();
+        if (! userContext) {
+            next(new Error('must be logged in to access answers'));
+        }
         if (! ctx.query.where) {
             ctx.query.where = {};
         }

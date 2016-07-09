@@ -86,7 +86,7 @@ function questionView($scope, $q, $stateParams, $timeout, Question, state) {
         }
     }
 
-    function setSessionStorage(){
+    function saveStateToSession(){
         state.ui.comeBackUrl = '/question/' + questionId;
         state.ui.returnToQuestionScope = {
             activeComment: $scope.activeComment,
@@ -102,9 +102,9 @@ function questionView($scope, $q, $stateParams, $timeout, Question, state) {
 
     $scope.makeReply = function(commentId) {
         if(!$scope.$root.authenticatedUser){
-            setSessionStorage();
-
-           
+            saveStateToSession();
+        } else if (! $scope.question ) {
+            window.alert('something went wrong, please referesh (missing question?)');
         }else {
             Question.Comments.create({
                 'id': $scope.question.id
@@ -136,10 +136,9 @@ function questionView($scope, $q, $stateParams, $timeout, Question, state) {
     };
 
     $scope.submitAnswer = function() {
-
         if(!$scope.$root.authenticatedUser){
             state.ui.wasSubmittingAnswer = true;
-            setSessionStorage()
+            saveStateToSession();
         } else {
 
             return Question.Answers.create({
