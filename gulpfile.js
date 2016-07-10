@@ -8,7 +8,6 @@ var uglify = require('gulp-uglify');
 var mocha = require('gulp-mocha');
 var less = require('gulp-less');
 var path = require('path');
-var KarmaServer = require('karma').Server;
 var exec = require('child_process').exec;
 var fs = require('fs');
 var _ = require('lodash');
@@ -17,6 +16,10 @@ var dbSeed = require('./db-seed');
 
 var rename = require('gulp-rename');
 var loopbackAngular = require('gulp-loopback-sdk-angular');
+
+if (isDevelopment()) {
+    var KarmaServer = require('karma').Server;
+}
 
 function removeFilesSync(dirPath) {
       var files;
@@ -152,7 +155,7 @@ gulp.task('karma:unit', function (done) {
 gulp.task('default-prod', ['client.js', 'less', 'lb-services.js']);
 
 gulp.task('default', ['client.js', 'less'], function() {
-  if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
+  if(isDevelopment()) {
       gulp.watch('common/**/*', ['lb-services.js']);
       gulp.watch('client/**/!(*.spec).js', ['client.js']);
       gulp.watch('client/css/**/*.less', ['less']);
@@ -182,3 +185,6 @@ gulp.task('less', function () {
     .pipe(gulp.dest('client/css'));
 });
 
+function isDevelopment() {
+    return process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined;
+}
