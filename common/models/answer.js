@@ -58,7 +58,7 @@ module.exports = function(Answer) {
             ctx.query.where = {};
         }
         // TODO accessToken test may be reducing security.
-        if (! modelHelpers.internalApiConsumeToken(ctx.query.where && ctx.req.accessToken)) {
+        if (! modelHelpers.internalApiConsumeToken(ctx.query.where && ctx.req)) {
             ctx.query.where.latest = true;
             ctx.query.where.ownerId = ctx.req.accessToken.userId;
         }
