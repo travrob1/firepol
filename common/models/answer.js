@@ -24,9 +24,15 @@ module.exports = function(Answer) {
                     answer = Math.floor(Math.pow(averageAnswer / answerWeight, 10));
                     app.models.Question.updateAll({id: dataOrInstance.questionId}, {odds: answer});
                 }
+/*
                 Answer.find({where: modelHelpers.internalApiTokenize({
                         questionId: dataOrInstance.questionId,
                         latest: true})
+                    }, calculate);
+                    */
+                Answer.find({where: {
+                        questionId: dataOrInstance.questionId,
+                        latest: true}
                     }, calculate);
             }
             if (!accessToken) {
@@ -59,6 +65,7 @@ module.exports = function(Answer) {
         }
         // TODO accessToken test may be reducing security.
         if (! modelHelpers.internalApiConsumeToken(ctx.query.where && ctx.req)) {
+        if (ctx.req) {
             ctx.query.where.latest = true;
             ctx.query.where.ownerId = ctx.req.accessToken.userId;
         }
