@@ -54,16 +54,12 @@ module.exports = function(Answer) {
      });
 
     Answer.observe('access', function logQuery(ctx, next) {
-        var userContext = loopback.getCurrentContext();
-        if (! userContext) {
-            next(new Error('must be logged in to access answers'));
-        }
         if (! ctx.query.where) {
             ctx.query.where = {};
         }
         if (! modelHelpers.internalApiConsumeToken(ctx.query.where)) {
             ctx.query.where.latest = true;
-            ctx.query.where.ownerId = userContext.active.http.req.accessToken.userId;
+            ctx.query.where.ownerId = ctx.req.accessToken.userId;
         }
       next();
     });
