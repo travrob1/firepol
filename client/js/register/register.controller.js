@@ -5,7 +5,7 @@ angular.module('app')
     $scope.register = function(){
         AuthService.register($scope.user.email, $scope.user.password, $scope.user.username)
             .then(function(res){
-                return AuthService.login($scope.user.email, $scope.user.password);
+                return AuthService.login($scope.user.email.toLowerCase(), $scope.user.password.toLowerCase());
             })
             .then(function(){
                 if(state.ui.comeBackUrl){

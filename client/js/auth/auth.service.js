@@ -20,8 +20,8 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
             .login({
                 rememberMe: true
             }, {
-                email: email,
-                password: password,
+                email: email.toLowerCase(),
+                password: password.toLowerCase(),
                 ttl: TWO_WEEKS
             })
             .$promise
@@ -52,10 +52,11 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
     }
 
     function register(email, password, username) {
+
         return FirepolUser
             .create({
-                email: email,
-                password: password,
+                email: email.toLowerCase(),
+                password: password.toLowerCase(),
                 username: username
             })
             .$promise;
@@ -68,7 +69,7 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
                 $rootScope.authenticatedUser = res.data.user;
                 $rootScope.$broadcast('UserSetToScope')
 
-            })
+            });
         } else {
             return FirepolUser.getCurrent(
                 function(response) {
@@ -80,7 +81,7 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
                     };
                 },
                 function(error) {
-                    console.log('no logged in user')
+                    console.log('no logged in user');
                 }).$promise;
         }
     }
