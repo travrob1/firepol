@@ -2,6 +2,7 @@
   "name": "Comment",
   "base": "PersistedModel",
   "idInjection": true,
+  "accessTokenEnableCtxOption": true,
   "options": {
     "validateUpsert": true
   },
