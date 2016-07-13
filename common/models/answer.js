@@ -7,7 +7,8 @@ var _ = require('lodash');
 module.exports = function(Answer) {
     Answer.observe('before save', function(ctx, next) {
         function run(app) {
-            var accessToken = loopback.getCurrentContext().active.http.req.accessToken,
+            console.log('answer ctx options', ctx.options);
+            var accessToken = ctx.options.accessToken,
                 dataOrInstance = ctx.instance || ctx.data;
             function calculateAccumulatedAnswer() {
                 function calculate(err, answerList) {
@@ -24,18 +25,12 @@ module.exports = function(Answer) {
                     answer = Math.floor(Math.pow(averageAnswer / answerWeight, 10));
                     app.models.Question.updateAll({id: dataOrInstance.questionId}, {odds: answer});
                 }
-/*
-                Answer.find({where: modelHelpers.internalApiTokenize({
-                        questionId: dataOrInstance.questionId,
-                        latest: true})
-                    }, calculate);
-                    */
                 Answer.find({where: {
                         questionId: dataOrInstance.questionId,
                         latest: true}
                     }, calculate);
             }
-            if (!accessToken) {
+            if (accessToken === null) {
                 next(new Error('must be logged in to leave answer'));
             } else {
                 if (dataOrInstance.latest === false) {
@@ -63,11 +58,10 @@ module.exports = function(Answer) {
         if (! ctx.query.where) {
             ctx.query.where = {};
         }
-        // TODO accessToken test may be reducing security.
-        //if (! modelHelpers.internalApiConsumeToken(ctx.query.where && ctx.req)) {
-        if (ctx.req) {
+        var accessToken = ctx.options.accessToken;
+        if (accessToken !== undefined) {
             ctx.query.where.latest = true;
-            ctx.query.where.ownerId = ctx.req.accessToken.userId;
+            ctx.query.where.ownerId = accessToken.userId;
         }
       next();
     });

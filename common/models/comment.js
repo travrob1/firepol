@@ -1,15 +1,13 @@
 'use strict';
-var loopback = require('loopback');
 var modelHelpers = require('./modelHelpers');
 
 module.exports = function(Comment) {
     Comment.observe('before save', function(ctx, next) {
         function run(app) {
+            console.log('comment ctx options', ctx.options);
+            var accessToken = ctx.options.accessToken;
             var dataOrInstance = ctx.instance || ctx.data;
-            if (! ctx.req) {
-                // assuming we are coming in from db-seed or other non HTTP client.
-                next();
-            } else if (!ctx.req.accessToken) {
+            if (accessToken === null) {
                 next(new Error('must be logged in to leave comment'));
             } else {
                 modelHelpers.timestamp(app.models.Question, dataOrInstance.questionId);
