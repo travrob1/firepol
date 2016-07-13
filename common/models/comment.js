@@ -4,11 +4,12 @@ var modelHelpers = require('./modelHelpers');
 
 module.exports = function(Comment) {
     Comment.observe('before save', function(ctx, next) {
+        console.log('ctx.options', ctx.options);
         function run(app) {
-            var currentContext = loopback.getCurrentContext(),
-                accessToken = currentContext && currentContext.active.http.req.accessToken,
-                dataOrInstance = ctx.instance || ctx.data;
-            if (! currentContext) {
+            var accessToken = ctx.options.accessToken;
+            var dataOrInstance = ctx.instance || ctx.data;
+            if (false) {
+                next();
                 // assuming we are coming in from db-seed or other non HTTP client.
             } else if (!accessToken) {
                 next(new Error('must be logged in to leave comment'));
