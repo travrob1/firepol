@@ -104,6 +104,7 @@ app.config( function($stateProvider, $urlRouterProvider) {
 }) 
 .run(function($rootScope, $state, $timeout, AuthService) {
     $rootScope.$on('$stateChangeStart', function(event, next) {
+        $('html body').scrollTop( 0 );
         // redirect to login page if not logged in
         if (next.authenticate && !$rootScope.authenticatedUser) {
             // the user might be logged in, but authenticatedUser has not been set to scope on a page refresh

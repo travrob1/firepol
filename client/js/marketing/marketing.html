@@ -34,14 +34,17 @@
 
 
 <section class="services">
-    <div class="container">
+    <div class="container marketing-page-questions">
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <div class="center">
                     <i style="font-size: 48px" class="icon-bar-chart icon-large"></i>
                     <p> </p>
-                    <h4>{{questionList[0].question  | limitTo: 200 }}</h4>
-                    <p>{{questionList[0].details  | limitTo: 300 }}</p>
+                    <a ng-href="#/question/{{questionList[0].id}}">
+                        <h4>{{questionList[0].question  | limitTo: 200 }}</h4>
+                        <p>{{questionList[0].details  | limitTo: 300 }}</p>
+                    </a>
+                    
                 </div>
             </div>
 
@@ -49,8 +52,10 @@
                 <div class="center">
                     <i style="font-size: 48px" class="icon-cog icon-large"></i>
                     <p> </p>
-                    <h4>{{questionList[1].question  | limitTo: 200 }}</h4>
-                    <p>{{questionList[1].details | limitTo: 300 }}</p>
+                    <a ng-href="#/question/{{questionList[1].id}}">
+                        <h4>{{questionList[1].question  | limitTo: 200 }}</h4>
+                        <p>{{questionList[1].details | limitTo: 300 }}</p>
+                    </a>
                 </div>
             </div>
 
@@ -58,8 +63,11 @@
                 <div class="center">
                     <i style="font-size: 48px" class="icon-heart icon-large"></i>
                     <p> </p>
-                    <h4>{{questionList[2].question  | limitTo: 200 }}</h4>
-                    <p>{{questionList[2].details | limitTo: 300 }}</p>
+                    <a ng-href="#/question/{{questionList[2].id}}">
+
+                        <h4>{{questionList[2].question  | limitTo: 200 }}</h4>
+                        <p>{{questionList[2].details | limitTo: 300 }}</p>
+                    </a>
                 </div>
             </div>
 
@@ -72,8 +80,11 @@
                 <div class="center">
                     <i style="font-size: 48px" class="icon-globe icon-large"></i>
                     <p> </p>
-                    <h4>{{questionList[3].question  | limitTo: 200 }}</h4>
-                    <p>{{questionList[3].details | limitTo: 300 }}</p>
+                    <a ng-href="#/question/{{questionList[3].id}}">
+
+                        <h4>{{questionList[3].question  | limitTo: 200 }}</h4>
+                        <p>{{questionList[3].details | limitTo: 300 }}</p>
+                    </a>
                 </div>
             </div>
 
@@ -81,8 +92,11 @@
                 <div class="center">
                     <i style="font-size: 48px" class="icon-camera icon-large"></i>
                     <p> </p>
-                    <h4>{{questionList[4].question  | limitTo: 200 }}</h4>
-                    <p>{{questionList[4].details | limitTo: 300 }}</p>
+                    <a ng-href="#/question/{{questionList[4].id}}">
+
+                        <h4>{{questionList[4].question  | limitTo: 200 }}</h4>
+                        <p>{{questionList[4].details | limitTo: 300 }}</p>
+                    </a>
                 </div>
             </div>
 
@@ -90,8 +104,10 @@
                 <div class="center">
                     <i style="font-size: 48px" class="icon-bullhorn icon-large"></i>
                     <p> </p>
-                    <h4>{{questionList[5].question  | limitTo: 200 }}</h4>
-                    <p>{{questionList[5].details | limitTo: 300 }}</p>
+                    <a ng-href="#/question/{{questionList[5].id}}">
+                        <h4>{{questionList[5].question  | limitTo: 200 }}</h4>
+                        <p>{{questionList[5].details | limitTo: 300 }}</p>
+                    </a>
                 </div>
             </div>
 

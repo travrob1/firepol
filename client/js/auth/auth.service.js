@@ -20,7 +20,7 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
             .login({
                 rememberMe: true
             }, {
-                email: email,
+                email: email.toLowerCase(),
                 password: password,
                 ttl: TWO_WEEKS
             })
@@ -42,7 +42,7 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
         function loopbackLogout() {
             return FirepolUser
                 .logout()
-                .$promise
+                .$promise;
         }
         return race([socialLogout(), loopbackLogout()])
         .then(function() {
@@ -52,9 +52,10 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
     }
 
     function register(email, password, username) {
+
         return FirepolUser
             .create({
-                email: email,
+                email: email.toLowerCase(),
                 password: password,
                 username: username
             })
@@ -66,9 +67,9 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
             return $http.get('auth/getCurrent')
             .then(function (res) {
                 $rootScope.authenticatedUser = res.data.user;
-                $rootScope.$broadcast('UserSetToScope')
+                $rootScope.$broadcast('UserSetToScope');
 
-            })
+            });
         } else {
             return FirepolUser.getCurrent(
                 function(response) {
@@ -80,7 +81,7 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
                     };
                 },
                 function(error) {
-                    console.log('no logged in user')
+                    console.log('no logged in user');
                 }).$promise;
         }
     }

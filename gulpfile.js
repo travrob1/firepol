@@ -179,6 +179,7 @@ gulp.task('prod', function() {
 
 gulp.task('less', function () {
   return gulp.src('client/css/**/*.less')
+    .pipe(less({dumpLineNumbers: 'comments'}))
     .pipe(less({
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
