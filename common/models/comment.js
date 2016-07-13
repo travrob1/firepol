@@ -3,14 +3,11 @@ var modelHelpers = require('./modelHelpers');
 
 module.exports = function(Comment) {
     Comment.observe('before save', function(ctx, next) {
-        console.log('ctx.options', ctx.options);
         function run(app) {
+            console.log('comment ctx options', ctx.options);
             var accessToken = ctx.options.accessToken;
             var dataOrInstance = ctx.instance || ctx.data;
-            if (false) {
-                next();
-                // assuming we are coming in from db-seed or other non HTTP client.
-            } else if (!accessToken) {
+            if (accessToken === null) {
                 next(new Error('must be logged in to leave comment'));
             } else {
                 modelHelpers.timestamp(app.models.Question, dataOrInstance.questionId);

@@ -11,7 +11,7 @@ function setupContextOptions(app) {
     }
 
     function inject(ctx, next) {
-        console.log('in inject', ctx.method.accepts);
+        console.log('in inject', ctx.method.stringName);
         var options = ctx.args.options || {};
         if (ctx.method.accepts.indexOf(ctxOption) === -1) {
             ctx.method.accepts.push(ctxOption);
