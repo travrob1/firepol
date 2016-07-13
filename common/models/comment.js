@@ -1,5 +1,4 @@
 'use strict';
-var loopback = require('loopback');
 var modelHelpers = require('./modelHelpers');
 
 module.exports = function(Comment) {
