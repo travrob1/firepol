@@ -59,7 +59,7 @@ module.exports = function(Answer) {
             ctx.query.where = {};
         }
         var accessToken = ctx.options.accessToken;
-        if (accessToken !== undefined) {
+        if (accessToken !== undefined) {  // not internal API operation.
             ctx.query.where.latest = true;
             ctx.query.where.ownerId = accessToken.userId;
         }
