@@ -5,8 +5,10 @@ function setupContext(app) {
     // }
 
     function inject(ctx, next) {
+        console.log('in inject');
         var options = hasOptions(ctx.method.accepts) && (ctx.args.options || {});
         if(options) {
+            console.log('in inject with options');
             options.accessToken = ctx.req.accessToken;
             ctx.args.options = options;
         }
