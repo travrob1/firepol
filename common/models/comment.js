@@ -11,15 +11,15 @@ module.exports = function(Comment) {
                 next(new Error('must be logged in to leave comment'));
             } else {
                 modelHelpers.timestamp(app.models.Question, dataOrInstance.questionId);
-                dataOrInstance.ownerId = ctx.req.accessToken.userId;
-                dataOrInstance.time = Date.now();
-                app.models.FirepolUser.findById(ctx.req.accessToken.userId, function(err, usr){
+                dataOrInstance.ownerId = accessToken.userId;
+                app.models.FirepolUser.findById(accessToken.userId, function(err, usr){
                     if(usr){
                         dataOrInstance.name = usr.username;
                     }
                     next();
                 });
             }
+            dataOrInstance.time = Date.now();
         }
         modelHelpers.getAppReference(Comment).then(run);
      });
