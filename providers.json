@@ -10,7 +10,8 @@
     "successRedirect": "/#/login-redirect",
     "failureRedirect": "/#/register",
     "scope": ["email"],
-    "failureFlash": true
+    "failureFlash": true,
+    "profileURL": "https://graph.facebook.com/v2.5/me?fields=first_name,gender,last_name,link,locale,name,timezone,verified,email,updated_time,picture.type(large)"
   },
   "facebook-link": {
     "provider": "facebook",

@@ -13,11 +13,28 @@
         <form ng-submit="addUserName()"> 
             <div class="row form-group">
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                    <h1 style="margin-top:0">Registeration Successful</h1>
+                    <hr>
                     <h4>Please add a username to your account that will be your display name on all posts and comments.</h4>
                     <label>Username:</label>
                     <input type="text" class="form-control" required="required" ng-model="update.username">
                     <br>
-                    <button type="submit" class="btn btn-primary btn-large pull-right">Add Username</button>
+                    <div class="row" style="margin-bottom: 15px;">
+                        <label>Do you want to use this images on Firepol?</label>
+                        <div class="col-xs-6">
+                            <img class="avatar" ng-src="{{authenticatedUser.profiles[0].profile.photos[0].value}}" alt="">
+                            
+                        </div>
+                        <div class="col-xs-6 clearfix">
+                            <button class="btn btn-primary pull-left">Yes</button>
+                            <button class="btn btn-primary pull-right">No</button>
+                        </div>
+                    </div>
+                    
+                    <br>
+                    <br>
+
+                    <button type="submit" class="btn btn-primary btn-large pull-right">Update</button>
 
                 </div>
             </div>
