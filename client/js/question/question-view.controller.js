@@ -84,6 +84,8 @@ function questionView($scope, $q, $stateParams, $timeout, Question, state) {
             $scope.odds = answers[0].liklihood;
 
         }
+
+        
     }
 
     function saveStateToSession(){

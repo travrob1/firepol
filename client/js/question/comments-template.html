@@ -1,13 +1,13 @@
 <div>
     <div class="comments-list">
         <form name="reply-form" id="reply-form" class="clearfix">
-            <div ng-repeat="comment in comments" class="comment media">
+            <div ng-repeat="comment in comments" on-finish-inject-svgs="test()" class="comment media">
                 <div class="row">
                     <div class="col-xs-12">
                         <div ng-class="{'parent-comment': comment.indent === 0 , 'child-comment child-comment-one': comment.indent > 0 &&  comment.indent <=33, 'child-comment child-comment-plus-one': comment.indent > 33}" ng-style="{'margin-left':comment.indent+'px'}">
-                            <div class="pull-left">
+                            <div class="pull-left" ng-style="{fill: comment.fill}">
                                 <!-- <img class="avatar" src="images/sample/cAvatar1.jpg" alt=""> -->
-                                <img class="avatar" ng-src="images/sample/avatar-default{{$index}}.svg" alt="">
+                                <img class="avatar inject-me" ng-src="images/sample/avatar-default{{comment.avatarIndx}}.svg" alt="">
                             </div>
                             <div class="media-body">
                                 <strong>Posted by <a href="#">{{comment.name}}</a></strong><br>

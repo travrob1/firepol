@@ -12,7 +12,7 @@
     <div class="container">
         <section id="question-list">
             <ul class="faq">
-                 <li ng-repeat="question in questionList">
+                 <li ng-repeat="question in questionList.slice().reverse()">
                     <div a ui-sref="question({ id: question.id, })">
                         <span class="number">{{$index}}</span>
                         <div>

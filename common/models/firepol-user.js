@@ -1,5 +1,6 @@
 module.exports = function(FirepolUser) {
     var app, RoleMapping, Role, facilitatorRoleId;
+    var avatarColors = ['#000000', '#6FCCDB', '#0696CE', '#FAA41A', '#ED2726', '#7EC242'];
 
     function getTableReferences(cb) {
         return function(err, theApp) {
@@ -105,16 +106,13 @@ module.exports = function(FirepolUser) {
         }
     );
 
-    return;
-    FirepolUser.revokeRole = function(roleName, cb) {
-      cb(null, moment.tz.names());
-    };
-    FirepolUser.remoteMethod(
-        'revokeRole',
-        {
-          accepts: {arg: 'roleName', type: 'string'},
-          returns: {arg: 'status', type: 'string'}
-        }
-    );
+
+    FirepolUser.observe('before save', function(ctx, next) {
+        var dataOrInstance = ctx.instance || ctx.data;
+        
+        dataOrInstance.fill = avatarColors[Math.floor(Math.random() * 6)];
+        dataOrInstance.avatarIndx = Math.floor(Math.random() * 6);
+        next();
+     });
 
 };

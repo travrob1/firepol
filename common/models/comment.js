@@ -4,7 +4,6 @@ var modelHelpers = require('./modelHelpers');
 module.exports = function(Comment) {
     Comment.observe('before save', function(ctx, next) {
         function run(app) {
-            console.log('comment ctx options', ctx.options);
             var accessToken = ctx.options.accessToken;
             var dataOrInstance = ctx.instance || ctx.data;
             if (accessToken === null) {
@@ -15,6 +14,8 @@ module.exports = function(Comment) {
                 app.models.FirepolUser.findById(accessToken.userId, function(err, usr){
                     if(usr){
                         dataOrInstance.name = usr.username;
+                        dataOrInstance.fill = usr.fill;
+                        dataOrInstance.avatarIndx = usr.avatarIndx;
                     }
                     next();
                 });
