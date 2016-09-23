@@ -46,7 +46,11 @@
     "dataSource": "firepol",
     "public": false
   },
-  "Question": {
+  "Post": {
+    "dataSource": "firepol",
+    "public": true
+  },
+  "Tidbit": {
     "dataSource": "firepol",
     "public": true
   },
@@ -55,14 +59,6 @@
     "public": true
   },
   "UserProfile": {
-    "dataSource": "firepol",
-    "public": true
-  },
-  "Employer": {
-    "dataSource": "firepol",
-    "public": true
-  },
-  "Answer": {
     "dataSource": "firepol",
     "public": true
   },

@@ -1,5 +1,5 @@
 {
-  "name": "Answer",
+  "name": "Post",
   "base": "PersistedModel",
   "idInjection": true,
   "accessTokenEnableCtxOption": true,
@@ -7,21 +7,14 @@
     "validateUpsert": true
   },
   "properties": {
-    "liklihood": {
-      "type": "number",
-      "required": true
-    },
-    "liklihoodAcceptance": {
-      "type": "number",
+    "title": {
+      "type": "string",
       "required": false
     },
-    "decisionCertainty": {
+    "views": {
       "type": "number",
-      "required": true
-    },
-    "time": {
-      "type": "date",
-      "required": true
+      "required": true,
+      "default": 0
     }
   },
   "validations": [],
@@ -30,24 +23,36 @@
       "type": "belongsTo",
       "model": "FirepolUser",
       "foreignKey": "ownerId"
+    },
+    "Tidbit": {
+      "type": "hasMany",
+      "model": "Tidbit",
+      "foreignKey": "postId"
     }
   },
   "acls": [
     {
+      "accessType": "READ",
       "principalType": "ROLE",
       "principalId": "$everyone",
-      "permission": "DENY"
+      "permission": "ALLOW"
+    },
+    {
+      "property": "create",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
     },
     {
       "accessType": "READ",
       "principalType": "ROLE",
-      "principalId": "admin",
+      "principalId": "$owner",
       "permission": "ALLOW"
     },
     {
       "accessType": "WRITE",
       "principalType": "ROLE",
-      "principalId": "admin",
+      "principalId": "$owner",
       "permission": "ALLOW"
     }
   ],
