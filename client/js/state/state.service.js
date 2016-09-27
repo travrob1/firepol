@@ -4,5 +4,5 @@ angular.module('app')
     .factory('state', function () {
         return {
             'ui': {}
-        }
-    })
+        };
+    });

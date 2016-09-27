@@ -5,47 +5,38 @@
 angular.module('app')
     .controller('questionViewCtrl', questionView);
 
-function questionView($scope, $q, $stateParams, $timeout, Question, state) {
+function questionView($scope, $q, $stateParams, $timeout, postApi, state) {
     $scope.activeComment = {
         id: false,
         text: ''
     };
-    var questionId = $stateParams.id;
-    function checkStateForUnsavedOrGetAnswer() {
-        if(state.ui.comeBackUrl){
-            _.merge($scope, state.ui.returnToQuestionScope);
-            delete state.ui.returnToQuestionScope;
-            delete state.ui.comeBackUrl;
-            if (state.ui.wasSubmittingAnswer) {
-                return $scope.submitAnswer().then(getSavedAnswer);
-            } else {
-                return getSavedAnswer();
-            }
-            delete state.ui.wasSubmittingAnswer;
-        } else {
-            return getSavedAnswer();
-        }
+    var postId = $stateParams.id;
 
-        function getSavedAnswer() {
-            if($scope.$root.authenticatedUser){
-                return Question.Answers({
-                    id: questionId
-                }).$promise;
-            } else {
-                return [];
-            }
-        }
+    if(state.ui.postTitle){
+        $scope.postTitle = state.ui.postTitle;
+    }else {
+        postApi.getPostById(postId)
+            .then(function(res){
+                $scope.postTitle = res.data.title;
+            });
     }
-    $scope.showAnswer = function() {
-        return $scope.question && $scope.question.odds && !_.isEmpty($scope.answers);
-    };
-    function displayComments(data) {
+    postApi.findTidbitsByPostId(postId)
+        .then(function(res){
+            _.forEach(res.data, buildTidbit);
+    });
+    
+    $scope.tidbits = [];
+    function buildTidbit(tidbit) {
+        debugger
+        $scope.tidbits.push(tidbit);
+        var comments;
+        postApi.getComments(tidbit.id)
+        .then(function(res){
+            comments = res.data;
+            $scope.comments = sortComments();
+        });
 
-        $scope.question = data[0];
-        var comments = data[1];
-        
-        var answers = data[2];
-        $scope.answers = answers;
+       
         
         function sortComments() {
             comments = _.sortBy(comments, function(a) {
@@ -76,20 +67,10 @@ function questionView($scope, $q, $stateParams, $timeout, Question, state) {
             });
             return rootComments;
         }
-
-        $scope.comments = sortComments();
-        
-        if (answers[0]) {
-            $scope.certainty = answers[0].decisionCertainty;
-            $scope.odds = answers[0].liklihood;
-
-        }
-
-        
     }
 
     function saveStateToSession(){
-        state.ui.comeBackUrl = '/question/' + questionId;
+        state.ui.comeBackUrl = '/question/' + postId;
         state.ui.returnToQuestionScope = {
             activeComment: $scope.activeComment,
             odds: $scope.odds,
@@ -137,34 +118,5 @@ function questionView($scope, $q, $stateParams, $timeout, Question, state) {
         }, 100);
     };
 
-    $scope.submitAnswer = function() {
-        if(!$scope.$root.authenticatedUser){
-            state.ui.wasSubmittingAnswer = true;
-            saveStateToSession();
-        } else {
-
-            return Question.Answers.create({
-                'id': questionId
-            }, {
-                'liklihood': $scope.odds,
-                'decisionCertainty': $scope.certainty
-            }).$promise
-            .then(function (a) {
-                $scope.answers = [a];
-            });
-        }
-        
-    };
-
-    $q.all([
-            Question.findById({
-                id: questionId
-            }).$promise,
-            Question.Comments({
-                id: questionId
-            }).$promise,
-            checkStateForUnsavedOrGetAnswer()
-        ])
-        .then(displayComments);
-
+   
 }

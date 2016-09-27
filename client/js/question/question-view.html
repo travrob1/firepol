@@ -13,15 +13,16 @@
     <section id="question">
         <div class="row">
             <div class="col-xs-12 ">
-                <div class="question-wrapper">
-                    <ng-include src="'js/question/question-view-core.html'">
+                
+                <h1 class="no-margin-top">{{postTitle}}</h1>
+
+                <div class="tidbit" ng-repeat="tidbit in tidbits">
+                    <p>{{tidbit.content}}</p>
+                    <question-comments></question-comments>
+
                 </div>
-                <br>
-                <br>
-                <question-comments></question-comments>
-                <!-- <br> -->
-                <hr>
-                <redisplay-question></redisplay-question>
+        
+              
             </div>
         </div>
     </section>

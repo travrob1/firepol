@@ -31,22 +31,29 @@
   },
   "acls": [
     {
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "READ",
-      "principalType": "ROLE",
-      "principalId": "admin",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "WRITE",
-      "principalType": "ROLE",
-      "principalId": "admin",
-      "permission": "ALLOW"
-    }
+          "accessType": "READ",
+          "principalType": "ROLE",
+          "principalId": "$everyone",
+          "permission": "ALLOW"
+        },
+        {
+          "property": "create",
+          "principalType": "ROLE",
+          "principalId": "$authenticated",
+          "permission": "ALLOW"
+        },
+        {
+          "accessType": "READ",
+          "principalType": "ROLE",
+          "principalId": "$owner",
+          "permission": "ALLOW"
+        },
+        {
+          "accessType": "WRITE",
+          "principalType": "ROLE",
+          "principalId": "$owner",
+          "permission": "ALLOW"
+        }
   ],
   "methods": {}
 }
