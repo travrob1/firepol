@@ -25,7 +25,7 @@
     },
     "inReferenceTo": {
       "type": "belongsTo",
-      "model": "comment",
+      "model": "Comment",
       "foreignKey": "inReferenceToCommentId"
     }
   },

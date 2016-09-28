@@ -17,10 +17,21 @@
                 <h1 class="no-margin-top">{{postTitle}}</h1>
 
                 <div class="tidbit" ng-repeat="tidbit in tidbits">
+                    <div class="pull-left" ng-style="{fill: tidbit.fill}">
+                        <img class="avatar" src="images/sample/avatar1.jpg" alt="">
+                    </div>
+                    <div class="media-body">
+                        <strong>Posted by <a href="#">{{tidbit.name}}Joe Smith</a></strong><br>
+                        <small>{{tidbit.time | timeToWords}}</small><br>
+                    </div>
+
                     <p>{{tidbit.content}}</p>
-                    <question-comments></question-comments>
+                    <question-comments tidbitId="{{tidbit.id}}"></question-comments>
 
                 </div>
+
+                    <post-answer></post-answer>
+
         
               
             </div>

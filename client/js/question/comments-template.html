@@ -1,7 +1,7 @@
 <div>
     <div class="comments-list">
         <form name="reply-form" id="reply-form" class="clearfix">
-            <div ng-repeat="comment in comments" on-finish-inject-svgs="test()" class="comment media">
+            <div ng-repeat="comment in commentsByTidbit[tidbit.id]" on-finish-inject-svgs="test()" class="comment media">
                 <div class="row">
                     <div class="col-xs-12">
                         <div ng-class="{'parent-comment': comment.indent === 0 , 'child-comment child-comment-one': comment.indent > 0 &&  comment.indent <=33, 'child-comment child-comment-plus-one': comment.indent > 33}" ng-style="{'margin-left':comment.indent+'px'}">
@@ -10,12 +10,12 @@
                                 <img class="avatar inject-me" ng-src="images/sample/avatar-default{{comment.avatarIndx}}.svg" alt="">
                             </div>
                             <div class="media-body">
-                                <strong>Posted by <a href="#">{{comment.name}}</a></strong><br>
+                                <strong>Comment by <a href="#">{{comment.name}}</a></strong><br>
                                 <small>{{comment.time | timeToWords}}</small><br>
                                 <p>{{comment.text}} <span class="comment-reply" ng-click="replyToComment(comment.id, $event)">Reply</span></p>
                                 <div ng-if=" activeComment.id === comment.id">
                                     <textarea  ng-model="activeComment.text" rows="10" name="commentReply" required="required" class="input-block-level commentReply" ng-class="{selectedCommentInput: activeComment.id === comment.id}" placeholder="Reply"></textarea>
-                                    <button class="btn btn-primary comment-reply-btn" ng-click="makeReply(comment.id)" class="btn btn-primary">Submit</button>
+                                    <button class="btn btn-primary comment-reply-btn" ng-click="postComment(tidbit, comment.id)" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -26,10 +26,11 @@
     </div>
     <br>
     <div class="comment-form ">
-        <h3 ng-click="activeComment.id = false" ng-class="{'link-style': activeComment.id}">Post a Comment</h3>
-        <form name="comment-form" id="comment-form" ng-if="activeComment.id === false" class="clearfix">
+
+        <span class="comment-reply link-style" ng-click="activeComment.id = tidbit.id">Make a Comment</span>
+        <form name="comment-form" id="comment-form" ng-if="activeComment.id === tidbit.id" class="clearfix">
             <textarea rows="5" ng-model="activeComment.text" name="message" id="message" required="required" class="input-block-level" placeholder="Message"></textarea>
-            <button class="btn btn-primary comment-reply-btn" ng-click="makeReply()" class="btn btn-primary">Submit</button>
+            <button class="btn btn-primary comment-reply-btn" ng-click="postComment(tidbit)" class="btn btn-primary">Submit</button>
         </form>
     </div>
     

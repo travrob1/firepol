@@ -7,7 +7,7 @@ angular.module('app')
 
 function questionView($scope, $q, $stateParams, $timeout, postApi, state) {
     $scope.activeComment = {
-        id: false,
+        id: undefined,
         text: ''
     };
     var postId = $stateParams.id;
@@ -27,46 +27,48 @@ function questionView($scope, $q, $stateParams, $timeout, postApi, state) {
     
     $scope.tidbits = [];
     function buildTidbit(tidbit) {
-        debugger
         $scope.tidbits.push(tidbit);
-        var comments;
+        getComments(tidbit);
+    }
+    function getComments(tidbit){
         postApi.getComments(tidbit.id)
         .then(function(res){
-            comments = res.data;
-            $scope.comments = sortComments();
+            if ( ! $scope.commentsByTidbit) {
+                $scope.commentsByTidbit = {};
+            }
+            var comments = res.data;
+            $scope.commentsByTidbit[tidbit.id] = sortComments(comments);
+            console.log($scope.commentsByTidbit);
         });
-
-       
-        
-        function sortComments() {
-            comments = _.sortBy(comments, function(a) {
-                return a.time;
-            });
-            var rootComments = _.filter(comments, function(c) {
-                return !c.inReferenceTo;
-            });
-            _.forEach(rootComments, function(c) {
-                c.indent = 0;
-                c.childCount = 0;
-            });
-            var otherComments = _.differenceBy(comments, rootComments, function(c) {
-                return c.id;
-            });
-            _.forEach(otherComments, function(c) {
-                var parentIndex = _.findIndex(rootComments, function(cr) {
-                        return cr.id === c.inReferenceTo;
-                    }),
-                    parent = rootComments[parentIndex];
-                c.indent = parent.indent + 33;
-                rootComments.splice(parentIndex + 1 + parent.childCount, 0, c);
-                for (var p = parent; p; p = p.parent) {
-                    p.childCount += 1;
-                }
-                c.childCount = 0;
-                c.parent = parent;
-            });
-            return rootComments;
-        }
+    }
+    function sortComments(theComments) {
+        var comments = _.sortBy(theComments, function(a) {
+            return a.time;
+        });
+        var rootComments = _.filter(comments, function(c) {
+            return !c.inReferenceToCommentId;
+        });
+        _.forEach(rootComments, function(c) {
+            c.indent = 0;
+            c.childCount = 0;
+        });
+        var otherComments = _.differenceBy(comments, rootComments, function(c) {
+            return c.id;
+        });
+        _.forEach(otherComments, function(c) {
+            var parentIndex = _.findIndex(rootComments, function(cr) {
+                    return cr.id === c.inReferenceToCommentId;
+                }),
+                parent = rootComments[parentIndex];
+            c.indent = parent.indent + 33;
+            rootComments.splice(parentIndex + 1 + parent.childCount, 0, c);
+            for (var p = parent; p; p = p.parent) {
+                p.childCount += 1;
+            }
+            c.childCount = 0;
+            c.parent = parent;
+        });
+        return rootComments;
     }
 
     function saveStateToSession(){
@@ -83,30 +85,20 @@ function questionView($scope, $q, $stateParams, $timeout, postApi, state) {
 
     }
 
-    $scope.makeReply = function(commentId) {
+    $scope.postComment = function(tidbit, commentId) {
+        debugger
         if(!$scope.$root.authenticatedUser){
             saveStateToSession();
-        } else if (! $scope.question ) {
-            window.alert('something went wrong, please referesh (missing question?)');
         }else {
-            Question.Comments.create({
-                'id': $scope.question.id
-            }, {
+            postApi.postComment(tidbit.id, {
                 'text': $scope.activeComment.text,
-                'inReferenceTo': commentId
-            }).$promise.then(function(res) {
+                'inReferenceToCommentId': commentId
+            }).then(function(res) {
                 $scope.activeComment = {
-                    id: false,
+                    id: undefined,
                     text: ''
                 };
-                $q.all([
-                        $scope.question,
-                        Question.Comments({
-                            id: $stateParams.id
-                        }).$promise,
-                        $scope.answers
-                    ])
-                    .then(displayComments);
+                getComments(tidbit);
             });
         }
     };
