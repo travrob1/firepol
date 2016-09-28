@@ -86,7 +86,6 @@ function questionView($scope, $q, $stateParams, $timeout, postApi, state) {
     }
 
     $scope.postComment = function(tidbit, commentId) {
-        debugger
         if(!$scope.$root.authenticatedUser){
             saveStateToSession();
         }else {
