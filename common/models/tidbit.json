@@ -16,6 +16,11 @@
       "type": "number",
       "required": true,
       "default": 0
+    },
+
+    "time": {
+      "type": "date",
+      "required": true
     }
   },
   "validations": [],

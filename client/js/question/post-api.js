@@ -23,8 +23,9 @@ function postApi($http) {
         function sendTidbit(res) {
             var theRes = res;
             return $http.post('/api/Tidbits',{
-            'content': questionObj.details,
-            'postId': _.get(res, 'data.id')
+                'content': questionObj.details,
+                'postId': _.get(res, 'data.id'),
+                'name': questionObj.username
             }).then(function(tbRes) {
                 return _.merge(theRes, tbRes);
             });

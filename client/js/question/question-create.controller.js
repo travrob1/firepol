@@ -5,9 +5,9 @@
 angular.module('app')
     .controller('questionCreateCtrl', questionCreate);
 
-function questionCreate($scope, $q, $stateParams, $timeout, $location, $http, questionApi, state) {
+function questionCreate($scope, $q, $stateParams, $timeout, $location, $http, postApi, state) {
     $scope.createQuestion = function(){
-        questionApi.create($scope.question)
+        postApi.create(_.merge({}, $scope.question, $scope.$root.authenticatedUser))
         .then(function(res){
             state.ui.postTitle = res.data.title;
             $location.path('question/' + _.get(res, 'data.postId'));

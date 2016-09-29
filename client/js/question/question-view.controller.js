@@ -91,7 +91,8 @@ function questionView($scope, $q, $stateParams, $timeout, postApi, state) {
         }else {
             postApi.postComment(tidbit.id, {
                 'text': $scope.activeComment.text,
-                'inReferenceToCommentId': commentId
+                'inReferenceToCommentId': commentId,
+                'name': $scope.$root.authenticatedUser.username
             }).then(function(res) {
                 $scope.activeComment = {
                     id: undefined,
