@@ -29,7 +29,8 @@ angular.module('app').factory('AuthService', function(FirepolUser, $rootScope, c
                 $rootScope.authenticatedUser = {
                     id: response.user.id,
                     tokenId: response.id,
-                    email: email
+                    email: email,
+                    username: response.user.username
                 };
                 $('#loginForm').modal('hide');
             });

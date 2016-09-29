@@ -12,12 +12,12 @@
     <div class="container">
         <section id="question-list">
             <ul class="faq">
-                 <li ng-repeat="question in questionList.slice().reverse()">
-                    <div a ui-sref="question({ id: question.id, })">
+                 <li ng-repeat="post in postsList.slice().reverse()">
+                    <div a ui-sref="question({ id: post.id, })">
                         <span class="number">{{$index}}</span>
                         <div>
-                            <h3>{{question.question}}</h3>
-                            <p>{{question.details | limitTo: 400 }}</p>
+                            <h3>{{post.title}}</h3>
+                            <!-- <p>{{post.details | limitTo: 400 }}</p> -->
                         </div>
                      <div>
                 </li>

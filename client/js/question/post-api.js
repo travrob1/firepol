@@ -11,7 +11,8 @@ function postApi($http) {
         findTidbitsByPostId: findTidbitsByPostId,
         getComments: getComments,
         getPostById: getPostById,
-        postComment: postComment
+        postComment: postComment,
+        getPosts: getPosts
 
     };
     function create(questionObj) {
@@ -44,6 +45,9 @@ function postApi($http) {
         return $http.post('/api/Tidbits/' +tidbitId+ '/Comments', data);
     }
 
+    function getPosts(){
+        return $http.get('/api/Posts/');
+    } 
     function getPostById(id){
         return $http.get('/api/Posts/'+ id);
     }
