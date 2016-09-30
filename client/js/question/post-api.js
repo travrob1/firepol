@@ -12,7 +12,8 @@ function postApi($http) {
         getComments: getComments,
         getPostById: getPostById,
         postComment: postComment,
-        getPosts: getPosts
+        getPosts: getPosts,
+        postTidbit: postTidbitsByPostId
 
     };
     function create(questionObj) {
@@ -23,9 +24,8 @@ function postApi($http) {
 
         function sendTidbit(res) {
             var theRes = res;
-            return $http.post('/api/Tidbits',{
+            return $http.post('/api/Posts/'+res.data.id+'/Tidbit',{
                 'content': questionObj.details,
-                'postId': _.get(res, 'data.id'),
                 'name': questionObj.username
             }).then(function(tbRes) {
                 return _.merge(theRes, tbRes);
@@ -35,6 +35,13 @@ function postApi($http) {
 
     function findTidbitsByPostId(id){
         return $http.get('/api/Posts/'+id + '/Tidbit');
+    }
+
+    function postTidbitsByPostId(postId, content, username){
+        return $http.post('/api/Posts/'+postId+'/Tidbit',{
+            'content': content,
+            'name': username
+        });
     }
 
     function getComments(tidbitId){

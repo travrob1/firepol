@@ -11,6 +11,7 @@ function questionView($scope, $q, $stateParams, $timeout, postApi, state) {
         text: ''
     };
     var postId = $stateParams.id;
+    var authUser = $scope.$root.authenticatedUser;
 
     if(state.ui.postTitle){
         $scope.postTitle = state.ui.postTitle;
@@ -86,19 +87,32 @@ function questionView($scope, $q, $stateParams, $timeout, postApi, state) {
     }
 
     $scope.postComment = function(tidbit, commentId) {
-        if(!$scope.$root.authenticatedUser){
+        if(!authUser){
             saveStateToSession();
         }else {
             postApi.postComment(tidbit.id, {
                 'text': $scope.activeComment.text,
                 'inReferenceToCommentId': commentId,
-                'name': $scope.$root.authenticatedUser.username
+                'name': authUser.username
             }).then(function(res) {
                 $scope.activeComment = {
                     id: undefined,
                     text: ''
                 };
                 getComments(tidbit);
+            });
+        }
+    };
+
+    $scope.postTidbit = function(){
+        if(!authUser){
+            saveStateToSession();
+        }else {
+            postApi.postTidbit(postId, $scope.newTidbit, authUser.username)
+                .then(function(res) {
+                    
+                $scope.tidbits.push(res.data);
+                $scope.newTidbit = '';
             });
         }
     };

@@ -7,6 +7,7 @@ module.exports = function(Comment) {
         var dataOrInstance = ctx.instance || ctx.data;
         dataOrInstance.ownerId = accessToken.userId;
         dataOrInstance.time = Date.now();
+        dataOrInstance.indexed = false;
         next();
      });
 };

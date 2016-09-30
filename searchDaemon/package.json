@@ -1,0 +1,17 @@
+{
+  "name": "searchdaemon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "daemon": "^1.1.0",
+    "lodash": "^4.16.2",
+    "mongodb": "^2.2.10"
+  }
+}
